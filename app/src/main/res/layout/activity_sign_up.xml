@@ -16,7 +16,7 @@
         android:layout_marginStart="96dp"
         android:layout_marginTop="91dp"
         android:contentDescription="TODO"
-        app:srcCompat="@drawable/buttonIcon" />
+        app:srcCompat="@drawable/buttonicon" />
 
     <EditText
         android:id="@+id/editTextTextEmailAddress2"
