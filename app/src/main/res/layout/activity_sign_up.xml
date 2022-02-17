@@ -19,7 +19,7 @@
         app:srcCompat="@drawable/buttonicon" />
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress2"
+        android:id="@+id/signUp_email"
         android:layout_width="353dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -32,7 +32,7 @@
         android:minHeight="48dp" />
 
     <EditText
-        android:id="@+id/editTextTextPassword"
+        android:id="@+id/signUp_password"
         android:layout_width="342dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -45,7 +45,7 @@
         android:minHeight="48dp" />
 
     <EditText
-        android:id="@+id/editTextTextPassword2"
+        android:id="@+id/signUp_confirmPassword"
         android:layout_width="349dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -58,7 +58,7 @@
         android:minHeight="48dp" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/signUp_createAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
