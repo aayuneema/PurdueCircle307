@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -75,16 +76,23 @@ public class SignUp extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()) {
-                                Toast.makeText(SignUp.this, "Authentication was successful!", Toast.LENGTH_SHORT).show();
-                                loadingBar.dismiss();
+                                sendUserToSetupActivity();
+                                Toast.makeText(SignUp.this, "Signing up was successful!", Toast.LENGTH_SHORT).show();
                             }
                             else {
                                 String message = task.getException().getMessage();
                                 Toast.makeText(SignUp.this, "Error: " + message, Toast.LENGTH_SHORT).show();
-                                loadingBar.dismiss();
                             }
+                            loadingBar.dismiss();
                         }
                     });
         }
+    }
+
+    private void sendUserToSetupActivity() {
+        Intent setupIntent = new Intent(SignUp.this, ProfileActivity.class);
+        setupIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(setupIntent);
+        finish();
     }
 }
