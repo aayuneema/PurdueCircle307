@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
     private Button LoginButton;
@@ -88,6 +89,18 @@ public class Login extends AppCompatActivity {
                     });
         }
     }
+
+    /*
+    //showed in video but giving error
+    //if user is already logged in, then sending them to the main Activity
+    protected void onStart(){
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if (currentUser != null) {
+            sendUserToMainActivity();
+        }
+    }
+     */
 
     private void sendUserToMainActivity() {
         Intent mainIntent = new Intent(Login.this, MainActivity.class);

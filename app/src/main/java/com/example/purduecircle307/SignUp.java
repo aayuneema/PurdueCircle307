@@ -48,6 +48,19 @@ public class SignUp extends AppCompatActivity {
         });
     }
 
+/*
+    //showed in video but giving error
+    //if user is already logged in, then sending them to the main Activity
+    @Override
+    protected void onStart() {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if (currentUser != null) {
+            sendUserToMainActivity();
+        }
+    }
+ */
+
     private void createNewAccount() {
         String email = UserEmail.getText().toString();
         String password = UserPassword.getText().toString();
