@@ -2,24 +2,31 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nav_home"
-        android:title="@string/home"/>
+        android:title="@string/home"
+        android:icon="@drawable/home"/>
     <item
         android:id="@+id/nav_friends"
-        android:title="@string/friends"/>
+        android:title="@string/friends"
+        android:icon="@drawable/friends"/>
     <item
         android:id="@+id/nav_tags"
-        android:title="@string/tags"/>
+        android:title="@string/tags"
+        android:icon="@drawable/tags"/>
     <item
         android:id="@+id/nav_find_friends"
-        android:title="@string/find_friends"/>
+        android:title="@string/find_friends"
+        android:icon="@drawable/findfriends"/>
     <item
         android:id="@+id/nav_find_tags"
-        android:title="@string/find_tags"/>
+        android:title="@string/find_tags"
+        android:icon="@drawable/findtags"/>
     <item
         android:id="@+id/nav_settings"
-        android:title="@string/settings"/>
+        android:title="@string/settings"
+        android:icon="@drawable/settings"/>
     <item
         android:id="@+id/nav_logout"
-        android:title="@string/logout"/>
+        android:title="@string/logout"
+        android:icon="@drawable/logout"/>
 
 </menu>
