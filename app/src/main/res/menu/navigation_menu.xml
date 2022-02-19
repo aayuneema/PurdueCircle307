@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:title="@string/home"/>
+    <item
+        android:id="@+id/nav_friends"
+        android:title="@string/friends"/>
+    <item
+        android:id="@+id/nav_tags"
+        android:title="@string/tags"/>
+    <item
+        android:id="@+id/nav_find_friends"
+        android:title="@string/find_friends"/>
+    <item
+        android:id="@+id/nav_find_tags"
+        android:title="@string/find_tags"/>
+    <item
+        android:id="@+id/nav_settings"
+        android:title="@string/settings"/>
+    <item
+        android:id="@+id/nav_logout"
+        android:title="@string/logout"/>
+
+</menu>
