@@ -1,6 +1,8 @@
 package com.example.purduecircle307;
 
+import android.os.RecoverySystem;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -8,11 +10,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+import android.widget.Toolbar;
+//import android.support.v7.widget.Toolbar;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,10 +32,14 @@ public class MainActivity extends AppCompatActivity {
 
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
     private RecyclerView postList;
     private FirebaseAuth mAuth;
     private DatabaseReference UserRef;
+    private androidx.appcompat.widget.Toolbar mToolbar;
 
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,8 +48,19 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         UserRef = FirebaseDatabase.getInstance().getReference().child("Users");
         drawerLayout = (DrawerLayout) findViewById(R.id.drawable_layout);
+
+        actionBarDrawerToggle = new ActionBarDrawerToggle(MainActivity.this, drawerLayout,
+                R.string.drawer_open, R.string.drawer_close);
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
         View navView = navigationView.inflateHeaderView(R.layout.navigation_header);
+
+        mToolbar = (androidx.appcompat.widget.Toolbar) findViewById(R.id.main_page_toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle("Home");
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -50,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private void userMenuSelector(MenuItem item) {
         switch (item.getItemId()) {
