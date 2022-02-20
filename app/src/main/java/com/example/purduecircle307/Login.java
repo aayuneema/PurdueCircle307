@@ -90,17 +90,15 @@ public class Login extends AppCompatActivity {
         }
     }
 
-    /*
-    //showed in video but giving error
     //if user is already logged in, then sending them to the main Activity
-    protected void onStart(){
+    protected void onStart() {
+        super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if (currentUser != null) {
             sendUserToMainActivity();
         }
     }
-     */
 
     private void sendUserToMainActivity() {
         Intent mainIntent = new Intent(Login.this, MainActivity.class);
