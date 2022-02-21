@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.purduecircle307">
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -12,21 +12,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PurdueCircle307">
         <activity
-            android:name=".ProfileActivity"
-            android:theme="@style/Theme.PurdueCircle307.NoActionBar"
+            android:name=".SettingsActivity"
             android:exported="false" />
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="false"
+            android:theme="@style/Theme.PurdueCircle307.NoActionBar" />
         <activity
             android:name=".Login"
-            android:theme="@style/Theme.PurdueCircle307.NoActionBar"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.PurdueCircle307.NoActionBar" />
         <activity
             android:name=".SignUp"
-            android:theme="@style/Theme.PurdueCircle307.NoActionBar"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.PurdueCircle307.NoActionBar" />
         <activity
             android:name=".MainActivity"
-            android:theme="@style/Theme.PurdueCircle307.NoActionBar"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.PurdueCircle307.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
