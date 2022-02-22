@@ -63,7 +63,7 @@ public class SettingsActivity extends AppCompatActivity {
         userDob = (EditText) findViewById(R.id.settings_dob);
         userProfImage = (CircleImageView) findViewById(R.id.settings_profile_image);
         UpdateAccountSettingsButton = (Button) findViewById(R.id.update_account_settings_buttons);
-        deleteAccountButton = (Button) findViewById(R.id.delete_account);
+        deleteAccountButton = (Button) findViewById(R.id.delete_account_settings_buttons);
 
         SettingsuserRef.addValueEventListener(new ValueEventListener() {
             @Override
