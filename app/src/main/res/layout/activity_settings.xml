@@ -76,14 +76,14 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/settings_country"
+                android:id="@+id/settings_bio"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/settings_profile_full_name"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="6dp"
                 android:layout_marginRight="10dp"
-                android:hint="Country"
+                android:hint="Bio"
                 android:padding="12dp"
                 android:textColor="@android:color/background_dark"
                 android:textSize="20sp"
@@ -93,7 +93,7 @@
                 android:id="@+id/settings_dob"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/settings_country"
+                android:layout_below="@+id/settings_bio"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="6dp"
                 android:layout_marginRight="10dp"
@@ -103,25 +103,11 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/settings_gender"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/settings_dob"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginRight="10dp"
-                android:hint="Gender"
-                android:padding="12dp"
-                android:textColor="@android:color/background_dark"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
             <Button
                 android:id="@+id/update_account_settings_buttons"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_below="@+id/settings_gender"
+                android:layout_below="@+id/settings_dob"
                 android:layout_margin="20dp"
                 android:background="@drawable/button"
                 android:text="Update Account Settings"

@@ -13,6 +13,7 @@
         android:theme="@style/Theme.PurdueCircle307">
         <activity
             android:name=".SettingsActivity"
+            android:parentActivityName=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".ProfileActivity"

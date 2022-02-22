@@ -20,7 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 
-//import de.hdodenhof.circleimageview.CircleImageView;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -46,7 +46,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         Name = (EditText) findViewById(R.id.profile_name);
         UserName = (EditText) findViewById(R.id.profile_username);
-        //ProfileImage = (CircleImageView) findViewById(R.id.setup_profile_image);
+        //ProfileImage = (CircleImageView) findViewById(R.id.settings_profile_image);
         SaveProfileButton = (Button) findViewById(R.id.profile_SaveButton);
         loadingBar = new ProgressDialog(this);
 
@@ -76,9 +76,10 @@ public class ProfileActivity extends AppCompatActivity {
 
             HashMap userMap = new HashMap();
             userMap.put("username", username);
-            userMap.put("name", username);
+            userMap.put("name", name);
             userMap.put("bio", "none");
             userMap.put("dob", "none");
+
             UsersRef.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
                 @Override
                 public void onComplete(@NonNull Task task) {
