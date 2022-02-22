@@ -49,7 +49,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.getCurrentUser().getUid();
-        SettingsuserRef = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserId);
+        SettingsuserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
 
         mToolbar = findViewById(R.id.settings_toolbar);
         //setSupportActionBar(mToolbar);
