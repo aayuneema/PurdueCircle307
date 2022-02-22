@@ -1,5 +1,7 @@
 package com.example.purduecircle307;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.RecoverySystem;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -94,10 +96,35 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_logout:
-                mAuth.signOut();
-                SendUserToLoginActivity();
+                confirmLogout();
                 break;
         }
+    }
+
+    private void confirmLogout() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Confirm Logout");
+        builder.setMessage("Are you sure?");
+
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                mAuth.signOut();
+                SendUserToLoginActivity();
+            }
+        });
+
+        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Do nothing
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     private void SendUserToSettingsActivity() {

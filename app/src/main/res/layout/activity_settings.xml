@@ -108,13 +108,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_below="@+id/settings_dob"
-                android:layout_margin="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/button"
                 android:text="Update Account Settings"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/delete_account"
+                android:layout_width="187dp"
+                android:layout_height="wrap_content"
+                android:text="Button"
+                tools:text="Delete Account" />
 
         </RelativeLayout>
 </ScrollView>

@@ -22,7 +22,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import com.squareup.picasso.Picasso;
 
 import android.view.View;
 import android.widget.Toast;
@@ -34,6 +33,7 @@ public class SettingsActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private EditText userName, userProfname, userBio, userDob;
     private Button UpdateAccountSettingsButton;
+    private Button deleteAccountButton;
     private CircleImageView userProfImage;
 
     private DatabaseReference SettingsuserRef;
@@ -55,7 +55,7 @@ public class SettingsActivity extends AppCompatActivity {
         //setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Account Settings");
         //getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
-       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         userName = (EditText) findViewById(R.id.settings_username);
         userProfname = (EditText) findViewById(R.id.settings_profile_full_name);
@@ -63,6 +63,7 @@ public class SettingsActivity extends AppCompatActivity {
         userDob = (EditText) findViewById(R.id.settings_dob);
         userProfImage = (CircleImageView) findViewById(R.id.settings_profile_image);
         UpdateAccountSettingsButton = (Button) findViewById(R.id.update_account_settings_buttons);
+        deleteAccountButton = (Button) findViewById(R.id.delete_account);
 
         SettingsuserRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -92,6 +93,12 @@ public class SettingsActivity extends AppCompatActivity {
         UpdateAccountSettingsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 ValidateAccountInfo();
+            }
+        });
+
+        deleteAccountButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v){
+                //TODO: delete account
             }
         });
 
