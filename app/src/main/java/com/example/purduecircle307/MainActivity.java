@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import android.widget.Toolbar;
 //import android.support.v7.widget.Toolbar;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference UserRef;
     private androidx.appcompat.widget.Toolbar mToolbar;
+    private ImageButton AddNewPostButton;
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -54,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
         mToolbar = (androidx.appcompat.widget.Toolbar) findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Home");
+
+        AddNewPostButton = (ImageButton) findViewById(R.id.add_new_post_button);
 
         actionBarDrawerToggle = new ActionBarDrawerToggle(MainActivity.this, drawerLayout,
                 mToolbar, R.string.drawer_open, R.string.drawer_close);
@@ -71,6 +75,18 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        AddNewPostButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SendUsertoPostActivity();
+            }
+        });
+    }
+
+    private void SendUsertoPostActivity() {
+        Intent addNewPostIntent = new Intent(MainActivity.this, PostActivity.class);
+        startActivity(addNewPostIntent);
     }
 
 
