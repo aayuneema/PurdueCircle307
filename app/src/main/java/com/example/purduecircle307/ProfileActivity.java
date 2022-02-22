@@ -42,8 +42,15 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         mAuth = FirebaseAuth.getInstance();
-        currentUserID = mAuth.getCurrentUser().getUid();
-        UsersRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
+
+        if (mAuth.getCurrentUser() == null) {
+            currentUserID = null;
+            UsersRef = null;
+        }
+        else {
+            currentUserID = mAuth.getCurrentUser().getUid();
+            UsersRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
+        }
 
         Name = (EditText) findViewById(R.id.profile_name);
         UserName = (EditText) findViewById(R.id.profile_username);

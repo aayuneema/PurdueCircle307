@@ -7,7 +7,7 @@
     tools:context=".DeleteAccount">
 
     <EditText
-        android:id="@+id/username_deleteAccount"
+        android:id="@+id/email_deleteAccount"
         android:layout_width="353dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -44,7 +44,7 @@
         android:text="Delete Account " />
 
     <TextView
-        android:id="@+id/signUpText"
+        android:id="@+id/deleteText"
         android:layout_width="330dp"
         android:layout_height="80dp"
         android:layout_alignParentStart="true"
