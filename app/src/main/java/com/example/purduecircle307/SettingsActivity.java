@@ -99,6 +99,7 @@ public class SettingsActivity extends AppCompatActivity {
         deleteAccountButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 //TODO: delete account
+                sendUserToDeleteAccount();
             }
         });
 
@@ -157,6 +158,12 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void sendUserToMainActivity() {
         Intent mainIntent = new Intent(SettingsActivity.this, MainActivity.class);
+        startActivity(mainIntent);
+        finish();
+    }
+
+    private void sendUserToDeleteAccount() {
+        Intent mainIntent = new Intent(SettingsActivity.this, DeleteAccount.class);
         startActivity(mainIntent);
         finish();
     }
