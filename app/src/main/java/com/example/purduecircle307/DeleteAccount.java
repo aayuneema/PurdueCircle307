@@ -3,7 +3,9 @@ package com.example.purduecircle307;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -26,7 +28,8 @@ public class DeleteAccount extends AppCompatActivity {
     private Button deleteAccountButton;
     private EditText deleteEmail;
     private EditText deletePassword;
-    private ProgressDialog loadingBar;
+    private ProgressDialog loadingBarAuthentication;
+    private ProgressDialog loadingBarDeletion;
 
     private FirebaseUser user;
     private FirebaseAuth mAuth;
@@ -47,7 +50,8 @@ public class DeleteAccount extends AppCompatActivity {
         deleteAccountButton = (Button) findViewById(R.id.deletebutton);
         deleteEmail = (EditText) findViewById(R.id.email_deleteAccount);
         deletePassword = (EditText) findViewById(R.id.password_deleteAccount);
-        loadingBar = new ProgressDialog(this);
+        loadingBarAuthentication = new ProgressDialog(this);
+        loadingBarDeletion = new ProgressDialog(this);
 
         deleteAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,10 +72,10 @@ public class DeleteAccount extends AppCompatActivity {
             Toast.makeText(this, "Please include your password", Toast.LENGTH_SHORT).show();
         }
         else {
-            loadingBar.setTitle("Deleting account");
-            loadingBar.setMessage("Loading. Please wait as your account is getting deleted");
-            loadingBar.show();
-            loadingBar.setCanceledOnTouchOutside(true);
+            loadingBarAuthentication.setTitle("Checking credentials");
+            loadingBarAuthentication.setMessage("Loading. Please wait as your credentials are checked");
+            loadingBarAuthentication.show();
+            loadingBarAuthentication.setCanceledOnTouchOutside(true);
 
             AuthCredential credential = EmailAuthProvider.getCredential(email, password);
 
@@ -80,16 +84,46 @@ public class DeleteAccount extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()) {
-                                deleteAccount();
+                                loadingBarAuthentication.dismiss();
+                                confirmDelete();
                             }
                             else {
                                 String message = task.getException().getMessage();
                                 Toast.makeText(DeleteAccount.this, "Error: " + message, Toast.LENGTH_SHORT).show();
-                                loadingBar.dismiss();
+                                loadingBarAuthentication.dismiss();
                             }
                         }
                     });
         }
+    }
+
+    private void confirmDelete() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(DeleteAccount.this);
+        builder.setTitle("Confirm Account Deletion");
+        builder.setMessage("Are you sure?");
+
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                loadingBarDeletion.setTitle("Deleting account");
+                loadingBarDeletion.setMessage("Loading. Please wait as your account is getting deleted");
+                loadingBarDeletion.show();
+                loadingBarDeletion.setCanceledOnTouchOutside(true);
+
+                deleteAccount();
+            }
+        });
+
+        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Do nothing
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     private void deleteAccount() {
@@ -99,7 +133,7 @@ public class DeleteAccount extends AppCompatActivity {
                 if(!task.isSuccessful()) {
                     String message = task.getException().getMessage();
                     Toast.makeText(DeleteAccount.this, "Error: " + message, Toast.LENGTH_SHORT).show();
-                    loadingBar.dismiss();
+                    loadingBarDeletion.dismiss();
                 }
             }
         });
@@ -116,7 +150,7 @@ public class DeleteAccount extends AppCompatActivity {
                     String message = task.getException().getMessage();
                     Toast.makeText(DeleteAccount.this, "Error: " + message, Toast.LENGTH_SHORT).show();
                 }
-                loadingBar.dismiss();
+                loadingBarDeletion.dismiss();
             }
         });
     }
