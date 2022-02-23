@@ -31,7 +31,7 @@ import java.util.HashMap;
 public class SettingsActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;
-    private EditText userName, userProfname, userBio, userDob;
+    private EditText userName, userProfname, userBio, userDob, userMajor, userGender, userCountry, userGraduationDate;
     private Button UpdateAccountSettingsButton;
     private Button deleteAccountButton;
     private CircleImageView userProfImage;
@@ -59,8 +59,12 @@ public class SettingsActivity extends AppCompatActivity {
 
         userName = (EditText) findViewById(R.id.settings_username);
         userProfname = (EditText) findViewById(R.id.settings_profile_full_name);
-        userBio = (EditText) findViewById(R.id.settings_bio);
+        userBio = (EditText) findViewById(R.id.settings_status);
         userDob = (EditText) findViewById(R.id.settings_dob);
+        userMajor = (EditText) findViewById(R.id.settings_major);
+        userGender = (EditText) findViewById(R.id.settings_Gender);
+        userCountry = (EditText) findViewById(R.id.settings_Country);
+        userGraduationDate = (EditText) findViewById(R.id.settings_graduationDate);
         userProfImage = (CircleImageView) findViewById(R.id.settings_profile_image);
         UpdateAccountSettingsButton = (Button) findViewById(R.id.update_account_settings_buttons);
         deleteAccountButton = (Button) findViewById(R.id.delete_account_settings_buttons);
@@ -74,12 +78,20 @@ public class SettingsActivity extends AppCompatActivity {
                     String myName = dataSnapshot.child("name").getValue().toString();
                     String myBio = dataSnapshot.child("bio").getValue().toString();
                     String myDob = dataSnapshot.child("dob").getValue().toString();
+                    String myMajor = dataSnapshot.child("major").getValue().toString();
+                    String mygraduationDate = dataSnapshot.child("graduationDate").getValue().toString();
+                    String myGender = dataSnapshot.child("gender").getValue().toString();
+                    String myCountry = dataSnapshot.child("country").getValue().toString();
 
                     //Picasso.with(SettingsActivity.this).load(myProfileImage).placeholder(R.drawable.profile).into(userProfImage);
                     userName.setText(myUsername);
                     userProfname.setText(myName);
                     userBio.setText(myBio);
                     userDob.setText(myDob);
+                    userMajor.setText(myMajor);
+                    userGender.setText(myGender);
+                    userCountry.setText(myCountry);
+                    userGraduationDate.setText(mygraduationDate);
 
                 }
             }
@@ -121,6 +133,10 @@ public class SettingsActivity extends AppCompatActivity {
         String name = userProfname.getText().toString();
         String bio = userBio.getText().toString();
         String dob = userDob.getText().toString();
+        String major = userMajor.getText().toString();
+        String graduationDate = userGraduationDate.getText().toString();
+        String gender = userGender.getText().toString();
+        String country = userCountry.getText().toString();
         //add profile image once variable added to firebase
 
         if (TextUtils.isEmpty(username)){
@@ -132,16 +148,21 @@ public class SettingsActivity extends AppCompatActivity {
         } else if (TextUtils.isEmpty(dob)){
             Toast.makeText(this,"Please write your date of birth.", Toast.LENGTH_SHORT).show();
         } else {
-            UpdateAccountInfo(username, name, bio, dob);
+            UpdateAccountInfo(username, name, bio, dob, major, graduationDate, gender, country );
         }
     }
 
-    private void UpdateAccountInfo(String username, String name, String bio, String dob) {
+    private void UpdateAccountInfo(String username, String name, String bio, String dob, String major, String graduationDate, String gender, String country ) {
         HashMap userMap = new HashMap();
         userMap.put("username", username);
         userMap.put("name", name);
         userMap.put("bio", bio);
         userMap.put("dob", dob);
+        userMap.put("major", "Major");
+        userMap.put("graduationDate", "Graduation Date");
+        userMap.put("gender", "Gender");
+        userMap.put("country", "Country");
+        userMap.put("profileImage", "Profile Image");
 
         SettingsuserRef.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
             @Override

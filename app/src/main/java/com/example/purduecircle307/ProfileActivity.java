@@ -85,8 +85,13 @@ public class ProfileActivity extends AppCompatActivity {
             HashMap userMap = new HashMap();
             userMap.put("username", username);
             userMap.put("name", name);
-            userMap.put("bio", "none");
-            userMap.put("dob", "none");
+            userMap.put("bio", "Bio");
+            userMap.put("dob", "Date of Birth");
+            userMap.put("major", "Major");
+            userMap.put("graduationDate", "Graduation Date");
+            userMap.put("gender", "Gender");
+            userMap.put("country", "Country");
+            userMap.put("profileImage", "Profile Image");
 
             UsersRef.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
                 @Override
