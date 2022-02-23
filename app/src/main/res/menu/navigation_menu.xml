@@ -22,7 +22,7 @@
         android:icon="@drawable/findtags"/>
     <item
         android:id="@+id/nav_settings"
-        android:title="@string/settings"
+        android:title="@string/edit_profile"
         android:icon="@drawable/settings"/>
     <item
         android:id="@+id/nav_logout"

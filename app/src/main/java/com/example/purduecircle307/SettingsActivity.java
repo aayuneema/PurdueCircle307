@@ -53,7 +53,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         mToolbar = findViewById(R.id.settings_toolbar);
         //setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("Account Settings");
+        getSupportActionBar().setTitle("Edit Profile");
         //getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

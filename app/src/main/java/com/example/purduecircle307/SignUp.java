@@ -18,6 +18,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class SignUp extends AppCompatActivity {
 
     private EditText UserEmail;
@@ -72,11 +75,15 @@ public class SignUp extends AppCompatActivity {
         String password = UserPassword.getText().toString();
         String confirmPassword = UserConfirmPassword.getText().toString();
 
+        String errorMessage;
         if(TextUtils.isEmpty(email)) {
             Toast.makeText(this, "Please include your email", Toast.LENGTH_SHORT).show();
         }
         else if(TextUtils.isEmpty(password)) {
             Toast.makeText(this, "Please include your password", Toast.LENGTH_SHORT).show();
+        }
+        else if ((errorMessage = checkPasswordStrength(password)) != null) {
+            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
         }
         else if(TextUtils.isEmpty(confirmPassword)) {
             Toast.makeText(this, "Please confirm your password", Toast.LENGTH_SHORT).show();
@@ -106,6 +113,30 @@ public class SignUp extends AppCompatActivity {
                         }
                     });
         }
+    }
+
+    private String checkPasswordStrength(String password) {
+        Pattern p;
+        Matcher m;
+        if (password.length() < 6 || password.length() > 16) {
+            return "Please keep password length between 6 and 16 characters";
+        }
+        p = Pattern.compile("[A-Za-z]");
+        m = p.matcher(password);
+        if (!m.find()) {
+            return "Please include at least 1 letter in your password";
+        }
+        p = Pattern.compile("[0-9]");
+        m = p.matcher(password);
+        if (!m.find()) {
+            return "Please include at least 1 number in your password";
+        }
+        p = Pattern.compile("[^A-Za-z0-9!@#$%\\^&\\*]");
+        m = p.matcher(password);
+        if (m.find()) {
+            return "Only include these special characters in your password: !@#$%^&*";
+        }
+        return null;
     }
 
     private void sendUserToSetupActivity() {

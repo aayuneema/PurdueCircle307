@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.nav_settings:
                 SendUserToSettingsActivity();
-                Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Edit Profile", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_logout:
                 confirmLogout();
