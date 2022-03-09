@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Login">
 
+
     <ImageView
         android:id="@+id/login_icon"
         android:layout_width="wrap_content"
@@ -30,7 +31,6 @@
         android:hint="Email"
         android:inputType="textEmailAddress"
         android:minHeight="48dp" />
-
 
     <EditText
         android:id="@+id/login_Password"
