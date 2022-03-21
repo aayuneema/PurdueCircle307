@@ -177,7 +177,8 @@ public class MainActivity extends AppCompatActivity {
 
         public void setPostimage (Context ctx, String postimage) {
             ImageView image = (ImageView) mView.findViewById(R.id.post_image);
-            Picasso.with(ctx).load(new File(postimage)).into(image);
+            System.out.println(postimage);
+            Picasso.with(ctx).load(postimage).into(image);
         }
     }
 
