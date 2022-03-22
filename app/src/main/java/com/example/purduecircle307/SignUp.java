@@ -131,6 +131,11 @@ public class SignUp extends AppCompatActivity {
         if (!m.find()) {
             return "Please include at least 1 number in your password";
         }
+        p = Pattern.compile("[!@#$%\\^&\\*]");
+        m = p.matcher(password);
+        if (!m.find()) {
+            return "Please include at least 1 character [!@#$%^&*] in your password";
+        }
         p = Pattern.compile("[^A-Za-z0-9!@#$%\\^&\\*]");
         m = p.matcher(password);
         if (m.find()) {
