@@ -36,7 +36,6 @@ public class ClickPostActivity extends AppCompatActivity {
         DeletePostButton = (Button) findViewById((R.id.clickPostDeleteButton));
         EditPostButton = (Button) findViewById((R.id.clickPostEditButton));
 
-        /*
         PostKey = getIntent().getExtras().get("PostKey").toString();
         ClickPostRef = FirebaseDatabase.getInstance().getReference().child("Posts").child("PostKey");
         ClickPostRef.addValueEventListener(new ValueEventListener() {
@@ -55,7 +54,6 @@ public class ClickPostActivity extends AppCompatActivity {
             }
         });
 
-         */
 
     }
 }
