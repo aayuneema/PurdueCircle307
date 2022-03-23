@@ -130,16 +130,34 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     protected void onBindViewHolder(@NonNull PostsViewHolder holder, int position, @NonNull Posts model) {
+                        //String PostKey = getItem(position).toString();
+
                         holder.setName(model.getName());
                         holder.setTime(model.getTime());
                         holder.setDate(model.getDate());
                         holder.setDescription(model.getDescription());
                         holder.setProfileimage(getApplicationContext(), model.getProfileimage());
                         holder.setPostimage(getApplicationContext(), model.getPostimage());
+/*
+                        holder.mView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent clickPostIntent = new Intent(MainActivity.this, ClickPostActivity.class);
+                                clickPostIntent.putExtra("PostKey", PostKey);
+                                startActivity(clickPostIntent);
+                            }
+                        });
+
+ */
                     }
+
                 };
+
+
         firebaseRecyclerAdapter.startListening();
         postList.setAdapter(firebaseRecyclerAdapter);
+
+
     }
 
     public static class PostsViewHolder extends RecyclerView.ViewHolder {
