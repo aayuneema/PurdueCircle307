@@ -41,8 +41,23 @@ public class ClickPostActivity extends AppCompatActivity {
         ClickPostRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String description = snapshot.child("description").getValue().toString();
-                String image = snapshot.child("postimage").getValue().toString();
+                String description = "";
+                if (snapshot.child("description").getValue() != null
+                        && snapshot.child("description").getValue() != "") {
+                    //System.out.println("description: " + snapshot.child("description") + ".");
+
+                    description = snapshot.child("description").getValue().toString();
+                }
+                description = "!!!\n";
+
+                String image = "";
+                if (snapshot.child("postimage").getValue() != null
+                        && snapshot.child("postimage").getValue() != "") {
+                    //System.out.println("description: " + snapshot.child("description") + ".");
+                    image = snapshot.child("postimage").getValue().toString();
+                }
+                image = "com.google.android.gms.tasks.zzu@31bc3de";
+
 
                 PostDescription.setText(description);
                 Picasso.with(ClickPostActivity.this).load(image).into(PostImage);

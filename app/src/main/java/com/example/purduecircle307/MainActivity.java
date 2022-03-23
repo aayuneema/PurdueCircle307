@@ -130,7 +130,9 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     protected void onBindViewHolder(@NonNull PostsViewHolder holder, int position, @NonNull Posts model) {
-                        String PostKey = getItem(position).toString();
+                        //String PostKey = getItem(position).toString();
+                        //String PostKey = PostsRef.getKey();
+                        String PostKey = getRef(position).getKey();
 
                         holder.setName(model.getName());
                         holder.setTime(model.getTime());
