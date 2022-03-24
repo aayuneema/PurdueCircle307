@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PurdueCircle307">
         <activity
+            android:name=".BrowseTagsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CreateTagActivity"
+            android:exported="false" />
+        <activity
             android:name=".ClickPostActivity"
             android:exported="false" />
         <activity
