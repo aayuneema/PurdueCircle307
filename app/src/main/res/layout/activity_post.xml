@@ -10,6 +10,56 @@
     android:paddingBottom="15dp"
     tools:context=".PostActivity">
 
+    <TextView
+        android:id="@+id/post_tag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="false"
+
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="220dp"
+        android:layout_x="12dp"
+        android:layout_y="458dp"
+        android:background="@drawable/inputs"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="add your tag!"
+        android:inputType="textMultiLine"
+        android:padding="15dp"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="560dp"
+        />
+
+    <Button
+        android:id="@+id/create_tag_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="90dp"
+        android:layout_marginBottom="170dp"
+        android:text="Create new tag"
+        android:textSize="18sp">
+    </Button>
+    <Button
+        android:id="@+id/browse_tags_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="90dp"
+        android:layout_marginBottom="120dp"
+        android:text="Browse for tag"
+        android:textSize="18sp">
+    </Button>
 
     <Button
 
@@ -22,7 +72,7 @@
         android:layout_marginStart="125dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="20dp"
 
         android:layout_x="123dp"
         android:layout_y="538dp"
@@ -68,7 +118,7 @@
         android:layout_centerInParent="true"
         android:layout_marginStart="49dp"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="260dp"
+        android:layout_marginBottom="70dp"
         android:layout_x="12dp"
         android:layout_y="458dp"
         android:background="@drawable/inputs"

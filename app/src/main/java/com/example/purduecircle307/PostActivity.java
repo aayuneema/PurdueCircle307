@@ -1,10 +1,15 @@
 package com.example.purduecircle307;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -16,6 +21,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -40,12 +46,13 @@ public class PostActivity extends AppCompatActivity {
     //private Toolbar mToolbar;
     private ProgressDialog loadingBar;
     private ImageButton SelectPostImage;
-    private Button UpdatePostButton;
+    private Button UpdatePostButton, CreateTagButton, BrowseTagsButton;
     private EditText PostDescription;
+    private TextView PostTag;
     private Button PostAnonButton;
     private static final int Gallery_Pick = 1;
     private Uri ImageUri;
-    private String Description;
+    private String Description, Tag;
     private DatabaseReference UsersRef, PostsRef;
     private FirebaseAuth mAuth;
 
@@ -70,6 +77,9 @@ public class PostActivity extends AppCompatActivity {
         SelectPostImage =(ImageButton) findViewById(R.id.select_post_image);
         UpdatePostButton = (Button) findViewById(R.id.update_post_button);
         PostDescription = (EditText) findViewById(R.id.post_description);
+        PostTag = (TextView) findViewById(R.id.post_tag);
+        CreateTagButton = (Button) findViewById(R.id.create_tag_button);
+        BrowseTagsButton = (Button) findViewById(R.id.browse_tags_button);
         PostAnonButton = (Button) findViewById(R.id.post_anon_button);
         loadingBar = new ProgressDialog(this);
 /*
@@ -79,6 +89,19 @@ public class PostActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Update Post");
 */
+        ActivityResultLauncher<Intent> activityResultLaunch = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if (result.getResultCode() == Activity.RESULT_OK) {
+                            Intent tagData = result.getData();
+                            Tag = tagData.getStringExtra(Intent.EXTRA_TEXT);
+                            PostTag.setText(Tag);
+                        }
+                    }
+                });
+
         SelectPostImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,6 +122,23 @@ public class PostActivity extends AppCompatActivity {
                 ValidatePostInfo();
             }
         });
+
+        CreateTagButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //CreateTag();
+                Intent createTagIntent = new Intent(PostActivity.this, CreateTagActivity.class);
+                activityResultLaunch.launch(createTagIntent);
+            }
+        });
+
+        BrowseTagsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent browseTagIntent = new Intent(PostActivity.this, BrowseTagsActivity.class);
+                activityResultLaunch.launch(browseTagIntent);
+            }
+        });
     }
 
     private void ChangeVisibilty() {
@@ -113,6 +153,9 @@ public class PostActivity extends AppCompatActivity {
         }
         else */if(TextUtils.isEmpty(Description)) {
             Toast.makeText(this,"Please Write a Caption", Toast.LENGTH_SHORT).show();
+        }
+        else if (TextUtils.equals(Tag, "add your tag!")) {
+            Toast.makeText(this,"Please Select or Create a Tag", Toast.LENGTH_SHORT).show();
         }
         else {
             loadingBar.setTitle("Add New Post");
@@ -176,6 +219,7 @@ public class PostActivity extends AppCompatActivity {
                     postsMap.put("postimage", downloadUrl);
                     postsMap.put("profileimage", userProfileImage);
                     postsMap.put("name", userFullName);
+                    postsMap.put("tag", Tag);
                     PostsRef.child(current_user_id + postRandomName).updateChildren(postsMap).addOnCompleteListener(new OnCompleteListener() {
                         @Override
                         public void onComplete(@NonNull Task task) {
