@@ -9,12 +9,13 @@ public class Posts {
     public String time;
     public String uid;
     public String tag;
+    public boolean isAnon;
 
     public Posts() {
 
     }
 
-    public Posts(String date, String description, String name, String postimage, String profileimage, String time, String uid, String tag) {
+    public Posts(String date, String description, String name, String postimage, String profileimage, String time, String uid, String tag, boolean isAnon) {
         this.date = date;
         this.description = description;
         this.name = name;
@@ -23,6 +24,7 @@ public class Posts {
         this.time = time;
         this.uid = uid;
         this.tag = tag;
+        this.isAnon = isAnon;
     }
 
     public String getDate() {
@@ -84,4 +86,12 @@ public class Posts {
     public String getTag() { return tag; }
 
     public void setTag(String tag) { this.tag = tag; }
+  
+    public boolean getAnon() {
+        return this.isAnon;
+    }
+
+    public void setAnon(boolean isAnon) {
+        this.isAnon = isAnon;
+    }
 }
