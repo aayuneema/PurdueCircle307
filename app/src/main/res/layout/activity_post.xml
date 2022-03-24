@@ -19,93 +19,103 @@
 
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
-        android:layout_marginStart="45dp"
+        android:layout_marginStart="49dp"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="220dp"
+        android:layout_marginBottom="170dp"
         android:layout_x="12dp"
         android:layout_y="458dp"
         android:background="@drawable/inputs"
         android:ems="10"
         android:gravity="start|top"
-        android:hint="add your tag!"
+        android:hint="Click on a button below to add your tag!"
         android:inputType="textMultiLine"
         android:padding="15dp"
         tools:layout_editor_absoluteX="100dp"
         tools:layout_editor_absoluteY="560dp"
         />
 
-    <Button
-        android:id="@+id/create_tag_button"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/LinearLayout02"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="false"
-        android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="90dp"
-        android:layout_marginBottom="170dp"
-        android:text="Create new tag"
-        android:textSize="18sp">
-    </Button>
-    <Button
-        android:id="@+id/browse_tags_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="false"
-        android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="90dp"
+        android:layout_width="match_parent"
         android:layout_marginBottom="120dp"
-        android:text="Browse for tag"
-        android:textSize="18sp">
-    </Button>
+        android:layout_alignParentBottom="true">
+        <Button
+            android:id="@+id/create_tag_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Create new tag"
+            android:textSize="15sp">
+        </Button>
+        <Button
+            android:id="@+id/browse_tags_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Browse for tag"
+            android:textSize="15sp">
+        </Button>
+    </LinearLayout>
 
-    <Button
-
-        android:id="@+id/update_post_button"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/LinearLayout03"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="125dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
+        android:layout_width="match_parent"
         android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true">
+        <Button
+            android:id="@+id/update_post_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Post"
+            android:textSize="15sp">
+            <!--android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="125dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="20dp"
 
-        android:layout_x="123dp"
-        android:layout_y="538dp"
-        android:background="@drawable/button"
-        android:text="Update Post"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            android:layout_x="123dp"
+            android:layout_y="538dp"
+            android:background="@drawable/button"
+            android:text="Update Post"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"-->
+        </Button>
+        <Button
+            android:id="@+id/post_anon_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Post Anonymous"
+            android:textSize="15sp">
+            <!--android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="95dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="120dp"
 
-    <Button
-
-        android:id="@+id/post_anon_button"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="95dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="140dp"
-
-        android:layout_x="123dp"
-        android:layout_y="538dp"
-        android:background="@drawable/button"
-        android:text="Post Anonymous"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            android:layout_x="123dp"
+            android:layout_y="538dp"
+            android:background="@drawable/button"
+            android:text="Post Anonymous"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"-->
+        </Button>
+    </LinearLayout>
 
     <EditText
         android:id="@+id/post_description"
@@ -124,7 +134,7 @@
         android:background="@drawable/inputs"
         android:ems="10"
         android:gravity="start|top"
-        android:hint="add your caption!"
+        android:hint="Add your caption!"
         android:inputType="textMultiLine"
         android:padding="15dp"
         tools:layout_editor_absoluteX="100dp"
