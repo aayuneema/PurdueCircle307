@@ -8,12 +8,13 @@ public class Posts {
     public String profileimage;
     public String time;
     public String uid;
+    public boolean isAnon;
 
     public Posts() {
 
     }
 
-    public Posts(String date, String description, String name, String postimage, String profileimage, String time, String uid) {
+    public Posts(String date, String description, String name, String postimage, String profileimage, String time, String uid, boolean isAnon) {
         this.date = date;
         this.description = description;
         this.name = name;
@@ -21,6 +22,7 @@ public class Posts {
         this.profileimage = profileimage;
         this.time = time;
         this.uid = uid;
+        this.isAnon = isAnon;
     }
 
     public String getDate() {
@@ -77,5 +79,13 @@ public class Posts {
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public boolean getAnon() {
+        return this.isAnon;
+    }
+
+    public void setAnon(boolean isAnon) {
+        this.isAnon = isAnon;
     }
 }

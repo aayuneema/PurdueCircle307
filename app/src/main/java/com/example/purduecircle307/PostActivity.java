@@ -42,6 +42,7 @@ public class PostActivity extends AppCompatActivity {
     private ImageButton SelectPostImage;
     private Button UpdatePostButton;
     private EditText PostDescription;
+    private Button PostAnonButton;
     private static final int Gallery_Pick = 1;
     private Uri ImageUri;
     private String Description;
@@ -51,6 +52,7 @@ public class PostActivity extends AppCompatActivity {
     private StorageReference PostsImagesRefrence;
 
     private String saveCurrentDate, saveCurrentTime, postRandomName, downloadUrl, current_user_id;
+    private boolean isAnonymous = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,7 @@ public class PostActivity extends AppCompatActivity {
         SelectPostImage =(ImageButton) findViewById(R.id.select_post_image);
         UpdatePostButton = (Button) findViewById(R.id.update_post_button);
         PostDescription = (EditText) findViewById(R.id.post_description);
+        PostAnonButton = (Button) findViewById(R.id.post_anon_button);
         loadingBar = new ProgressDialog(this);
 /*
         mToolbar = (Toolbar) findViewById(R.id.update_post_page_toolbar);
@@ -83,6 +86,13 @@ public class PostActivity extends AppCompatActivity {
             }
         });
 
+        PostAnonButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ChangeVisibilty();
+            }
+        });
+
         UpdatePostButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,12 +101,17 @@ public class PostActivity extends AppCompatActivity {
         });
     }
 
+    private void ChangeVisibilty() {
+        isAnonymous = true;
+        ValidatePostInfo();
+    }
+
     private void ValidatePostInfo() {
         Description = PostDescription.getText().toString();
-        if(ImageUri == null) {
+        /*if(ImageUri == null) {
             Toast.makeText(this,"Please Select an Image", Toast.LENGTH_SHORT).show();
         }
-        else if(TextUtils.isEmpty(Description)) {
+        else */if(TextUtils.isEmpty(Description)) {
             Toast.makeText(this,"Please Write a Caption", Toast.LENGTH_SHORT).show();
         }
         else {
@@ -149,6 +164,9 @@ public class PostActivity extends AppCompatActivity {
                 if(dataSnapshot.exists()) {
                     String userFullName = dataSnapshot.child("name").getValue().toString();
                     String userProfileImage = dataSnapshot.child("profileImage").getValue().toString();
+                    if (isAnonymous) {
+                        userFullName = "Anonymous";
+                    }
 
                     HashMap postsMap = new HashMap();
                     postsMap.put("uid", current_user_id);
