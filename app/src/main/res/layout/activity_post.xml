@@ -27,7 +27,7 @@
         android:background="@drawable/inputs"
         android:ems="10"
         android:gravity="start|top"
-        android:hint="Click on a button below to add your tag!"
+        android:text="Click on a button below to add your tag!"
         android:inputType="textMultiLine"
         android:padding="15dp"
         tools:layout_editor_absoluteX="100dp"

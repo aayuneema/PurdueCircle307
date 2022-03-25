@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
@@ -49,7 +50,7 @@ public class CreateTagActivity extends AppCompatActivity {
                 Map<String, Object> databaseValues = (HashMap<String,Object>) dataSnapshot.getValue();
                 Collection<Object> databaseObjectTags = databaseValues.values();
                 for (Object objectTag : databaseObjectTags) {
-                    databaseTags.add(Objects.toString(objectTag, null));
+                    databaseTags.add(Objects.toString(objectTag).toLowerCase());
                 }
             }
 
@@ -81,7 +82,7 @@ public class CreateTagActivity extends AppCompatActivity {
             Toast.makeText(this, "Please make sure that your tag contains at least 1 letter " +
                     "and is at least 3 characters long.", Toast.LENGTH_SHORT).show();
         }
-        else if (databaseTags.contains(createdTag)) {
+        else if (databaseTags.contains(createdTag.toLowerCase())) {
             Toast.makeText(this, "This tag already exists. " +
                     "Please navigate to \"Browse For Tag\" to use this tag.", Toast.LENGTH_SHORT).show();
         }

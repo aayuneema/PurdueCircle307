@@ -148,14 +148,18 @@ public class PostActivity extends AppCompatActivity {
 
     private void ValidatePostInfo() {
         Description = PostDescription.getText().toString();
+        Tag = PostTag.getText().toString();
         /*if(ImageUri == null) {
             Toast.makeText(this,"Please Select an Image", Toast.LENGTH_SHORT).show();
         }
         else */if(TextUtils.isEmpty(Description)) {
             Toast.makeText(this,"Please Write a Caption", Toast.LENGTH_SHORT).show();
         }
-        else if (TextUtils.equals(Tag, "add your tag!")) {
+        else if (TextUtils.equals(Tag, "Click on a button below to add your tag!")) {
             Toast.makeText(this,"Please Select or Create a Tag", Toast.LENGTH_SHORT).show();
+        }
+        else if (Description.length() > 500) {
+            Toast.makeText(this,"Please keep your description under 500 characters", Toast.LENGTH_SHORT).show();
         }
         else {
             loadingBar.setTitle("Add New Post");
