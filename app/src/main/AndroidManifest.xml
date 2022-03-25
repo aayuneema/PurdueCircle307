@@ -12,6 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PurdueCircle307">
         <activity
+            android:name=".FindFriendsActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity"/>
+        <activity
             android:name=".BrowseTagsActivity"
             android:exported="false" />
         <activity

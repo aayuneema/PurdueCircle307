@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
 
         public void setProfileimage(Context ctx, String profileimage) {
             CircleImageView image = (CircleImageView) mView.findViewById(R.id.post_profile_image);
-            Picasso.with(ctx).load(profileimage).into(image);
+            Picasso.with(ctx).load(profileimage).placeholder(R.drawable.profile).into(image);
         }
 
         public void setTime(String time) {
@@ -220,6 +220,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Tags", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_find_friends:
+                SendUserToFindFriendsActivity();
                 Toast.makeText(this, "Find Friends", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_find_tags:
@@ -264,6 +265,11 @@ public class MainActivity extends AppCompatActivity {
     private void SendUserToSettingsActivity() {
         Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
         startActivity(settingsIntent);
+    }
+
+    private void SendUserToFindFriendsActivity() {
+        Intent findFriendsIntent = new Intent(MainActivity.this, FindFriendsActivity.class);
+        startActivity(findFriendsIntent);
     }
 
     //Checks authentication of user
