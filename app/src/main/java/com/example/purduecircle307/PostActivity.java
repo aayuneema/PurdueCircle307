@@ -61,6 +61,8 @@ public class PostActivity extends AppCompatActivity {
     private String saveCurrentDate, saveCurrentTime, postRandomName, downloadUrl, current_user_id;
     private boolean isAnonymous = false;
 
+    private long countPosts = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -205,6 +207,23 @@ public class PostActivity extends AppCompatActivity {
     }
 
     private void SavingPostInformationToDatabase() {
+        PostsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    countPosts = snapshot.getChildrenCount();
+                }
+                else {
+                    countPosts = 0;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         UsersRef.child(current_user_id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -224,6 +243,7 @@ public class PostActivity extends AppCompatActivity {
                     postsMap.put("profileimage", userProfileImage);
                     postsMap.put("name", userFullName);
                     postsMap.put("tag", Tag);
+                    postsMap.put("counter", countPosts); 
                     PostsRef.child(current_user_id + postRandomName).updateChildren(postsMap).addOnCompleteListener(new OnCompleteListener() {
                         @Override
                         public void onComplete(@NonNull Task task) {
