@@ -8,16 +8,16 @@
 
     <ImageView
         android:id="@+id/click_post_image"
-        android:layout_width="wrap_content"
-        android:layout_height="400dp"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:contentDescription="imageView"
+        android:layout_marginBottom="150dp"
+        android:contentDescription="@string/imageview"
         android:scaleType="centerInside"
         app:srcCompat="@drawable/select_image" />
 
@@ -27,10 +27,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="474dp"
-        android:layout_marginRight="5dp"
-        android:padding="8dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="317dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="100dp"
+        android:background="@drawable/inputs"
+        android:padding="15dp"
         android:text="Post Description"
         android:textColor="@color/black"
         android:textSize="16sp" />
@@ -40,24 +44,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginStart="-2dp"
-        android:layout_marginTop="556dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="21dp"
         android:background="@drawable/button"
-        android:layout_marginEnd="0dp"
-        android:text="Edit Post " />
+        android:text="Delete Post " />
 
     <Button
         android:id="@+id/clickPostEditButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="1dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="82dp"
         android:background="@drawable/button"
-        android:layout_marginBottom="49dp"
-        android:text="Delete Post " />
+        android:text="Edit Post " />
 </RelativeLayout>
