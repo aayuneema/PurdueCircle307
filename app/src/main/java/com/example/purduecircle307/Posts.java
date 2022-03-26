@@ -52,6 +52,7 @@ public class Posts {
     }
 
     public String getPostimage() {
+        System.out.println("POSTIMAGE: " + postimage);
         return postimage;
     }
 
@@ -60,6 +61,7 @@ public class Posts {
     }
 
     public String getProfileimage() {
+        System.out.println("PROFILEIMAGE: " + profileimage);
         return profileimage;
     }
 

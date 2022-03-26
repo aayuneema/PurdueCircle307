@@ -24,6 +24,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -188,21 +189,58 @@ public class PostActivity extends AppCompatActivity {
         //test time print!
         //Toast.makeText(this,postRandomName, Toast.LENGTH_SHORT).show();
 
+
         StorageReference filePath = PostsImagesRefrence.child("Post Images").child(ImageUri.getLastPathSegment() + postRandomName + ".jpg");
 
-        filePath.putFile(ImageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+        UploadTask uploadTask = filePath.putFile(ImageUri);
+
+        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
             @Override
-            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+
+                // Continue with the task to get the download URL
+                return filePath.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
                 if (task.isSuccessful()) {
-                    downloadUrl = task.getResult().getStorage().getDownloadUrl().toString();
-                    Toast.makeText(PostActivity.this, "Image Uploaded to Storage!", Toast.LENGTH_SHORT).show();
-                    SavingPostInformationToDatabase();
+                    Uri downloadUri = task.getResult();
+                    System.out.println("Upload 1 " + downloadUri);
+                    if (downloadUri != null) {
+
+                        downloadUrl = downloadUri.toString(); //YOU WILL GET THE DOWNLOAD URL HERE !!!!
+                        System.out.println("Upload 2 " + downloadUrl);
+
+                    }
+
                 } else {
                     String message = task.getException().getMessage();
                     Toast.makeText(PostActivity.this, "Error:" + message, Toast.LENGTH_SHORT).show();
                 }
+                System.out.println("done");
+                SavingPostInformationToDatabase();
             }
         });
+        
+//        filePath.putFile(ImageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    downloadUrl = task.getResult().getStorage().getDownloadUrl().toString();
+//                    System.out.println("DOWNLOADURL: " + downloadUrl);
+//                    Toast.makeText(PostActivity.this, "Image Uploaded to Storage!", Toast.LENGTH_SHORT).show();
+//                    SavingPostInformationToDatabase();
+//                } else {
+//                    System.out.println("**ERROR**");
+//                    String message = task.getException().getMessage();
+//                    Toast.makeText(PostActivity.this, "Error:" + message, Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
 
     }
 
