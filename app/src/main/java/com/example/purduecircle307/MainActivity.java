@@ -56,11 +56,13 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference UserRef;
     private DatabaseReference PostsRef;
+    private DatabaseReference LikesRef;
     private androidx.appcompat.widget.Toolbar mToolbar;
     private ImageButton AddNewPostButton;
     private CircleImageView NavProfileImage;
     private TextView NavProfileUserName;
     String currentUserID;
+    Boolean LikeChecker = false;
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -74,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         UserRef = FirebaseDatabase.getInstance().getReference().child("Users");
         PostsRef = FirebaseDatabase.getInstance().getReference().child("Posts");
         drawerLayout = (DrawerLayout) findViewById(R.id.drawable_layout);
+        LikesRef = FirebaseDatabase.getInstance().getReference().child("Likes");
 
         mToolbar = (androidx.appcompat.widget.Toolbar) findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolbar);
@@ -161,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     @Override
+                    //populateViewHolder
                     protected void onBindViewHolder(@NonNull PostsViewHolder holder, int position, @NonNull Posts model) {
                         //String PostKey = getItem(position).toString();
                         //String PostKey = PostsRef.getKey();
@@ -173,12 +177,40 @@ public class MainActivity extends AppCompatActivity {
                         holder.setProfileimage(getApplicationContext(), model.getProfileimage());
                         holder.setPostimage(getApplicationContext(), model.getPostimage());
 
+                        holder.setLikeButtonStatus(PostKey);
+
                         holder.mView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 Intent clickPostIntent = new Intent(MainActivity.this, ClickPostActivity.class);
                                 clickPostIntent.putExtra("PostKey", PostKey);
                                 startActivity(clickPostIntent);
+                            }
+                        });
+
+                        holder.LikePostButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                LikeChecker = true;
+                                LikesRef.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if (LikeChecker.equals(true)) {
+                                            if(snapshot.child(PostKey).hasChild(currentUserID)) {
+                                                LikesRef.child(PostKey).child(currentUserID).removeValue();
+                                                LikeChecker = false;
+                                            } else {
+                                                LikesRef.child(PostKey).child(currentUserID).setValue(true);
+                                                LikeChecker = false;
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
                             }
                         });
 
@@ -199,6 +231,9 @@ public class MainActivity extends AppCompatActivity {
 
         ImageButton LikePostButton, CommentPostButton;
         TextView DisplayNoOfLikes;
+        int countLikes;
+        String currentUserId;
+        DatabaseReference LikesRef;
 
         public PostsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -207,6 +242,31 @@ public class MainActivity extends AppCompatActivity {
             LikePostButton = (ImageButton) mView.findViewById(R.id.like_button);
             CommentPostButton = (ImageButton) mView.findViewById(R.id.comment_button);
             DisplayNoOfLikes = (TextView) mView.findViewById(R.id.display_no_of_likes);
+
+            LikesRef = FirebaseDatabase.getInstance().getReference().child("Likes");
+            currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        }
+
+        public void setLikeButtonStatus (final String PostKey) {
+            LikesRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.child(PostKey).hasChild(currentUserId)) {
+                        countLikes = (int) snapshot.child(PostKey).getChildrenCount();
+                        LikePostButton.setImageResource(R.drawable.like);
+                        DisplayNoOfLikes.setText((Integer.toString(countLikes)+(" Likes")));
+                    } else {
+                        countLikes = (int) snapshot.child(PostKey).getChildrenCount();
+                        LikePostButton.setImageResource(R.drawable.dislike);
+                        DisplayNoOfLikes.setText((Integer.toString(countLikes)+(" Likes")));
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
         }
 
         public void setName(String name) {
