@@ -41,6 +41,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import java.io.File;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -143,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
                 PostsViewHolder.class,
                 PostsRef*/
         FirebaseRecyclerOptions<Posts> options =
+                
                 new FirebaseRecyclerOptions.Builder<Posts>()
                         .setQuery(SortPostsInDescendingOrder , Posts.class)
                         .build();
@@ -194,9 +197,16 @@ public class MainActivity extends AppCompatActivity {
     public static class PostsViewHolder extends RecyclerView.ViewHolder {
         View mView;
 
+        ImageButton LikePostButton, CommentPostButton;
+        TextView DisplayNoOfLikes;
+
         public PostsViewHolder(@NonNull View itemView) {
             super(itemView);
             mView = itemView;
+
+            LikePostButton = (ImageButton) mView.findViewById(R.id.like_button);
+            CommentPostButton = (ImageButton) mView.findViewById(R.id.comment_button);
+            DisplayNoOfLikes = (TextView) mView.findViewById(R.id.display_no_of_likes);
         }
 
         public void setName(String name) {
