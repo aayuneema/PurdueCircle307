@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PurdueCircle307">
         <activity
+            android:name=".CommentsActivity"
+            android:exported="false" />
+        <activity
             android:name=".PublicProfileActivity"
             android:exported="false" />
         <activity
