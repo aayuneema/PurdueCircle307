@@ -22,6 +22,7 @@ public class ClickPostActivity extends AppCompatActivity {
 
     private ImageView PostImage;
     private TextView PostDescription;
+    private TextView PostTag;
     private Button DeletePostButton;
     private Button EditPostButton;
     private DatabaseReference ClickPostRef;
@@ -30,6 +31,7 @@ public class ClickPostActivity extends AppCompatActivity {
     private String CurrentUserID;
     private String DatabaseUserID;
     private String description;
+    private String tag;
     private String image;
 
 
@@ -46,6 +48,7 @@ public class ClickPostActivity extends AppCompatActivity {
 
         PostImage = (ImageView)  findViewById(R.id.click_post_image);
         PostDescription = (TextView) findViewById((R.id.click_post_description));
+        PostTag = (TextView) findViewById((R.id.click_post_tag));
         DeletePostButton = (Button) findViewById((R.id.clickPostDeleteButton));
         EditPostButton = (Button) findViewById((R.id.clickPostEditButton));
 
@@ -57,9 +60,10 @@ public class ClickPostActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot snapshot) {
                 description = snapshot.child("description").getValue().toString();
                 image = snapshot.child("postimage").getValue().toString();
+                tag = snapshot.child("tag").getValue().toString();
                 //image = "com.google.android.gms.tasks.zzu@31bc3de";
                 DatabaseUserID = snapshot.child("uid").getValue().toString();
-
+                PostTag.setText("#" + tag);
                 PostDescription.setText(description);
                 Picasso.with(ClickPostActivity.this).load(image).into(PostImage);
                 System.out.println(CurrentUserID + " || " + DatabaseUserID);
