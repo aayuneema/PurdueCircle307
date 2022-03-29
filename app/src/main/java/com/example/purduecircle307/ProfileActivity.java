@@ -39,7 +39,7 @@ public class ProfileActivity extends AppCompatActivity {
     private CircleImageView ProfileImage;
     private ProgressDialog loadingBar;
 
-    private  FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
     private DatabaseReference UsersRef;
     private DatabaseReference usernameRef;
     private List<String> databaseUsernames = new ArrayList<String>();
