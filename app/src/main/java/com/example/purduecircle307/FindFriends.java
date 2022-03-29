@@ -1,15 +1,15 @@
 package com.example.purduecircle307;
 
 public class FindFriends {
-    public String profileImage, name, status;
+    public String profileImage, username, bio;
 
     public FindFriends() {
 
     }
-    public FindFriends(String profileImage, String name, String status) {
+    public FindFriends(String profileImage, String username, String status, String bio) {
         this.profileImage = profileImage;
-        this.name = name;
-        this.status = status;
+        this.username = username;
+        this.bio = bio;
     }
 
     public String getProfileImage() {
@@ -20,19 +20,19 @@ public class FindFriends {
         this.profileImage = profileImage;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String name) {
+        this.username = name;
     }
 
-    public String getStatus() {
-        return status;
+    public String getBio() {
+        return bio;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 }
