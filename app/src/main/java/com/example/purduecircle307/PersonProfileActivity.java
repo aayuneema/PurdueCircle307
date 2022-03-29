@@ -209,31 +209,55 @@ public class PersonProfileActivity extends AppCompatActivity {
     }
 
     private void MaintainanceOfButtons() {
-         FriendRequestRef.child(senderUserId).addListenerForSingleValueEvent(new ValueEventListener() {
-             @Override
-             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                 if (snapshot.hasChild(receiverUserId)) {
-                     String request_type = snapshot.child(receiverUserId).child("request_type").getValue().toString();
-                     if (request_type.equals("sent")) {
-                         CURRENT_STATE = "request_sent";
-                         SendFriendRequestButton.setText("Cancel Friend Request");
-                         DeclineFriendRequestButton.setVisibility(View.INVISIBLE);
-                         DeclineFriendRequestButton.setEnabled(false);
-                     }
-                     else if (request_type.equals("received")) {
-                         CURRENT_STATE = "request_received";
-                         SendFriendRequestButton.setText("Accept Friend Request");
-                         DeclineFriendRequestButton.setVisibility(View.VISIBLE);
-                         DeclineFriendRequestButton.setEnabled(true);
-                     }
-                 }
-             }
+        FriendRequestRef.child(senderUserId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.hasChild(receiverUserId)) {
+                    String request_type = snapshot.child(receiverUserId).child("request_type").getValue().toString();
+                    if (request_type.equals("sent")) {
+                        CURRENT_STATE = "request_sent";
+                        SendFriendRequestButton.setText("Cancel Friend Request");
+                        DeclineFriendRequestButton.setVisibility(View.INVISIBLE);
+                        DeclineFriendRequestButton.setEnabled(false);
+                    }
+                    else if (request_type.equals("received")) {
+                        CURRENT_STATE = "request_received";
+                        SendFriendRequestButton.setText("Accept Friend Request");
+                        DeclineFriendRequestButton.setVisibility(View.VISIBLE);
+                        DeclineFriendRequestButton.setEnabled(true);
+                        DeclineFriendRequestButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                CancelFriendRequest();
+                            }
+                        });
+                    }
+                }
+                else {
+                    FriendsRef.child(senderUserId).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.hasChild(receiverUserId)) {
+                                CURRENT_STATE = "friends";
+                                SendFriendRequestButton.setText("Unfriend");
+                                DeclineFriendRequestButton.setVisibility(View.INVISIBLE);
+                                DeclineFriendRequestButton.setEnabled(false);
+                            }
+                        }
 
-             @Override
-             public void onCancelled(@NonNull DatabaseError error) {
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
 
-             }
-         });
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void SendFriendRequestToUser() {
