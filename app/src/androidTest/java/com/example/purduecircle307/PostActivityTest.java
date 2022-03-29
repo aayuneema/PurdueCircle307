@@ -1,38 +1,53 @@
 package com.example.purduecircle307;
 
-import com.google.firebase.database.core.view.View;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-import androidx.test.core.app.ActivityScenario;
-import androidx.test.ext.junit.rules.ActivityScenarioRule;
+import androidx.test.rule.ActivityTestRule;
 
 import static org.junit.Assert.*;
+
+import android.view.View;
 
 public class PostActivityTest {
 
     @Rule
-    public ActivityScenarioRule<MainActivity> postActivityActivityTestRule = new ActivityScenarioRule<MainActivity>(MainActivity.class);
+    public ActivityTestRule<PostActivity> postActivityTestRule = new ActivityTestRule<PostActivity>(PostActivity.class);
 
-    private ActivityScenario<MainActivity> postActivity = null;
+    private PostActivity postActivity = null;
 
     @Before
     public void setUp() throws Exception {
-        postActivity = postActivityActivityTestRule.getScenario();
+        postActivity = postActivityTestRule.getActivity();
     }
 
     @Test
     public void testLaunch() {
-        View view = postActivity.findViewById(R.id.tvMainText);
+        View view = postActivity.findViewById(R.id.post_tag);
         assertNotNull(view);
+        view = postActivity.findViewById(R.id.browse_tags_button);
+        assertNotNull(view);
+        view = postActivity.findViewById(R.id.create_tag_button);
+        assertNotNull(view);
+        view = postActivity.findViewById(R.id.update_post_button);
+        assertNotNull(view);
+        view = postActivity.findViewById(R.id.post_anon_button);
+        assertNotNull(view);
+        view = postActivity.findViewById(R.id.post_description);
+        assertNotNull(view);
+        view = postActivity.findViewById(R.id.select_post_image);
+        assertNotNull(view);
+    }
+
+    @Test
+    public void testPostCreation() {
+
     }
 
     @After
     public void tearDown() throws Exception {
         postActivity = null;
     }
-
 }

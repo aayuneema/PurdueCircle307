@@ -1,32 +1,31 @@
 package com.example.purduecircle307;
 
-import com.google.firebase.database.core.view.View;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-import androidx.test.core.app.ActivityScenario;
-import androidx.test.ext.junit.rules.ActivityScenarioRule;
+import androidx.test.rule.ActivityTestRule;
 
 import static org.junit.Assert.*;
+
+import android.view.View;
 
 public class MainActivityTest {
 
     @Rule
-    public ActivityScenarioRule<MainActivity> mainActivityActivityTestRule = new ActivityScenarioRule<MainActivity>(MainActivity.class);
+    public ActivityTestRule<MainActivity> mainActivityTestRule = new ActivityTestRule<MainActivity>(MainActivity.class);
 
-    private ActivityScenario<MainActivity> mainActivity = null;
+    private MainActivity mainActivity = null;
 
     @Before
     public void setUp() throws Exception {
-        mainActivity = mainActivityActivityTestRule.getScenario();
+        mainActivity = mainActivityTestRule.getActivity();
     }
 
     @Test
     public void testLaunch() {
-        View view = mainActivity.findViewById(R.id.tvMainText);
+        View view = mainActivity.findViewById(R.id.all_users_post_list);
         assertNotNull(view);
     }
 
