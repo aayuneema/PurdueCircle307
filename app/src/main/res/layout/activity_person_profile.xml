@@ -125,12 +125,12 @@
                 android:layout_centerHorizontal="true"/>
 
             <Button
-                android:id="@+id/person_cancel_friend_request_btn"
+                android:id="@+id/person_decline_friend_request_btn"
                 android:layout_width="275dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/person_send_friend_request_btn"
                 android:layout_marginTop="5dp"
-                android:text="Cancel Friend Request"
+                android:text="Decline Friend Request"
                 android:textSize="16sp"
                 app:background="@android:color/holo_red_dark"
                 app:backgroundTint="@android:color/holo_red_dark"
