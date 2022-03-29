@@ -176,6 +176,7 @@ public class MainActivity extends AppCompatActivity {
                         holder.setName(model.getName());
                         holder.setTime(model.getTime());
                         holder.setDate(model.getDate());
+                        holder.setTag(model.getTag());
                         holder.setDescription(model.getDescription());
                         holder.setProfileimage(getApplicationContext(), model.getProfileimage());
                         holder.setPostimage(getApplicationContext(), model.getPostimage());
@@ -304,6 +305,11 @@ public class MainActivity extends AppCompatActivity {
         public void setDescription(String description) {
             TextView postDescription = (TextView) mView.findViewById(R.id.post_description);
             postDescription.setText(description);
+        }
+
+        public void setTag(String tag) {
+            TextView postTag = (TextView) mView.findViewById(R.id.post_tag);
+            postTag.setText("#" + tag);
         }
 
         public void setPostimage (Context ctx, String postimage) {
