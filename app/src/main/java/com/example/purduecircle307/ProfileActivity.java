@@ -28,7 +28,7 @@ public class ProfileActivity extends AppCompatActivity {
     private EditText Name;
     private EditText UserName;
     private Button SaveProfileButton;
-    //private CircleImageView ProfileImage;
+    private CircleImageView ProfileImage;
     private ProgressDialog loadingBar;
 
     private  FirebaseAuth mAuth;
@@ -54,7 +54,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         Name = (EditText) findViewById(R.id.profile_name);
         UserName = (EditText) findViewById(R.id.profile_username);
-        //ProfileImage = (CircleImageView) findViewById(R.id.settings_profile_image);
+        ProfileImage = (CircleImageView) findViewById(R.id.settings_profile_image);
         SaveProfileButton = (Button) findViewById(R.id.profile_SaveButton);
         loadingBar = new ProgressDialog(this);
 
