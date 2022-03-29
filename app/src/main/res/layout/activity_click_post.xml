@@ -18,7 +18,6 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="150dp"
         android:contentDescription="@string/imageview"
-        android:scaleType="centerInside"
         app:srcCompat="@drawable/select_image" />
 
     <TextView
@@ -30,7 +29,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginStart="1dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="275dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="100dp"
         android:background="@drawable/inputs"
@@ -49,7 +48,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginStart="1dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="285dp"
+        android:layout_marginTop="310dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="100dp"
         android:background="@drawable/inputs"
