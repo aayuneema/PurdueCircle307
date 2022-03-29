@@ -49,14 +49,6 @@
             android:theme="@style/Theme.PurdueCircle307.NoActionBar" />
         <activity
             android:name=".Login"
-            android:exported="false"
-            android:theme="@style/Theme.PurdueCircle307.NoActionBar" />
-        <activity
-            android:name=".SignUp"
-            android:exported="false"
-            android:theme="@style/Theme.PurdueCircle307.NoActionBar" />
-        <activity
-            android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.PurdueCircle307.NoActionBar">
             <intent-filter>
@@ -65,6 +57,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".SignUp"
+            android:exported="false"
+            android:theme="@style/Theme.PurdueCircle307.NoActionBar" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.PurdueCircle307.NoActionBar" />
     </application>
 
 </manifest>

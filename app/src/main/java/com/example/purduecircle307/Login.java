@@ -24,6 +24,7 @@ public class Login extends AppCompatActivity {
     private EditText UserEmail;
     private EditText UserPassword;
     private Button NeedNewAccountLink;
+    private Button useAsGuestUser;
     private ProgressDialog loadingBar;
 
     private FirebaseAuth mAuth;
@@ -33,9 +34,19 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        if (mAuth != null) {
+            if (mAuth.getCurrentUser().isAnonymous()) {
+                mAuth.signOut();
+            }
+            else {
+                sendUserToMainActivity();
+            }
+        }
+
         mAuth = FirebaseAuth.getInstance();
 
         NeedNewAccountLink = (Button) findViewById(R.id.Login_signUpButton);
+        useAsGuestUser = (Button) findViewById(R.id.Login_guestButton);
         UserEmail = (EditText) findViewById(R.id.login_emailAddress);
         UserPassword = (EditText) findViewById(R.id.login_Password);
         LoginButton = (Button) findViewById(R.id.LoginButton);
@@ -45,6 +56,26 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 SendUserToSignUpActivity();
+            }
+        });
+
+        useAsGuestUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mAuth.signInAnonymously()
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if(task.isSuccessful()) {
+                                    sendUserToMainActivity();
+                                    Toast.makeText(Login.this, "Logging in as guest...", Toast.LENGTH_SHORT).show();
+                                }
+                                else {
+                                    String message = task.getException().getMessage();
+                                    Toast.makeText(Login.this, "Error: " + message, Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
             }
         });
 

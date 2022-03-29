@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView NavProfileUserName;
     String currentUserID;
     Boolean LikeChecker = false;
+    boolean isGuestUser = false;
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -72,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
-        if (mAuth.getCurrentUser() == null)  {
-            SendUserToLoginActivity();
+        if (mAuth.getCurrentUser().isAnonymous())  {
+            isGuestUser = true;
         }
         currentUserID = mAuth.getCurrentUser().getUid();
         UserRef = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -106,23 +107,29 @@ public class MainActivity extends AppCompatActivity {
         NavProfileImage = (CircleImageView) navView.findViewById(R.id.nav_profile_image);
         NavProfileUserName = (TextView) navView.findViewById(R.id.nav_user_full_name);
 
-        UserRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    String fullname = snapshot.child("name").getValue().toString();
-                    String image = snapshot.child("profileImage").getValue().toString();
+        if (isGuestUser) {
+            NavProfileUserName.setText("Guest");
+            Picasso.with(MainActivity.this).load(R.drawable.profile).into(NavProfileImage);
+        }
+        else {
+            UserRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        String fullname = snapshot.child("name").getValue().toString();
+                        String image = snapshot.child("profileImage").getValue().toString();
 
-                    NavProfileUserName.setText(fullname);
-                    Picasso.with(MainActivity.this).load(image).placeholder(R.drawable.profile).into(NavProfileImage);
+                        NavProfileUserName.setText(fullname);
+                        Picasso.with(MainActivity.this).load(image).placeholder(R.drawable.profile).into(NavProfileImage);
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+                }
+            });
+        }
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -135,7 +142,12 @@ public class MainActivity extends AppCompatActivity {
         AddNewPostButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SendUsertoPostActivity();
+                if (isGuestUser) {
+                    Toast.makeText(MainActivity.this, "Please sign in to use this feature.", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    SendUsertoPostActivity();
+                }
             }
         });
 
@@ -186,44 +198,59 @@ public class MainActivity extends AppCompatActivity {
                         holder.mView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Intent clickPostIntent = new Intent(MainActivity.this, ClickPostActivity.class);
-                                clickPostIntent.putExtra("PostKey", PostKey);
-                                startActivity(clickPostIntent);
+                                if (isGuestUser) {
+                                    Toast.makeText(MainActivity.this, "Please sign in to use this feature.", Toast.LENGTH_SHORT).show();
+                                }
+                                else {
+                                    Intent clickPostIntent = new Intent(MainActivity.this, ClickPostActivity.class);
+                                    clickPostIntent.putExtra("PostKey", PostKey);
+                                    startActivity(clickPostIntent);
+                                }
                             }
                         });
 
                         holder.CommentPostButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Intent commentsIntent = new Intent(MainActivity.this, CommentsActivity.class);
-                                commentsIntent.putExtra("PostKey", PostKey);
-                                startActivity(commentsIntent);
+                                if (isGuestUser) {
+                                    Toast.makeText(MainActivity.this, "Please sign in to use this feature.", Toast.LENGTH_SHORT).show();
+                                }
+                                else {
+                                    Intent commentsIntent = new Intent(MainActivity.this, CommentsActivity.class);
+                                    commentsIntent.putExtra("PostKey", PostKey);
+                                    startActivity(commentsIntent);
+                                }
                             }
                         });
 
                         holder.LikePostButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                LikeChecker = true;
-                                LikesRef.addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        if (LikeChecker.equals(true)) {
-                                            if(snapshot.child(PostKey).hasChild(currentUserID)) {
-                                                LikesRef.child(PostKey).child(currentUserID).removeValue();
-                                                LikeChecker = false;
-                                            } else {
-                                                LikesRef.child(PostKey).child(currentUserID).setValue(true);
-                                                LikeChecker = false;
+                                if (isGuestUser) {
+                                    Toast.makeText(MainActivity.this, "Please sign in to use this feature.", Toast.LENGTH_SHORT).show();
+                                }
+                                else {
+                                    LikeChecker = true;
+                                    LikesRef.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            if (LikeChecker.equals(true)) {
+                                                if (snapshot.child(PostKey).hasChild(currentUserID)) {
+                                                    LikesRef.child(PostKey).child(currentUserID).removeValue();
+                                                    LikeChecker = false;
+                                                } else {
+                                                    LikesRef.child(PostKey).child(currentUserID).setValue(true);
+                                                    LikeChecker = false;
+                                                }
                                             }
                                         }
-                                    }
 
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
 
-                                    }
-                                });
+                                        }
+                                    });
+                                }
                             }
                         });
 
@@ -331,8 +358,13 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_profile:
-                SendUserToPublicProfileActivity();
-                Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
+                if (isGuestUser) {
+                    Toast.makeText(MainActivity.this, "Please sign in to use this feature.", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    SendUserToPublicProfileActivity();
+                    Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.nav_friends:
                 Toast.makeText(this, "Friends", Toast.LENGTH_SHORT).show();
@@ -348,8 +380,13 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Find Tags", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_settings:
-                SendUserToSettingsActivity();
-                Toast.makeText(this, "Edit Profile", Toast.LENGTH_SHORT).show();
+                if (isGuestUser) {
+                    Toast.makeText(MainActivity.this, "Please sign in to use this feature.", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    SendUserToSettingsActivity();
+                    Toast.makeText(this, "Edit Profile", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.nav_logout:
                 confirmLogout();
@@ -366,8 +403,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                mAuth.signOut();
-                SendUserToLoginActivity();
+                if (isGuestUser) {
+                    mAuth.signOut();
+                    SendUserToLoginActivity();
+                }
+                else {
+                    mAuth.signOut();
+                    SendUserToLoginActivity();
+                }
             }
         });
 
@@ -410,6 +453,8 @@ public class MainActivity extends AppCompatActivity {
         //If user does not exist, navigate to sign up/log in page
         if (currentUser == null) {
             SendUserToLoginActivity();
+        } else if (currentUser.isAnonymous()) {
+            isGuestUser = true;
         } else {
             CheckUserExistence();
         }

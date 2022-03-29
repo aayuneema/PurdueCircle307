@@ -11,7 +11,7 @@ public class User {
         private String email;
         private String password;
         private boolean loggedIn;
-        // add photo
+        private String profileImage;
         private ArrayList<User> friends = new ArrayList<User>();
         private ArrayList<User> followedUsers = new ArrayList<User>();
         private ArrayList<String> followedTopics = new ArrayList<String>();
@@ -23,14 +23,23 @@ public class User {
             this.displayName = displayName;
         }
 
-        public User(String userId, String displayName, String email, String password) {
+        public User(String userId, String displayName, String email, String password, String profileImage) {
             this.userName = userId;
             this.displayName = displayName;
             this.email = email;
             this.password = password;
+            this.profileImage = profileImage;
         }
 
-        public void followUser(User user) {
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
+    }
+
+    public void followUser(User user) {
             followedUsers.add(user);
         }
 
