@@ -137,7 +137,6 @@ public class CommentsActivity extends AppCompatActivity {
         }
 
         public void setUsername(String username) {
-            System.out.println("USERNAME: " + username);
             TextView myUserName = (TextView) mView.findViewById(R.id.comment_username);
             //If you want to add '@' before username, you can add it
             myUserName.setText(username + "  ");

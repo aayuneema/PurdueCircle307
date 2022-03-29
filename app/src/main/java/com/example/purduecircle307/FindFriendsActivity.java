@@ -2,7 +2,6 @@ package com.example.purduecircle307;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,7 +19,6 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -70,16 +68,17 @@ public class FindFriendsActivity extends AppCompatActivity {
                 //.startAt(searchBoxInput).endAt(searchBoxInput + "\uf8ff");
         FirebaseRecyclerOptions<FindFriends> options =
                 new FirebaseRecyclerOptions.Builder<FindFriends>()
-                        .setQuery(allUsersDatabaseRef.orderByChild("name").startAt(searchBoxInput)
+                        .setQuery(allUsersDatabaseRef.orderByChild("username").startAt(searchBoxInput)
                                 .endAt(searchBoxInput + "\uf8ff"), FindFriends.class)
                         .build();
         FirebaseRecyclerAdapter<FindFriends, FindFriendsViewHolder> firebaseRecyclerAdapter =
                 new FirebaseRecyclerAdapter<FindFriends, FindFriendsViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull FindFriendsViewHolder holder, int position, @NonNull FindFriends model) {
-                holder.setName(model.getName());
-                holder.setStatus(model.getStatus());
+                holder.userName.setText("@" + model.getUsername());
+                holder.bio.setText(model.getBio());
                 holder.setProfileImage(getApplicationContext(), model.getProfileImage());
+                Picasso.with(getApplicationContext()).load(model.getProfileImage()).placeholder(R.drawable.profile).into(holder.profileImage);
             }
 
             @NonNull
@@ -92,14 +91,23 @@ public class FindFriendsActivity extends AppCompatActivity {
         };
         firebaseRecyclerAdapter.startListening();
         searchResultList.setAdapter(firebaseRecyclerAdapter);
+
+        firebaseRecyclerAdapter.startListening();
     }
 
     public static class FindFriendsViewHolder extends RecyclerView.ViewHolder {
         View mView;
+        TextView userName;
+        TextView bio;
+        CircleImageView profileImage;
 
         public FindFriendsViewHolder(@NonNull View itemView) {
             super(itemView);
             mView = itemView;
+
+            userName = mView.findViewById(R.id.all_users_profile_username);
+            bio = mView.findViewById(R.id.all_users_status);
+            profileImage = mView.findViewById(R.id.all_users_profile_image);
         }
 
         public void setProfileImage(Context ctx, String profileImage) {
@@ -107,14 +115,14 @@ public class FindFriendsActivity extends AppCompatActivity {
             Picasso.with(ctx).load(profileImage).placeholder(R.drawable.profile).into(myImage);
         }
 
-        public void setName(String name) {
-            TextView myName = (TextView) mView.findViewById(R.id.all_users_profile_full_name);
-            myName.setText(name);
+        public void setUsername(String username) {
+            TextView myUsername = (TextView) mView.findViewById(R.id.all_users_profile_username);
+            myUsername.setText(username);
         }
 
-        public void setStatus(String status) {
-            TextView myStatus = (TextView) mView.findViewById(R.id.all_users_status);
-            myStatus.setText(status);
+        public void setBio(String bio) {
+            TextView myBio = (TextView) mView.findViewById(R.id.all_users_status);
+            myBio.setText(bio);
         }
     }
 
