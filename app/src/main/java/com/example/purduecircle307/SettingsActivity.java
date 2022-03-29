@@ -158,10 +158,10 @@ public class SettingsActivity extends AppCompatActivity {
         userMap.put("name", name);
         userMap.put("bio", bio);
         userMap.put("dob", dob);
-        userMap.put("major", "Major");
-        userMap.put("graduationDate", "Graduation Date");
-        userMap.put("gender", "Gender");
-        userMap.put("country", "Country");
+        userMap.put("major", major);
+        userMap.put("graduationDate", graduationDate);
+        userMap.put("gender", gender);
+        userMap.put("country", country);
         userMap.put("profileImage", "Profile Image");
 
         SettingsuserRef.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
