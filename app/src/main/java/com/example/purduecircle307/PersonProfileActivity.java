@@ -89,6 +89,11 @@ public class PersonProfileActivity extends AppCompatActivity {
                     if (CURRENT_STATE.equals("not_friends")) {
                         SendFriendRequestToUser();
                     }
+
+                    //User has sent a request to the other user
+                    if (CURRENT_STATE.equals("request_sent")) {
+                        CancelFriendRequest();
+                    }
                 }
             });
         }
@@ -96,6 +101,30 @@ public class PersonProfileActivity extends AppCompatActivity {
             DeclineFriendRequestButton.setVisibility(View.INVISIBLE);
             SendFriendRequestButton.setVisibility(View.INVISIBLE);
         }
+    }
+
+    private void CancelFriendRequest() {
+        FriendRequestRef.child(senderUserId).child(receiverUserId).removeValue()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            FriendRequestRef.child(receiverUserId).child(senderUserId).removeValue()
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                SendFriendRequestButton.setEnabled(true);
+                                                CURRENT_STATE = "not_friends";
+                                                SendFriendRequestButton.setText("Send Friend Request");
+                                                DeclineFriendRequestButton.setVisibility(View.INVISIBLE);
+                                                DeclineFriendRequestButton.setEnabled(false);
+                                            }
+                                        }
+                                    });
+                        }
+                    }
+                });
     }
 
     private void MaintainanceOfButtons() {
