@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/material_dynamic_neutral70"
+    tools:context=".PersonProfileActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="SpeakableTextPresentCheck">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/person_profile_image"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/profile" />
+
+            <EditText
+                android:id="@+id/person_profile_status"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="I love using Purdue Circle"
+                android:layout_below="@id/person_profile_image"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="40dp"
+                android:hint="Bio"
+                android:padding="30dp"
+                android:textColor="@android:color/background_dark"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                />
+
+            <EditText
+                android:id="@+id/person_profile_username"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/person_profile_status"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="10dp"
+                android:hint="Username"
+                android:padding="12dp"
+                android:textColor="@android:color/background_dark"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                />
+
+            <EditText
+                android:id="@+id/person_profile_full_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/person_profile_username"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginRight="10dp"
+                android:hint="Full Name"
+                android:padding="12dp"
+                android:textColor="@android:color/background_dark"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/person_profile_major"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/person_profile_full_name"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginRight="10dp"
+                android:hint="Major"
+                android:padding="12dp"
+                android:textColor="@android:color/background_dark"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/person_profile_graduationDate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/person_profile_major"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginRight="10dp"
+                android:hint="Graduation Date"
+                android:padding="12dp"
+                android:textColor="@android:color/background_dark"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/person_profile_Gender"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/person_profile_graduationDate"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginRight="10dp"
+                android:hint="Gender"
+                android:padding="12dp"
+                android:textColor="@android:color/background_dark"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/person_send_friend_request_btn"
+                android:layout_width="275dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/person_profile_Gender"
+                android:layout_marginTop="45dp"
+                android:text="Send Friend Request"
+                android:textSize="16sp"
+                app:background="@android:color/holo_green_dark"
+                app:backgroundTint="@android:color/holo_green_dark"
+                android:layout_centerHorizontal="true"/>
+
+            <Button
+                android:id="@+id/person_decline_friend_request_btn"
+                android:layout_width="275dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/person_send_friend_request_btn"
+                android:layout_marginTop="5dp"
+                android:text="Decline Friend Request"
+                android:textSize="16sp"
+                app:background="@android:color/holo_red_dark"
+                app:backgroundTint="@android:color/holo_red_dark"
+                android:layout_centerHorizontal="true"/>
+
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>
