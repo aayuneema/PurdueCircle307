@@ -85,7 +85,7 @@ public class PersonProfileActivity extends AppCompatActivity {
         DeclineFriendRequestButton.setVisibility(View.INVISIBLE);
         DeclineFriendRequestButton.setEnabled(false );
 
-        if (!senderUserId.equals(receiverUserId)) {
+        if (!senderUserId.equals(receiverUserId) && !mAuth.getCurrentUser().isAnonymous()) {
             SendFriendRequestButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
