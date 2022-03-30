@@ -14,6 +14,7 @@
         <entry key="..\:/Users/shery/PurdueCircle307/app/src/main/res/layout/activity_sign_up.xml" value="0.25416666666666665" />
         <entry key="app/src/main/res/layout/activity_browse_tags.xml" value="0.23369565217391305" />
         <entry key="app/src/main/res/layout/activity_click_post.xml" value="0.13728470111448834" />
+        <entry key="app/src/main/res/layout/activity_comments.xml" value="0.13728470111448834" />
         <entry key="app/src/main/res/layout/activity_create_tag.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_delete_account.xml" value="0.1526268115942029" />
         <entry key="app/src/main/res/layout/activity_find_friends.xml" value="0.1" />
@@ -25,6 +26,7 @@
         <entry key="app/src/main/res/layout/activity_public_profile.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_settings.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/all_comments_layout.xml" value="0.13728470111448834" />
         <entry key="app/src/main/res/layout/all_posts_layout.xml" value="0.24282669330198836" />
         <entry key="app/src/main/res/layout/all_users_display_layout.xml" value="0.1" />
         <entry key="app/src/main/res/menu/menu_browsing_tags.xml" value="0.3098958333333333" />
