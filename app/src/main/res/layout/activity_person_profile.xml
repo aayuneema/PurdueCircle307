@@ -25,23 +25,23 @@
                 android:layout_marginTop="10dp"
                 android:src="@drawable/profile" />
 
-            <EditText
+            <TextView
                 android:id="@+id/person_profile_status"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="I love using Purdue Circle"
                 android:layout_below="@id/person_profile_image"
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginRight="40dp"
                 android:hint="Bio"
                 android:padding="30dp"
+                android:text="I love using Purdue Circle"
+                android:gravity="center"
                 android:textColor="@android:color/background_dark"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
 
-            <EditText
+            <TextView
                 android:id="@+id/person_profile_username"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -56,7 +56,7 @@
                 android:textStyle="bold"
                 />
 
-            <EditText
+            <TextView
                 android:id="@+id/person_profile_full_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -70,7 +70,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <EditText
+            <TextView
                 android:id="@+id/person_profile_major"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -84,7 +84,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <EditText
+            <TextView
                 android:id="@+id/person_profile_graduationDate"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -98,7 +98,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <EditText
+            <TextView
                 android:id="@+id/person_profile_Gender"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
