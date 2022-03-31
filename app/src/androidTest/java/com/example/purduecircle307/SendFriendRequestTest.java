@@ -60,12 +60,60 @@ public class SendFriendRequestTest {
     //Test for a user receiving a request
     @Test
     public void receiveRequest() {
+        String senderID = "";
+        String receiverID = "";
+        FriendRequestRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                boolean works = false;
+                Map<String, Object> users = (Map<String, Object>) snapshot.getValue();
+                for (Map.Entry<String, Object> entry : users.entrySet()) {
+                    if (receiverID.equals(entry.getKey())) {
+                        Map<String, String> requesters = (Map) entry.getValue();
+                        for (Map.Entry<String, String> entry1 : requesters.entrySet()) {
+                            if (senderID.equals(entry1.getKey())) {
+                                works = true;
+                            }
+                        }
+                    }
+                }
+                assertEquals(true, works);
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     //Test for users that are friends
     @Test
     public void alreadyFriends() {
+        String userOne = "7HhmHeAMHpWbvlKVq0dj4jI3kP53";
+        String userTwo = "GThc7hhTfZUdjq4sMcCyZhPOFN32";
+        FriendRequestRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                boolean works = false;
+                Map<String, Object> users = (Map<String, Object>) snapshot.getValue();
+                for (Map.Entry<String, Object> entry : users.entrySet()) {
+                    if (userOne.equals(entry.getKey())) {
+                        Map<String, String> requesters = (Map) entry.getValue();
+                        for (Map.Entry<String, String> entry1 : requesters.entrySet()) {
+                            if (userTwo.equals(entry1.getKey())) {
+                                works = true;
+                            }
+                        }
+                    }
+                }
+                assertEquals(false, works);
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
