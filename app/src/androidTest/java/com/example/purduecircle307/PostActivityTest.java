@@ -42,8 +42,7 @@ public class PostActivityTest {
     }
 
     @Test
-    public void testPostCreation() {
-
+    public void testScroll() {
     }
 
     @After
