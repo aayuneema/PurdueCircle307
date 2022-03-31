@@ -156,7 +156,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void displayAllUsersPosts() {
 
-        Query SortPostsInDescendingOrder = PostsRef.orderByChild("counter");
+        Query SortPostsInDescendingOrder;
+        if (isGuestUser) {
+            SortPostsInDescendingOrder = PostsRef.orderByChild("counter").limitToLast(5);
+        }
+        else {
+            SortPostsInDescendingOrder = PostsRef.orderByChild("counter");
+        }
+
 
         /*Posts.class,
                 R.layout.all_posts_layout,
