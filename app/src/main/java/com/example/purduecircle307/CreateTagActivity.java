@@ -56,7 +56,8 @@ public class CreateTagActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                String message = error.getMessage();
+                Toast.makeText(CreateTagActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
             }
         });
 

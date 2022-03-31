@@ -1,5 +1,13 @@
 package com.example.purduecircle307;
 
+import static androidx.test.espresso.Espresso.onData;
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.anything;
 import static org.junit.Assert.*;
 
 import android.view.View;
@@ -8,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.test.espresso.action.ViewActions;
 import androidx.test.rule.ActivityTestRule;
 
 import org.junit.After;
@@ -23,43 +32,27 @@ public class BrowseTagsActivityTest {
     @Rule
     public ActivityTestRule<BrowseTagsActivity> browseTagsActivityTestRule = new ActivityTestRule<BrowseTagsActivity>(BrowseTagsActivity.class);
 
-    private BrowseTagsActivity browseTagsActivity = null;
+    private BrowseTagsActivity browseTagsActivity;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         browseTagsActivity = browseTagsActivityTestRule.getActivity();
     }
 
     @Test
     public void testLaunch() {
-        View view = browseTagsActivity.findViewById(R.id.tag_list_view);
-        assertTrue(view.getVisibility() == View.VISIBLE);
-        assertNotNull(view);
+        onView(withId(R.id.tag_list_view)).check(matches(isCompletelyDisplayed()));
+    }
+
+    @Test
+    public void isScrollable() {
+        onView(withId(R.id.tag_list_view))
+                .perform(ViewActions.swipeUp());
     }
 
     @Test
     public void checkTagsInsideList() {
-        browseTagsActivity.runOnUiThread(new Runnable() {
-
-            @Override
-            public void run() {
-
-                /*List<String> testTags = new ArrayList<String>();
-                for (int i = 0; i < 100; i++) {
-                    testTags.add("tag" + i);
-                }
-                browseTagsActivity = browseTagsActivityTestRule.getActivity();
-                ArrayAdapter<String> tagsAdapter = new ArrayAdapter<String>(browseTagsActivity, android.R.layout.simple_list_item_1, testTags);
-                ListView tagsList = browseTagsActivity.findViewById(R.id.tag_list_view);
-                tagsList.setAdapter(tagsAdapter);
-
-                for (int i = 0; i < tagsList.getCount(); i++) {
-                    tagsList.performClick(tagsList.getAdapter().getView(i, null, null),
-                            position, list.getAdapter().getItemId(position))
-                }*/
-
-            }
-        });
+        onData(anything()).inAdapterView(withId(R.id.tag_list_view)).atPosition(0).perform(click());
     }
 
     @After
