@@ -15,9 +15,16 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.rule.ActivityTestRule;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.junit.After;
 import org.junit.Before;
@@ -33,9 +40,24 @@ public class BrowseTagsActivityTest {
     public ActivityTestRule<BrowseTagsActivity> browseTagsActivityTestRule = new ActivityTestRule<BrowseTagsActivity>(BrowseTagsActivity.class);
 
     private BrowseTagsActivity browseTagsActivity;
+    private FirebaseAuth mAuth;
 
     @Before
     public void setUp() {
+        mAuth = FirebaseAuth.getInstance();
+
+        if (mAuth.getCurrentUser() == null) {
+            mAuth.signInWithEmailAndPassword("aayu123@gmail.com", "test123!")
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (!task.isSuccessful()) {
+                                fail();
+                            }
+                        }
+                    });
+        }
+
         browseTagsActivity = browseTagsActivityTestRule.getActivity();
     }
 
@@ -50,13 +72,9 @@ public class BrowseTagsActivityTest {
                 .perform(ViewActions.swipeUp());
     }
 
-    @Test
-    public void checkTagsInsideList() {
-        onData(anything()).inAdapterView(withId(R.id.tag_list_view)).atPosition(0).perform(click());
-    }
-
     @After
     public void tearDown() throws Exception {
+        mAuth.signOut();
         browseTagsActivity = null;
     }
 }
