@@ -20,12 +20,13 @@
         <entry key="app/src/main/res/layout/activity_find_friends.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.1526268115942029" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_person_profile.xml" value="0.11041666666666666" />
+        <entry key="app/src/main/res/layout/activity_person_profile.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_post.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.1453804347826087" />
         <entry key="app/src/main/res/layout/activity_public_profile.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_settings.xml" value="0.196746826171875" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_user_profile_post.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/all_comments_layout.xml" value="0.13728470111448834" />
         <entry key="app/src/main/res/layout/all_posts_layout.xml" value="0.24282669330198836" />
         <entry key="app/src/main/res/layout/all_users_display_layout.xml" value="0.1" />
