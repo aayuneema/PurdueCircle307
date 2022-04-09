@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PurdueCircle307">
         <activity
+            android:name=".UserInteractions"
+            android:exported="false" />
+        <activity
             android:name=".UserProfilePostActivity"
             android:exported="false" />
         <activity

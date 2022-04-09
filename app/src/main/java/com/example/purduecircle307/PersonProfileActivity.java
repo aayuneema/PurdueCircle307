@@ -39,7 +39,8 @@ public class PersonProfileActivity extends AppCompatActivity {
     private String saveCurrentDate;
     private boolean isGuestUser = false;
 
-    private Button SendFriendRequestButton, DeclineFriendRequestButton, ViewCreatedPostsButton;
+    private Button SendFriendRequestButton, DeclineFriendRequestButton, 
+            ViewPostsButton, ViewInteractionsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +60,10 @@ public class PersonProfileActivity extends AppCompatActivity {
         InitializeFields();
 
         if (receiverUserId.equals(senderUserId)) {
-            ViewCreatedPostsButton.setVisibility(View.INVISIBLE);
-            ViewCreatedPostsButton.setEnabled(false);
+            ViewPostsButton.setVisibility(View.INVISIBLE);
+            ViewPostsButton.setEnabled(false);
+            ViewInteractionsButton.setVisibility(View.INVISIBLE);
+            ViewInteractionsButton.setEnabled(false);
         }
 
         UsersRef.child(receiverUserId).addValueEventListener(new ValueEventListener() {
@@ -93,10 +96,17 @@ public class PersonProfileActivity extends AppCompatActivity {
             }
         });
 
-        ViewCreatedPostsButton.setOnClickListener(new View.OnClickListener() {
+        ViewPostsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sendUserToPostActivity();
+            }
+        });
+
+        ViewInteractionsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendUserToInteractionsActivity();
             }
         });
         
@@ -312,7 +322,8 @@ public class PersonProfileActivity extends AppCompatActivity {
         userProfileImage = (CircleImageView) findViewById(R.id.person_profile_image);
         SendFriendRequestButton = (Button) findViewById(R.id.person_send_friend_request_btn);
         DeclineFriendRequestButton = (Button) findViewById(R.id.person_decline_friend_request_btn);
-        ViewCreatedPostsButton = (Button) findViewById(R.id.view_posts_button);
+        ViewPostsButton = (Button) findViewById(R.id.view_posts_button);
+        ViewInteractionsButton = (Button) findViewById(R.id.view_interactions_button);
 
         CURRENT_STATE = "not_friends";
     }
@@ -325,6 +336,17 @@ public class PersonProfileActivity extends AppCompatActivity {
             Intent userPostIntent = new Intent(PersonProfileActivity.this, UserProfilePostActivity.class);
             userPostIntent.putExtra("visit_user_id", receiverUserId);
             startActivity(userPostIntent);
+        }
+    }
+
+    private void sendUserToInteractionsActivity() {
+        if (isGuestUser) {
+            Toast.makeText(PersonProfileActivity.this, "Please sign in to use this feature.", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Intent userInteractionsIntent = new Intent(PersonProfileActivity.this, UserInteractions.class);
+            userInteractionsIntent.putExtra("visit_user_id", receiverUserId);
+            startActivity(userInteractionsIntent);
         }
     }
 }

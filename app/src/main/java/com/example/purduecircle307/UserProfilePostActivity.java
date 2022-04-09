@@ -37,6 +37,7 @@ public class UserProfilePostActivity extends AppCompatActivity {
     Boolean LikeChecker = false;
     private String senderUserId;
     private String receiverUserId;
+    private String postId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +55,16 @@ public class UserProfilePostActivity extends AppCompatActivity {
         PostsRef = FirebaseDatabase.getInstance().getReference().child("Posts");
         LikesRef = FirebaseDatabase.getInstance().getReference().child("Likes");
         senderUserId = mAuth.getCurrentUser().getUid();
-        receiverUserId = getIntent().getExtras().get("visit_user_id").toString();
-
+        Object receiverObject = getIntent().getExtras().get("visit_user_id");
+        Object postObject =  getIntent().getExtras().get("visit_post_id");
+        if (receiverObject == null) {
+            postId = postObject.toString();
+            receiverUserId = null;
+        }
+        else {
+            receiverUserId = receiverObject.toString();
+            postId = null;
+        }
 
         displayAllUsersPosts();
     }
@@ -63,11 +72,16 @@ public class UserProfilePostActivity extends AppCompatActivity {
     private void displayAllUsersPosts() {
 
         Query SortPostsInDescendingOrder;
-        SortPostsInDescendingOrder = PostsRef.orderByChild("uid").equalTo(receiverUserId);
+        if (receiverUserId == null) {
+            SortPostsInDescendingOrder = PostsRef.orderByKey().equalTo(postId);
+        }
+        else {
+            SortPostsInDescendingOrder = PostsRef.orderByChild("uid").equalTo(receiverUserId);
+        }
 
         FirebaseRecyclerOptions<Posts> options =
                 new FirebaseRecyclerOptions.Builder<Posts>()
-                        .setQuery(SortPostsInDescendingOrder , Posts.class)
+                        .setQuery(SortPostsInDescendingOrder, Posts.class)
                         .build();
         FirebaseRecyclerAdapter<Posts, PostsViewHolder> firebaseRecyclerAdapter =
                 new FirebaseRecyclerAdapter<Posts, PostsViewHolder>(options) {
