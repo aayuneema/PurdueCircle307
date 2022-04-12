@@ -85,8 +85,8 @@ public class UserInteractions extends AppCompatActivity {
                             String text = "\uD83D\uDCAC Commented on " + creator + "'s post on "
                                     + date + " at " + time;
                             interactionTextComment.add(text);
+                            break;
                         }
-                        break;
                     }
                 }
                 updatePosts();
@@ -149,8 +149,8 @@ public class UserInteractions extends AppCompatActivity {
 
                                 }
                             });
+                            break;
                         }
-                        break;
                     }
                 }
             }
