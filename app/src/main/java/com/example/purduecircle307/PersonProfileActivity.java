@@ -1,13 +1,12 @@
 package com.example.purduecircle307;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -292,7 +291,7 @@ public class PersonProfileActivity extends AppCompatActivity {
         userGender = (TextView) findViewById(R.id.person_profile_Gender);
         userGraduationDate = (TextView) findViewById(R.id.person_profile_graduationDate);
         userProfileImage = (CircleImageView) findViewById(R.id.person_profile_image);
-        SendFriendRequestButton = (Button) findViewById(R.id.person_send_friend_request_btn);
+        SendFriendRequestButton = (Button) findViewById(R.id.follow_tag_btn);
         DeclineFriendRequestButton = (Button) findViewById(R.id.person_decline_friend_request_btn);
 
         CURRENT_STATE = "not_friends";

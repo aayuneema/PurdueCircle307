@@ -28,6 +28,7 @@
         <entry key="app/src/main/res/layout/activity_public_profile.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_settings.xml" value="0.196746826171875" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_tag_profile.xml" value="0.1671875" />
         <entry key="app/src/main/res/layout/all_comments_layout.xml" value="0.13728470111448834" />
         <entry key="app/src/main/res/layout/all_posts_layout.xml" value="0.24282669330198836" />
         <entry key="app/src/main/res/layout/all_tags_display_layout.xml" value="0.15358683268229162" />

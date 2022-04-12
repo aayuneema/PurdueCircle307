@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PurdueCircle307">
         <activity
+            android:name=".TagProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".FindTagsActivity"
             android:exported="false" />
         <activity

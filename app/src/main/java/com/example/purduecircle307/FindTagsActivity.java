@@ -1,6 +1,7 @@
 package com.example.purduecircle307;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -96,10 +97,10 @@ public class FindTagsActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 String visit_tag_id = getRef(position).getKey();
-                                System.out.println(visit_tag_id);
-//                                Intent tagIntent = new Intent(FindTagsActivity.this, TagProfileActivity.class);
-//                                tagIntent.putExtra("visit_tag_id", visit_tag_id);
-//                                startActivity(tagIntent);
+                                //System.out.println(visit_tag_id);
+                                Intent tagIntent = new Intent(FindTagsActivity.this, TagProfileActivity.class);
+                                tagIntent.putExtra("visit_tag_id", visit_tag_id);
+                                startActivity(tagIntent);
                             }
                         });
                     }
