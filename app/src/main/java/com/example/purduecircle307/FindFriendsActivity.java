@@ -77,7 +77,6 @@ public class FindFriendsActivity extends AppCompatActivity {
                 new FirebaseRecyclerAdapter<FindFriends, FindFriendsViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull FindFriendsViewHolder holder, @SuppressLint("RecyclerView") int position, @NonNull FindFriends model) {
-                System.out.println("HELLO DSFSDLHSDL");
                 holder.userName.setText("@" + model.getUsername());
                 holder.bio.setText(model.getBio());
                 Picasso.with(getApplicationContext()).load(model.getProfileImage()).placeholder(R.drawable.profile).into(holder.profileImage);

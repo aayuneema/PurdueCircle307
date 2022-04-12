@@ -371,6 +371,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Friends", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_tags:
+                SendUserToTagsActivity();
                 Toast.makeText(this, "Tags", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_find_friends:
@@ -378,6 +379,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Find Friends", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_find_tags:
+                SendUserToFindTagsActivity();
                 Toast.makeText(this, "Find Tags", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_settings:
@@ -432,6 +434,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(friendsIntent);
     }
 
+    private void SendUserToTagsActivity() {
+        Intent tagsIntent = new Intent(MainActivity.this, TagsActivity.class);
+        startActivity(tagsIntent);
+    }
+
     private void SendUserToSettingsActivity() {
         Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
         startActivity(settingsIntent);
@@ -445,6 +452,11 @@ public class MainActivity extends AppCompatActivity {
     private void SendUserToFindFriendsActivity() {
         Intent findFriendsIntent = new Intent(MainActivity.this, FindFriendsActivity.class);
         startActivity(findFriendsIntent);
+    }
+
+    private void SendUserToFindTagsActivity() {
+        Intent findTagsIntent = new Intent(MainActivity.this, FindTagsActivity.class);
+        startActivity(findTagsIntent);
     }
 
     //Checks authentication of user
