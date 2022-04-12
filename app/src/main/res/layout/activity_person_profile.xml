@@ -120,8 +120,8 @@
                 android:layout_marginTop="45dp"
                 android:text="Send Friend Request"
                 android:textSize="16sp"
-                app:background="@android:color/holo_green_dark"
-                app:backgroundTint="@android:color/holo_green_dark"
+                app:background="@android:color/holo_green_light"
+                app:backgroundTint="@android:color/holo_green_light"
                 android:layout_centerHorizontal="true"/>
 
             <Button
@@ -132,9 +132,21 @@
                 android:layout_marginTop="5dp"
                 android:text="Decline Friend Request"
                 android:textSize="16sp"
-                app:background="@android:color/holo_red_dark"
-                app:backgroundTint="@android:color/holo_red_dark"
+                app:background="@android:color/holo_red_light"
+                app:backgroundTint="@android:color/holo_red_light"
                 android:layout_centerHorizontal="true"/>
+
+            <Button
+                android:id="@+id/person_block_btn"
+                android:layout_width="275dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/person_decline_friend_request_btn"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:text="Block User"
+                android:textSize="16sp"
+                app:background="@android:color/holo_red_dark"
+                app:backgroundTint="@android:color/holo_red_dark" />
 
             <Button
                 android:id="@+id/view_posts_button"
