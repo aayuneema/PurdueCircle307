@@ -69,6 +69,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
                      @Override
                      public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                          if (dataSnapshot.exists()) {
+                             System.out.println("hehehe");
                              final String username = "@" + dataSnapshot.child("username").getValue().toString();
                              final String profileimage = dataSnapshot.child("profileImage").getValue().toString();
                              final String bio = dataSnapshot.child("bio").getValue().toString();

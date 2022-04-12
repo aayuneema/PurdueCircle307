@@ -31,6 +31,7 @@ public class TagProfileActivity extends AppCompatActivity {
 
     private String senderUserId;
     private String tagId;
+    String tag;
     private String CURRENT_STATE;
     private String saveCurrentDate;
 
@@ -69,7 +70,7 @@ public class TagProfileActivity extends AppCompatActivity {
                         @Override
                         public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                             if (snapshot.getKey().equals(tagId)) {
-                                String tag = snapshot.getValue().toString();
+                                tag = snapshot.getValue().toString();
                                 tagTextView.setText("#" + tag);
                                 MaintainanceOfButtons();
                             }
@@ -148,8 +149,7 @@ public class TagProfileActivity extends AppCompatActivity {
         Calendar calFordDate = Calendar.getInstance();
         SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMMM-yyyy");
         saveCurrentDate = currentDate.format(calFordDate.getTime());
-
-        UserTagsRef.child(senderUserId).child(tagId).child("date").setValue(saveCurrentDate).addOnCompleteListener(new OnCompleteListener<Void>() {
+        UserTagsRef.child(senderUserId).child(tag).child("date").setValue(saveCurrentDate).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {

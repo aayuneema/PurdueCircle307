@@ -127,11 +127,11 @@ public class FindTagsActivity extends AppCompatActivity {
             super(itemView);
             mView = itemView;
 
-            tag = mView.findViewById(R.id.all_tags);
+            tag = mView.findViewById(R.id.all_tags_tag_name);
         }
 
         public void setTag(String bio) {
-            TextView myTag = (TextView) mView.findViewById(R.id.all_tags);
+            TextView myTag = (TextView) mView.findViewById(R.id.all_tags_tag_name);
             myTag.setText(bio);
         }
     }
