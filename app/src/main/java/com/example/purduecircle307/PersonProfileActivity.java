@@ -1,9 +1,14 @@
 package com.example.purduecircle307;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,8 +39,10 @@ public class PersonProfileActivity extends AppCompatActivity {
     private String receiverUserId;
     private String CURRENT_STATE;
     private String saveCurrentDate;
+    private boolean isGuestUser = false;
 
-    private Button SendFriendRequestButton, DeclineFriendRequestButton;
+    private Button SendFriendRequestButton, DeclineFriendRequestButton, 
+            ViewPostsButton, ViewInteractionsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +50,9 @@ public class PersonProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_person_profile);
 
         mAuth = FirebaseAuth.getInstance();
+        if (mAuth.getCurrentUser().isAnonymous())  {
+            isGuestUser = true;
+        }
         senderUserId = mAuth.getCurrentUser().getUid();
         receiverUserId = getIntent().getExtras().get("visit_user_id").toString();
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -50,6 +60,13 @@ public class PersonProfileActivity extends AppCompatActivity {
         FriendsRef = FirebaseDatabase.getInstance().getReference().child("Friends");
 
         InitializeFields();
+
+        if (receiverUserId.equals(senderUserId)) {
+            ViewPostsButton.setVisibility(View.INVISIBLE);
+            ViewPostsButton.setEnabled(false);
+            ViewInteractionsButton.setVisibility(View.INVISIBLE);
+            ViewInteractionsButton.setEnabled(false);
+        }
 
         UsersRef.child(receiverUserId).addValueEventListener(new ValueEventListener() {
             @Override
@@ -80,9 +97,23 @@ public class PersonProfileActivity extends AppCompatActivity {
 
             }
         });
+
+        ViewPostsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendUserToPostActivity();
+            }
+        });
+
+        ViewInteractionsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendUserToInteractionsActivity();
+            }
+        });
         
         DeclineFriendRequestButton.setVisibility(View.INVISIBLE);
-        DeclineFriendRequestButton.setEnabled(false );
+        DeclineFriendRequestButton.setEnabled(false);
 
         if (!senderUserId.equals(receiverUserId) && !mAuth.getCurrentUser().isAnonymous()) {
             SendFriendRequestButton.setOnClickListener(new View.OnClickListener() {
@@ -293,7 +324,31 @@ public class PersonProfileActivity extends AppCompatActivity {
         userProfileImage = (CircleImageView) findViewById(R.id.person_profile_image);
         SendFriendRequestButton = (Button) findViewById(R.id.follow_tag_btn);
         DeclineFriendRequestButton = (Button) findViewById(R.id.person_decline_friend_request_btn);
+        ViewPostsButton = (Button) findViewById(R.id.view_posts_button);
+        ViewInteractionsButton = (Button) findViewById(R.id.view_interactions_button);
 
         CURRENT_STATE = "not_friends";
+    }
+
+    private void sendUserToPostActivity() {
+        if (isGuestUser) {
+            Toast.makeText(PersonProfileActivity.this, "Please sign in to use this feature.", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Intent userPostIntent = new Intent(PersonProfileActivity.this, UserProfilePostActivity.class);
+            userPostIntent.putExtra("visit_user_id", receiverUserId);
+            startActivity(userPostIntent);
+        }
+    }
+
+    private void sendUserToInteractionsActivity() {
+        if (isGuestUser) {
+            Toast.makeText(PersonProfileActivity.this, "Please sign in to use this feature.", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Intent userInteractionsIntent = new Intent(PersonProfileActivity.this, UserInteractions.class);
+            userInteractionsIntent.putExtra("visit_user_id", receiverUserId);
+            startActivity(userInteractionsIntent);
+        }
     }
 }

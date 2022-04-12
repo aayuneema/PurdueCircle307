@@ -64,7 +64,7 @@ public class FindFriendsActivity extends AppCompatActivity {
     }
 
     private void searchFriends(String searchBoxInput) {
-        Toast.makeText(this, "Searching...", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Searching...", Toast.LENGTH_LONG).show();
 
         //Query searchFriendsQuery = allUsersDatabaseRef.orderByChild("name")
                 //.startAt(searchBoxInput).endAt(searchBoxInput + "\uf8ff");
