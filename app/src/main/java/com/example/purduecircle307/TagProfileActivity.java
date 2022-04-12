@@ -212,14 +212,14 @@ public class TagProfileActivity extends AppCompatActivity {
             Toast.makeText(TagProfileActivity.this, "Please sign in to use this feature.", Toast.LENGTH_SHORT).show();
         }
         else {
-            Intent userPostIntent = new Intent(TagProfileActivity.this, UserProfilePostActivity.class);
+            Intent tagPostIntent = new Intent(TagProfileActivity.this, UserProfilePostActivity.class);
             DatabaseReference TagRef = TagsRef.child(tagId);
             TagRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     String tagValue = dataSnapshot.getValue(String.class);
-                    userPostIntent.putExtra("visit_tag_value", tagValue);
-                    startActivity(userPostIntent);
+                    tagPostIntent.putExtra("visit_tag_value", tagValue);
+                    startActivity(tagPostIntent);
                 }
 
                 @Override

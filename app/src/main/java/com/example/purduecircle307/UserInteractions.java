@@ -129,7 +129,18 @@ public class UserInteractions extends AppCompatActivity {
                                         text = "❤️ Liked " + creator + "'s post, along with "
                                                 + likeCount + " other users";
                                     }
-                                    interactionTextLike.add(text);
+                                    int index = -1;
+                                    for (int i = 0; i < interactionTypeLike.size(); i++) {
+                                        if (postKey.equals(interactionTypeLike.get(i)[0])) {
+                                            index = i;
+                                        }
+                                    }
+                                    if (index != -1 && interactionTextLike.size() > index) {
+                                        //DO NOTHING
+                                    }
+                                    else {
+                                        interactionTextLike.add(text);
+                                    }
                                     updatePosts();
                                 }
 

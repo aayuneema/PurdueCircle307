@@ -1,10 +1,12 @@
 package com.example.purduecircle307;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,9 +16,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class TagsActivity extends AppCompatActivity {
 
@@ -59,6 +64,15 @@ public class TagsActivity extends AppCompatActivity {
                 System.out.println("USERIDS: " + usersIDs);
                 final String tag = "#" + usersIDs;
                 tagsViewHolder.setTag(tag);
+
+                tagsViewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent tagPostIntent = new Intent(TagsActivity.this, UserProfilePostActivity.class);
+                        tagPostIntent.putExtra("visit_tag_value", usersIDs);
+                        startActivity(tagPostIntent);
+                    }
+                });
             }
 
             public TagsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
