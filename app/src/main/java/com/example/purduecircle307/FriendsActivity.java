@@ -1,7 +1,9 @@
  package com.example.purduecircle307;
 
+ import android.annotation.SuppressLint;
  import android.content.Context;
-import android.os.Bundle;
+ import android.content.Intent;
+ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,7 +62,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
          FirebaseRecyclerAdapter adapter = new FirebaseRecyclerAdapter<Friends, FriendsViewHolder>(options) {
              @Override
-             protected void onBindViewHolder(@NonNull final FriendsViewHolder friendsViewHolder, int position, @NonNull Friends friends) {
+             protected void onBindViewHolder(@NonNull final FriendsViewHolder friendsViewHolder, @SuppressLint("RecyclerView") int position, @NonNull Friends friends) {
 
                  //friendsViewHolder.setDate(friends.getDate());
                  final String usersIDs = getRef(position).getKey();
@@ -83,6 +85,17 @@ import de.hdodenhof.circleimageview.CircleImageView;
                      @Override
                      public void onCancelled(@NonNull DatabaseError databaseError) {
 
+                     }
+                 });
+
+                 friendsViewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                     @Override
+                     public void onClick(View view) {
+                         String visit_user_id = getRef(position).getKey();
+
+                         Intent profileIntent = new Intent(FriendsActivity.this, PersonProfileActivity.class);
+                         profileIntent.putExtra("visit_user_id", visit_user_id);
+                         startActivity(profileIntent);
                      }
                  });
              }
