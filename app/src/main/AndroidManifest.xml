@@ -18,6 +18,21 @@
             android:name=".UserProfilePostActivity"
             android:exported="false" />
         <activity
+            android:name=".TagProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FindTagsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TagsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FriendsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ChatActivity"
+            android:exported="false" />
+        <activity
             android:name=".PersonProfileActivity"
             android:exported="false" />
         <activity

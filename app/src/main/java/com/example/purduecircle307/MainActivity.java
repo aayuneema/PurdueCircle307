@@ -3,20 +3,9 @@ package com.example.purduecircle307;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.RecoverySystem;
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,8 +14,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
-//import android.support.v7.widget.Toolbar;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -41,11 +36,9 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
-import java.io.File;
-
 import de.hdodenhof.circleimageview.CircleImageView;
+
+//import android.support.v7.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -374,9 +367,11 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.nav_friends:
+                SendUserToFriendsActivity();
                 Toast.makeText(this, "Friends", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_tags:
+                SendUserToTagsActivity();
                 Toast.makeText(this, "Tags", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_find_friends:
@@ -384,6 +379,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Find Friends", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_find_tags:
+                SendUserToFindTagsActivity();
                 Toast.makeText(this, "Find Tags", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_settings:
@@ -433,6 +429,16 @@ public class MainActivity extends AppCompatActivity {
         alert.show();
     }
 
+    private void SendUserToFriendsActivity() {
+        Intent friendsIntent = new Intent(MainActivity.this, FriendsActivity.class);
+        startActivity(friendsIntent);
+    }
+
+    private void SendUserToTagsActivity() {
+        Intent tagsIntent = new Intent(MainActivity.this, TagsActivity.class);
+        startActivity(tagsIntent);
+    }
+
     private void SendUserToSettingsActivity() {
         Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
         startActivity(settingsIntent);
@@ -446,6 +452,11 @@ public class MainActivity extends AppCompatActivity {
     private void SendUserToFindFriendsActivity() {
         Intent findFriendsIntent = new Intent(MainActivity.this, FindFriendsActivity.class);
         startActivity(findFriendsIntent);
+    }
+
+    private void SendUserToFindTagsActivity() {
+        Intent findTagsIntent = new Intent(MainActivity.this, FindTagsActivity.class);
+        startActivity(findTagsIntent);
     }
 
     //Checks authentication of user
