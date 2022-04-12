@@ -22,7 +22,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 
 public class TagProfileActivity extends AppCompatActivity {
@@ -127,7 +126,7 @@ public class TagProfileActivity extends AppCompatActivity {
             }
         });
 
-        if (!senderUserId.equals(tagId) && !mAuth.getCurrentUser().isAnonymous()) {
+        if (!senderUserId.equals(tag) && !mAuth.getCurrentUser().isAnonymous()) {
             FollowButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -150,7 +149,7 @@ public class TagProfileActivity extends AppCompatActivity {
     }
 
     private void UnfollowTag() {
-        UserTagsRef.child(senderUserId).child(tagId).removeValue()
+        UserTagsRef.child(senderUserId).child(tag).removeValue()
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
