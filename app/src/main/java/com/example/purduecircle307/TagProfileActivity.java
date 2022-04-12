@@ -1,9 +1,11 @@
 package com.example.purduecircle307;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,6 +38,9 @@ public class TagProfileActivity extends AppCompatActivity {
     private String saveCurrentDate;
 
     private Button FollowButton;
+    private Button ViewPostsButton;
+
+    private Boolean isGuestUser = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +48,16 @@ public class TagProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tag_profile);
 
         mAuth = FirebaseAuth.getInstance();
+        if (mAuth.getCurrentUser().isAnonymous())  {
+            isGuestUser = true;
+        }
         senderUserId = mAuth.getCurrentUser().getUid();
         tagId = getIntent().getExtras().get("visit_tag_id").toString();
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
         TagsRef = FirebaseDatabase.getInstance().getReference().child("Tags");
         UserTagsRef = FirebaseDatabase.getInstance().getReference().child("UsersTags");
+        FollowButton = (Button) findViewById(R.id.follow_tag_btn);
+        ViewPostsButton = (Button) findViewById(R.id.view_tag_posts);
 
         InitializeFields();
 
@@ -106,6 +116,13 @@ public class TagProfileActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+
+        ViewPostsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendUserToPostActivity();
             }
         });
 
@@ -187,5 +204,16 @@ public class TagProfileActivity extends AppCompatActivity {
         FollowButton = (Button) findViewById(R.id.follow_tag_btn);
 
         CURRENT_STATE = "not_following";
+    }
+
+    private void sendUserToPostActivity() {
+        if (isGuestUser) {
+            Toast.makeText(TagProfileActivity.this, "Please sign in to use this feature.", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Intent userPostIntent = new Intent(TagProfileActivity.this, UserProfilePostActivity.class);
+            userPostIntent.putExtra("visit_tag_id", tagId);
+            startActivity(userPostIntent);
+        }
     }
 }

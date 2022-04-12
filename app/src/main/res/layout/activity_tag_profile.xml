@@ -43,6 +43,18 @@
                 app:background="@android:color/holo_green_dark"
                 app:backgroundTint="@android:color/holo_green_dark" />
 
+            <Button
+                android:id="@+id/view_tag_posts"
+                android:layout_width="275dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/follow_tag_btn"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="50dp"
+                android:text="View Posts"
+                android:textSize="16sp"
+                app:background="@android:color/holo_green_dark"
+                app:backgroundTint="@android:color/holo_green_dark" />
+
         </RelativeLayout>
     </ScrollView>
 
