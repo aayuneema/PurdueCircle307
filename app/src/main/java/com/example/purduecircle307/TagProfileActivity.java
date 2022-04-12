@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class TagProfileActivity extends AppCompatActivity {
@@ -212,8 +213,20 @@ public class TagProfileActivity extends AppCompatActivity {
         }
         else {
             Intent userPostIntent = new Intent(TagProfileActivity.this, UserProfilePostActivity.class);
-            userPostIntent.putExtra("visit_tag_id", tagId);
-            startActivity(userPostIntent);
+            DatabaseReference TagRef = TagsRef.child(tagId);
+            TagRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String tagValue = dataSnapshot.getValue(String.class);
+                    userPostIntent.putExtra("visit_tag_value", tagValue);
+                    startActivity(userPostIntent);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
         }
     }
 }

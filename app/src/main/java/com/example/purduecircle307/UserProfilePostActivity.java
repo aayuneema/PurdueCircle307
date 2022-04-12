@@ -27,17 +27,20 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserProfilePostActivity extends AppCompatActivity {
 
     private RecyclerView postList;
-    private DatabaseReference PostsRef, LikesRef;
+    private DatabaseReference PostsRef, LikesRef, TagsRef;
     private FirebaseAuth mAuth;
     Boolean LikeChecker = false;
     private String senderUserId;
     private String receiverUserId;
-    private String postId;
+    private String userPostId;
+    private String tagPostValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,16 +57,26 @@ public class UserProfilePostActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         PostsRef = FirebaseDatabase.getInstance().getReference().child("Posts");
         LikesRef = FirebaseDatabase.getInstance().getReference().child("Likes");
+        TagsRef = FirebaseDatabase.getInstance().getReference().child("Tags");
         senderUserId = mAuth.getCurrentUser().getUid();
         Object receiverObject = getIntent().getExtras().get("visit_user_id");
-        Object postObject =  getIntent().getExtras().get("visit_post_id");
-        if (receiverObject == null) {
-            postId = postObject.toString();
+        Object userPostObject =  getIntent().getExtras().get("visit_post_id");
+        Object tagPostObject = getIntent().getExtras().get("visit_tag_value");
+        if (receiverObject != null ) {
+            receiverUserId = receiverObject.toString();
+            userPostId = null;
+            tagPostValue = null;
+        }
+        else if (userPostObject != null) {
             receiverUserId = null;
+            userPostId = userPostObject.toString();
+            tagPostValue = null;
         }
         else {
-            receiverUserId = receiverObject.toString();
-            postId = null;
+            System.out.println("IN HERE");
+            receiverUserId = null;
+            userPostId = null;
+            tagPostValue = tagPostObject.toString();
         }
 
         displayAllUsersPosts();
@@ -72,11 +85,15 @@ public class UserProfilePostActivity extends AppCompatActivity {
     private void displayAllUsersPosts() {
 
         Query SortPostsInDescendingOrder;
-        if (receiverUserId == null) {
-            SortPostsInDescendingOrder = PostsRef.orderByKey().equalTo(postId);
+        if (receiverUserId != null) {
+            SortPostsInDescendingOrder = PostsRef.orderByChild("uid").equalTo(receiverUserId);
+        }
+        else if (userPostId != null) {
+            SortPostsInDescendingOrder = PostsRef.orderByKey().equalTo(userPostId);
         }
         else {
-            SortPostsInDescendingOrder = PostsRef.orderByChild("uid").equalTo(receiverUserId);
+            System.out.println(tagPostValue);
+            SortPostsInDescendingOrder = PostsRef.orderByChild("tag").equalTo(tagPostValue);
         }
 
         FirebaseRecyclerOptions<Posts> options =
