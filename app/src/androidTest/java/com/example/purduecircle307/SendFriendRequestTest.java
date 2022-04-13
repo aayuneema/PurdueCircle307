@@ -30,8 +30,8 @@ public class SendFriendRequestTest {
     //Test for a user sending a request
     @Test
     public void sendRequest() {
-        String senderID = "";
-        String receiverID = "";
+        String senderID = "zeF5hqL5FnWOOJrv8FOkKN9ct7n2";
+        String receiverID = "mw0HYxn7Ykb0WXbYVc7xoRBIXl62";
         FriendRequestRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -60,8 +60,8 @@ public class SendFriendRequestTest {
     //Test for a user receiving a request
     @Test
     public void receiveRequest() {
-        String senderID = "";
-        String receiverID = "";
+        String senderID = "zeF5hqL5FnWOOJrv8FOkKN9ct7n2";
+        String receiverID = "mw0HYxn7Ykb0WXbYVc7xoRBIXl62";
         FriendRequestRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

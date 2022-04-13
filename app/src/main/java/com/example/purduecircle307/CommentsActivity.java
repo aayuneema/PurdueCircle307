@@ -1,10 +1,5 @@
 package com.example.purduecircle307;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -15,6 +10,11 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,10 +24,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Comment;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -174,8 +171,10 @@ public class CommentsActivity extends AppCompatActivity {
             Calendar calFordTime = Calendar.getInstance();
             SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm");
             final String saveCurrentTime = currentTime.format(calFordDate.getTime());
-
-            final String randomKey = current_user_id + saveCurrentDate + saveCurrentTime;
+            SimpleDateFormat currentEverything = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+            final String saveCurrentEverything = currentEverything.format(calFordDate.getTime());
+            //FIX THIS!!
+            final String randomKey = saveCurrentEverything + current_user_id;
             HashMap commentMap = new HashMap();
             commentMap.put("uid", current_user_id);
             commentMap.put("comment", commentText);

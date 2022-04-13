@@ -1,10 +1,5 @@
 package com.example.purduecircle307;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -15,10 +10,15 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -31,9 +31,13 @@ public class FindFriendsActivity extends AppCompatActivity {
     private ImageButton searchButton;
     private EditText searchInputText;
 
+    private FirebaseAuth mAuth;
+
+    private String currentUserId;
+
     private RecyclerView searchResultList;
 
-    private DatabaseReference allUsersDatabaseRef;
+    private DatabaseReference allUsersDatabaseRef, BlockedUsersRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,9 @@ public class FindFriendsActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Find Friends");*/
 
         allUsersDatabaseRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        BlockedUsersRef = FirebaseDatabase.getInstance().getReference().child("BlockedUsers");
+        mAuth = FirebaseAuth.getInstance();
+        currentUserId = mAuth.getCurrentUser().getUid();
 
         searchResultList = (RecyclerView) findViewById(R.id.search_result_list);
         searchResultList.setHasFixedSize(true);
@@ -64,7 +71,7 @@ public class FindFriendsActivity extends AppCompatActivity {
     }
 
     private void searchFriends(String searchBoxInput) {
-        Toast.makeText(this, "Searching...", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Searching...", Toast.LENGTH_LONG).show();
 
         //Query searchFriendsQuery = allUsersDatabaseRef.orderByChild("name")
                 //.startAt(searchBoxInput).endAt(searchBoxInput + "\uf8ff");
@@ -85,7 +92,7 @@ public class FindFriendsActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         String visit_user_id = getRef(position).getKey();
-
+                        System.out.println(visit_user_id);
                         Intent profileIntent = new Intent(FindFriendsActivity.this, PersonProfileActivity.class);
                         profileIntent.putExtra("visit_user_id", visit_user_id);
                         startActivity(profileIntent);

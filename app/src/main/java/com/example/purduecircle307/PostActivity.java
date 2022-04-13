@@ -1,13 +1,5 @@
 package com.example.purduecircle307;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -21,6 +13,14 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -58,8 +58,6 @@ public class PostActivity extends AppCompatActivity {
 
     private String saveCurrentDate, saveCurrentTime, postRandomName, downloadUrl, current_user_id;
     private boolean isAnonymous = false;
-
-    private long countPosts = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -181,8 +179,8 @@ public class PostActivity extends AppCompatActivity {
         SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm");
         saveCurrentTime = currentTime.format(calFordDate.getTime());
 
-
-        postRandomName = saveCurrentDate + saveCurrentTime;
+        SimpleDateFormat currentEverything = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+        postRandomName = currentEverything.format((calFordDate.getTime()));
         //test time print!
         //Toast.makeText(this,postRandomName, Toast.LENGTH_SHORT).show();
 
@@ -242,22 +240,6 @@ public class PostActivity extends AppCompatActivity {
     }
 
     private void SavingPostInformationToDatabase() {
-        PostsRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    countPosts = snapshot.getChildrenCount();
-                }
-                else {
-                    countPosts = 0;
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
         UsersRef.child(current_user_id).addValueEventListener(new ValueEventListener() {
             @Override
@@ -278,8 +260,8 @@ public class PostActivity extends AppCompatActivity {
                     postsMap.put("profileimage", userProfileImage);
                     postsMap.put("name", userFullName);
                     postsMap.put("tag", Tag);
-                    postsMap.put("counter", countPosts); 
-                    PostsRef.child(current_user_id + postRandomName).updateChildren(postsMap).addOnCompleteListener(new OnCompleteListener() {
+                    //FIX THIS!!
+                    PostsRef.child(postRandomName + current_user_id).updateChildren(postsMap).addOnCompleteListener(new OnCompleteListener() {
                         @Override
                         public void onComplete(@NonNull Task task) {
                             if(task.isSuccessful())

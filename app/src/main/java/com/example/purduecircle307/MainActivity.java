@@ -3,20 +3,9 @@ package com.example.purduecircle307;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.RecoverySystem;
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,8 +14,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
-//import android.support.v7.widget.Toolbar;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -41,11 +36,12 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
-import java.io.File;
+import java.util.ArrayList;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
+//import android.support.v7.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -57,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference UserRef;
     private DatabaseReference PostsRef;
     private DatabaseReference LikesRef;
+    private DatabaseReference UsersTagsRef;
+    private DatabaseReference FriendsRef;
     private androidx.appcompat.widget.Toolbar mToolbar;
     private ImageButton AddNewPostButton;
     private CircleImageView NavProfileImage;
@@ -64,7 +62,60 @@ public class MainActivity extends AppCompatActivity {
     String currentUserID;
     Boolean LikeChecker = false;
     boolean isGuestUser = false;
+    private ArrayList<String> followedTags = new ArrayList<String>();
+    private ArrayList<String> followedUsers = new ArrayList<String>();
 
+    //Checks authentication of user
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        UserRef.child(currentUserID).child("feed").removeValue();
+
+        //force logout
+        //currentUser = null;
+
+        //If user does not exist, navigate to sign up/log in page
+        if (currentUser == null) {
+            SendUserToLoginActivity();
+        } else if (currentUser.isAnonymous()) {
+            isGuestUser = true;
+        } else {
+            CheckUserExistence();
+        }
+
+        UsersTagsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                followedTags = new ArrayList<String>();
+                for (DataSnapshot tagChild : snapshot.getChildren()) {
+                    followedTags.add(tagChild.getKey());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        FriendsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                followedUsers = new ArrayList<String>();
+                for (DataSnapshot tagChild : snapshot.getChildren()) {
+                    followedUsers.add(tagChild.getKey());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        displayAllUsersPosts();
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -81,6 +132,8 @@ public class MainActivity extends AppCompatActivity {
         PostsRef = FirebaseDatabase.getInstance().getReference().child("Posts");
         drawerLayout = (DrawerLayout) findViewById(R.id.drawable_layout);
         LikesRef = FirebaseDatabase.getInstance().getReference().child("Likes");
+        UsersTagsRef = FirebaseDatabase.getInstance().getReference().child("UsersTags").child(currentUserID);
+        FriendsRef = FirebaseDatabase.getInstance().getReference().child("Friends").child(currentUserID);
 
         mToolbar = (androidx.appcompat.widget.Toolbar) findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolbar);
@@ -151,20 +204,72 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        UserRef.child(currentUserID).child("feed").removeValue();
+
+        UsersTagsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                followedTags = new ArrayList<String>();
+                for (DataSnapshot tagChild : snapshot.getChildren()) {
+                    followedTags.add(tagChild.getKey());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        FriendsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                followedUsers = new ArrayList<String>();
+                for (DataSnapshot tagChild : snapshot.getChildren()) {
+                    followedUsers.add(tagChild.getKey());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         displayAllUsersPosts();
     }
 
     private void displayAllUsersPosts() {
 
+        PostsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postChild : dataSnapshot.getChildren()) {
+                    String postKey = postChild.getKey();
+                    String tag = postChild.child("tag").getValue().toString();
+                    if (followedTags.contains(tag)) {
+                        UserRef.child(currentUserID).child("feed").child(postKey).updateChildren((Map<String, Object>) postChild.getValue());
+                    }
+                    String creator = postChild.child("uid").getValue().toString();
+                    if (followedUsers.contains(creator)) {
+                        UserRef.child(currentUserID).child("feed").child(postKey).updateChildren((Map<String, Object>) postChild.getValue());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         Query SortPostsInDescendingOrder;
         if (isGuestUser) {
-            SortPostsInDescendingOrder = PostsRef.orderByChild("counter").limitToLast(5);
+            SortPostsInDescendingOrder = PostsRef.limitToLast(5);
         }
         else {
-            SortPostsInDescendingOrder = PostsRef.orderByChild("counter");
+            SortPostsInDescendingOrder = UserRef.child(currentUserID).child("feed");
         }
-
-
         /*Posts.class,
                 R.layout.all_posts_layout,
                 PostsViewHolder.class,
@@ -172,7 +277,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseRecyclerOptions<Posts> options =
                 
                 new FirebaseRecyclerOptions.Builder<Posts>()
-                        .setQuery(SortPostsInDescendingOrder , Posts.class)
+                        .setQuery(SortPostsInDescendingOrder, Posts.class)
                         .build();
         FirebaseRecyclerAdapter<Posts, PostsViewHolder> firebaseRecyclerAdapter =
                 new FirebaseRecyclerAdapter<Posts, PostsViewHolder>(options) {
@@ -374,9 +479,11 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.nav_friends:
+                SendUserToFriendsActivity();
                 Toast.makeText(this, "Friends", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_tags:
+                SendUserToTagsActivity();
                 Toast.makeText(this, "Tags", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_find_friends:
@@ -384,6 +491,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Find Friends", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_find_tags:
+                SendUserToFindTagsActivity();
                 Toast.makeText(this, "Find Tags", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_settings:
@@ -433,6 +541,16 @@ public class MainActivity extends AppCompatActivity {
         alert.show();
     }
 
+    private void SendUserToFriendsActivity() {
+        Intent friendsIntent = new Intent(MainActivity.this, FriendsActivity.class);
+        startActivity(friendsIntent);
+    }
+
+    private void SendUserToTagsActivity() {
+        Intent tagsIntent = new Intent(MainActivity.this, TagsActivity.class);
+        startActivity(tagsIntent);
+    }
+
     private void SendUserToSettingsActivity() {
         Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
         startActivity(settingsIntent);
@@ -448,23 +566,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(findFriendsIntent);
     }
 
-    //Checks authentication of user
-    @Override
-    protected void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-
-        //force logout
-        //currentUser = null;
-
-        //If user does not exist, navigate to sign up/log in page
-        if (currentUser == null) {
-            SendUserToLoginActivity();
-        } else if (currentUser.isAnonymous()) {
-            isGuestUser = true;
-        } else {
-            CheckUserExistence();
-        }
+    private void SendUserToFindTagsActivity() {
+        Intent findTagsIntent = new Intent(MainActivity.this, FindTagsActivity.class);
+        startActivity(findTagsIntent);
     }
 
     private void CheckUserExistence() {
