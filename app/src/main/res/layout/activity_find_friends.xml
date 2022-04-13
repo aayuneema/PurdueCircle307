@@ -15,8 +15,8 @@
         android:id="@+id/myLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_below="@+id/find_friends_appbar_layout">
+        android:layout_below="@+id/find_friends_appbar_layout"
+        android:layout_marginTop="15dp">
 
         <TextView
             android:id="@+id/simpleTextID"
@@ -27,8 +27,7 @@
             android:text="Search for friends!"
             android:textColor="@android:color/background_light"
             android:textSize="18sp"
-            android:textStyle="bold">
-        </TextView>
+            android:textStyle="bold"></TextView>
 
         <EditText
             android:id="@+id/search_box_input"
@@ -44,19 +43,17 @@
             android:inputType="textMultiLine"
             android:padding="10dp"
             android:textColor="@color/cardview_dark_background"
-            android:textColorHint="@color/design_default_color_primary_dark">
-        </EditText>
+            android:textColorHint="@color/design_default_color_primary_dark"></EditText>
 
         <ImageButton
             android:id="@+id/search_friends_button"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_marginTop="10dp"
             android:layout_below="@+id/simpleTextID"
+            android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/search_box_input"
             android:background="@drawable/inputs"
-            android:src="@drawable/search">
-        </ImageButton>
+            android:src="@drawable/search"></ImageButton>
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
