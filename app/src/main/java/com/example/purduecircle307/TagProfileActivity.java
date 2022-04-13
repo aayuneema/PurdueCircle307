@@ -182,7 +182,7 @@ public class TagProfileActivity extends AppCompatActivity {
         UserTagsRef.child(senderUserId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.hasChild(tagId)) {
+                if (snapshot.hasChild(tag)) {
                     CURRENT_STATE = "following";
                     FollowButton.setText("Unfollow");
                 }

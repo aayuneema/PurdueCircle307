@@ -36,6 +36,9 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 //import android.support.v7.widget.Toolbar;
@@ -50,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference UserRef;
     private DatabaseReference PostsRef;
     private DatabaseReference LikesRef;
+    private DatabaseReference UsersTagsRef;
+    private DatabaseReference FriendsRef;
     private androidx.appcompat.widget.Toolbar mToolbar;
     private ImageButton AddNewPostButton;
     private CircleImageView NavProfileImage;
@@ -57,7 +62,60 @@ public class MainActivity extends AppCompatActivity {
     String currentUserID;
     Boolean LikeChecker = false;
     boolean isGuestUser = false;
+    private ArrayList<String> followedTags = new ArrayList<String>();
+    private ArrayList<String> followedUsers = new ArrayList<String>();
 
+    //Checks authentication of user
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        UserRef.child(currentUserID).child("feed").removeValue();
+
+        //force logout
+        //currentUser = null;
+
+        //If user does not exist, navigate to sign up/log in page
+        if (currentUser == null) {
+            SendUserToLoginActivity();
+        } else if (currentUser.isAnonymous()) {
+            isGuestUser = true;
+        } else {
+            CheckUserExistence();
+        }
+
+        UsersTagsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                followedTags = new ArrayList<String>();
+                for (DataSnapshot tagChild : snapshot.getChildren()) {
+                    followedTags.add(tagChild.getKey());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        FriendsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                followedUsers = new ArrayList<String>();
+                for (DataSnapshot tagChild : snapshot.getChildren()) {
+                    followedUsers.add(tagChild.getKey());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        displayAllUsersPosts();
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -74,6 +132,8 @@ public class MainActivity extends AppCompatActivity {
         PostsRef = FirebaseDatabase.getInstance().getReference().child("Posts");
         drawerLayout = (DrawerLayout) findViewById(R.id.drawable_layout);
         LikesRef = FirebaseDatabase.getInstance().getReference().child("Likes");
+        UsersTagsRef = FirebaseDatabase.getInstance().getReference().child("UsersTags").child(currentUserID);
+        FriendsRef = FirebaseDatabase.getInstance().getReference().child("Friends").child(currentUserID);
 
         mToolbar = (androidx.appcompat.widget.Toolbar) findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolbar);
@@ -149,14 +209,35 @@ public class MainActivity extends AppCompatActivity {
 
     private void displayAllUsersPosts() {
 
+        PostsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postChild : dataSnapshot.getChildren()) {
+                    String postKey = postChild.getKey();
+                    String tag = postChild.child("tag").getValue().toString();
+                    if (followedTags.contains(tag)) {
+                        UserRef.child(currentUserID).child("feed").child(postKey).updateChildren((Map<String, Object>) postChild.getValue());
+                    }
+                    String creator = postChild.child("uid").getValue().toString();
+                    if (followedUsers.contains(creator)) {
+                        UserRef.child(currentUserID).child("feed").child(postKey).updateChildren((Map<String, Object>) postChild.getValue());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         Query SortPostsInDescendingOrder;
         if (isGuestUser) {
             SortPostsInDescendingOrder = PostsRef.orderByChild("counter").limitToLast(5);
         }
         else {
-            SortPostsInDescendingOrder = PostsRef.orderByChild("counter");
+            SortPostsInDescendingOrder = UserRef.child(currentUserID).child("feed").orderByChild("counter");
         }
-
 
         /*Posts.class,
                 R.layout.all_posts_layout,
@@ -457,25 +538,6 @@ public class MainActivity extends AppCompatActivity {
     private void SendUserToFindTagsActivity() {
         Intent findTagsIntent = new Intent(MainActivity.this, FindTagsActivity.class);
         startActivity(findTagsIntent);
-    }
-
-    //Checks authentication of user
-    @Override
-    protected void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-
-        //force logout
-        //currentUser = null;
-
-        //If user does not exist, navigate to sign up/log in page
-        if (currentUser == null) {
-            SendUserToLoginActivity();
-        } else if (currentUser.isAnonymous()) {
-            isGuestUser = true;
-        } else {
-            CheckUserExistence();
-        }
     }
 
     private void CheckUserExistence() {
