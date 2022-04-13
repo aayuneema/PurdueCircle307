@@ -1,5 +1,6 @@
 package com.example.purduecircle307;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -57,7 +58,7 @@ public class TagsActivity extends AppCompatActivity {
 
         FirebaseRecyclerAdapter adapter = new FirebaseRecyclerAdapter<Tags, TagsViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull final TagsViewHolder tagsViewHolder, int position, @NonNull Tags tags) {
+            protected void onBindViewHolder(@NonNull final TagsViewHolder tagsViewHolder, @SuppressLint("RecyclerView") int position, @NonNull Tags tags) {
 
                 //friendsViewHolder.setDate(friends.getDate());
                 final String usersIDs = getRef(position).getKey();
@@ -68,9 +69,27 @@ public class TagsActivity extends AppCompatActivity {
                 tagsViewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent tagPostIntent = new Intent(TagsActivity.this, UserProfilePostActivity.class);
-                        tagPostIntent.putExtra("visit_tag_value", usersIDs);
-                        startActivity(tagPostIntent);
+                        String tagValue = getRef(position).getKey();
+                        TagsRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                String visit_tag_id = "";
+                                for (DataSnapshot tagSnapshot : snapshot.getChildren()) {
+                                    if(tagValue.equals(tagSnapshot.getValue().toString())) {
+                                        visit_tag_id = tagSnapshot.getKey();
+                                        break;
+                                    }
+                                }
+                                Intent tagIntent = new Intent(TagsActivity.this, TagProfileActivity.class);
+                                tagIntent.putExtra("visit_tag_id", visit_tag_id);
+                                startActivity(tagIntent);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
                     }
                 });
             }
