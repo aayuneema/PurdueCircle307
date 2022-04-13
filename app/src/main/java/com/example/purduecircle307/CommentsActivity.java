@@ -171,8 +171,10 @@ public class CommentsActivity extends AppCompatActivity {
             Calendar calFordTime = Calendar.getInstance();
             SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm");
             final String saveCurrentTime = currentTime.format(calFordDate.getTime());
+            SimpleDateFormat currentEverything = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+            final String saveCurrentEverything = currentEverything.format(calFordDate.getTime());
             //FIX THIS!!
-            final String randomKey = current_user_id + saveCurrentDate + saveCurrentTime;
+            final String randomKey = saveCurrentEverything + current_user_id;
             HashMap commentMap = new HashMap();
             commentMap.put("uid", current_user_id);
             commentMap.put("comment", commentText);

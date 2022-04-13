@@ -181,8 +181,8 @@ public class PostActivity extends AppCompatActivity {
         SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm");
         saveCurrentTime = currentTime.format(calFordDate.getTime());
 
-
-        postRandomName = saveCurrentDate + saveCurrentTime;
+        SimpleDateFormat currentEverything = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+        postRandomName = currentEverything.format((calFordDate.getTime()));
         //test time print!
         //Toast.makeText(this,postRandomName, Toast.LENGTH_SHORT).show();
 
@@ -280,7 +280,7 @@ public class PostActivity extends AppCompatActivity {
                     postsMap.put("tag", Tag);
                     postsMap.put("counter", countPosts);
                     //FIX THIS!!
-                    PostsRef.child(current_user_id + postRandomName).updateChildren(postsMap).addOnCompleteListener(new OnCompleteListener() {
+                    PostsRef.child(postRandomName + current_user_id).updateChildren(postsMap).addOnCompleteListener(new OnCompleteListener() {
                         @Override
                         public void onComplete(@NonNull Task task) {
                             if(task.isSuccessful())
