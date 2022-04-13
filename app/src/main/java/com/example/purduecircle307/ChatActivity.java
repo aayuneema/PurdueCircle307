@@ -15,16 +15,22 @@ public class ChatActivity extends AppCompatActivity {
     private EditText userMessageInput;
     private RecyclerView userMessageList;
 
+    private String messageReceiverID, messageReceiverName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        InitializeFields();
+        messageReceiverID = getIntent().getExtras().get("visit_user_id").toString();
+        messageReceiverName = getIntent().getExtras().get("userName").toString();
+
+        //userMessageList = (RecyclerView) findViewById(R.id.messages_list_of_users);
+        //InitializeFields();
 
     }
 
-    private void InitializeFields() {
+    /*private void InitializeFields() {
         ChatToolBar = (Toolbar) findViewById(R.id.chat_bar_layout);
         setSupportActionBar(ChatToolBar);
 
@@ -32,5 +38,5 @@ public class ChatActivity extends AppCompatActivity {
         SendImageButton = (ImageButton) findViewById(R.id.send_image_button);
 
         userMessageInput = (EditText) findViewById(R.id.input_message);
-    }
+    }*/
 }

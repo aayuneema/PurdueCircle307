@@ -13,6 +13,10 @@
         android:title="@string/friends"
         android:icon="@drawable/friends"/>
     <item
+        android:id="@+id/nav_messages"
+        android:title="Direct Messages"
+        android:icon="@drawable/mail"/>
+    <item
         android:id="@+id/nav_tags"
         android:title="@string/tags"
         android:icon="@drawable/tags"/>

@@ -40,7 +40,7 @@ public class PersonProfileActivity extends AppCompatActivity {
     private boolean isGuestUser = false;
 
     private Button SendFriendRequestButton, DeclineFriendRequestButton, 
-            ViewPostsButton, ViewInteractionsButton, BlockButton;
+            ViewPostsButton, ViewInteractionsButton, BlockButton, DMButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +110,13 @@ public class PersonProfileActivity extends AppCompatActivity {
                 sendUserToInteractionsActivity();
             }
         });
+
+        DMButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendUserToChatActivity();
+            }
+        });
         
         DeclineFriendRequestButton.setVisibility(View.INVISIBLE);
         DeclineFriendRequestButton.setEnabled(false);
@@ -173,6 +180,8 @@ public class PersonProfileActivity extends AppCompatActivity {
                             SendFriendRequestButton.setEnabled(false);
                             SendFriendRequestButton.setVisibility(View.INVISIBLE);
                             DeclineFriendRequestButton.setVisibility(View.INVISIBLE);
+                            DMButton.setVisibility(View.INVISIBLE);
+                            DMButton.setEnabled(false);
                             DeclineFriendRequestButton.setEnabled(false);
                             BlockButton.setText("Unblock User");
                             BLOCK_STATE = "blocked";
@@ -209,6 +218,8 @@ public class PersonProfileActivity extends AppCompatActivity {
                                 userGender.setVisibility(View.VISIBLE);
                                 userGraduationDate.setVisibility(View.VISIBLE);
                                 userProfileImage.setVisibility(View.VISIBLE);
+                                DMButton.setEnabled(true);
+                                DMButton.setVisibility(View.VISIBLE);
                                 BlockButton.setText("Block User");
                                 BLOCK_STATE = "not_blocked";
                             }
@@ -446,6 +457,7 @@ public class PersonProfileActivity extends AppCompatActivity {
         BlockButton = (Button) findViewById(R.id.person_block_btn);
         ViewPostsButton = (Button) findViewById(R.id.view_posts_button);
         ViewInteractionsButton = (Button) findViewById(R.id.view_interactions_button);
+        DMButton = (Button) findViewById(R.id.dm_btn);
 
         CURRENT_STATE = "not_friends";
         BLOCK_STATE = "not_blocked";
@@ -471,5 +483,12 @@ public class PersonProfileActivity extends AppCompatActivity {
             userInteractionsIntent.putExtra("visit_user_id", receiverUserId);
             startActivity(userInteractionsIntent);
         }
+    }
+
+    private void sendUserToChatActivity() {
+        Intent messagingIntent = new Intent(PersonProfileActivity.this, ChatActivity.class);
+        messagingIntent.putExtra("visit_user_id", receiverUserId);
+        messagingIntent.putExtra("userName", userName.toString());
+        startActivity(messagingIntent);
     }
 }

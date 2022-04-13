@@ -482,6 +482,10 @@ public class MainActivity extends AppCompatActivity {
                 SendUserToFriendsActivity();
                 Toast.makeText(this, "Friends", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.nav_messages:
+                SendUserToFriendsActivity();
+                Toast.makeText(this, "Direct Messages", Toast.LENGTH_SHORT).show();
+                break;
             case R.id.nav_tags:
                 SendUserToTagsActivity();
                 Toast.makeText(this, "Tags", Toast.LENGTH_SHORT).show();
@@ -544,6 +548,11 @@ public class MainActivity extends AppCompatActivity {
     private void SendUserToFriendsActivity() {
         Intent friendsIntent = new Intent(MainActivity.this, FriendsActivity.class);
         startActivity(friendsIntent);
+    }
+
+    private void SendUserToChatActivity() {
+        Intent chatIntent = new Intent(MainActivity.this, ChatActivity.class);
+        startActivity(chatIntent);
     }
 
     private void SendUserToTagsActivity() {

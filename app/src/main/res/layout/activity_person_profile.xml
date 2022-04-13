@@ -113,28 +113,40 @@
                 android:textStyle="bold" />
 
             <Button
+                android:id="@+id/dm_btn"
+                android:layout_width="275dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view_interactions_button"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="1dp"
+                android:text="Direct Message"
+                android:textSize="16sp"
+                app:background="@android:color/holo_blue_dark"
+                app:backgroundTint="@android:color/holo_blue_dark" />
+
+            <Button
                 android:id="@+id/follow_tag_btn"
                 android:layout_width="275dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/view_interactions_button"
-                android:layout_marginTop="45dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="46dp"
                 android:text="Send Friend Request"
                 android:textSize="16sp"
                 app:background="@android:color/holo_green_light"
-                app:backgroundTint="@android:color/holo_green_light"
-                android:layout_centerHorizontal="true"/>
+                app:backgroundTint="@android:color/holo_green_light" />
 
             <Button
                 android:id="@+id/person_decline_friend_request_btn"
                 android:layout_width="275dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/follow_tag_btn"
+                android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
                 android:text="Decline Friend Request"
                 android:textSize="16sp"
                 app:background="@android:color/holo_red_light"
-                app:backgroundTint="@android:color/holo_red_light"
-                android:layout_centerHorizontal="true"/>
+                app:backgroundTint="@android:color/holo_red_light" />
 
             <Button
                 android:id="@+id/person_block_btn"
@@ -153,24 +165,24 @@
                 android:layout_width="275dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/person_profile_Gender"
-                android:layout_marginTop="45dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="40dp"
                 android:text="View Posts"
                 android:textSize="16sp"
                 app:background="@android:color/holo_blue_dark"
-                app:backgroundTint="@android:color/holo_blue_dark"
-                android:layout_centerHorizontal="true" />
+                app:backgroundTint="@android:color/holo_blue_dark" />
 
             <Button
                 android:id="@+id/view_interactions_button"
                 android:layout_width="275dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/view_posts_button"
-                android:layout_marginTop="5dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="3dp"
                 android:text="View Interactions"
                 android:textSize="16sp"
                 app:background="@android:color/holo_blue_dark"
-                app:backgroundTint="@android:color/holo_blue_dark"
-                android:layout_centerHorizontal="true" />
+                app:backgroundTint="@android:color/holo_blue_dark" />
 
         </RelativeLayout>
     </ScrollView>
