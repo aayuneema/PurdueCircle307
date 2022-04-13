@@ -22,13 +22,16 @@
             android:exported="false" />
         <activity
             android:name=".FindTagsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".SettingsActivity" />
         <activity
             android:name=".TagsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".SettingsActivity" />
         <activity
             android:name=".FriendsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".SettingsActivity" />
         <activity
             android:name=".ChatActivity"
             android:exported="false" />
@@ -40,11 +43,12 @@
             android:exported="false" />
         <activity
             android:name=".PublicProfileActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".SettingsActivity" />
         <activity
             android:name=".FindFriendsActivity"
             android:exported="false"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".SettingsActivity" />
         <activity
             android:name=".BrowseTagsActivity"
             android:exported="false" />
@@ -53,17 +57,20 @@
             android:exported="false" />
         <activity
             android:name=".ClickPostActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".PostActivity" />
         <activity
             android:name=".PostActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".DeleteAccount"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".SettingsActivity"/>
         <activity
             android:name=".SettingsActivity"
             android:exported="false"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".SettingsActivity" />
         <activity
             android:name=".ProfileActivity"
             android:exported="false"

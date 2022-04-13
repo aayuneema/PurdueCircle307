@@ -1,6 +1,8 @@
 package com.example.purduecircle307;
 
-public class FindFriends {
+import android.app.Activity;
+
+public class FindFriends extends Activity {
     public String profileImage, username, bio;
 
     public FindFriends() {
