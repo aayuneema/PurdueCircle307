@@ -40,7 +40,7 @@ public class PersonProfileActivity extends AppCompatActivity {
     private boolean isGuestUser = false;
 
     private Button SendFriendRequestButton, DeclineFriendRequestButton, 
-            ViewPostsButton, ViewInteractionsButton, BlockButton;
+            ViewPostsButton, ViewInteractionsButton, BlockButton, DMButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +108,13 @@ public class PersonProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sendUserToInteractionsActivity();
+            }
+        });
+
+        DMButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendUserToChatActivity();
             }
         });
         
@@ -446,6 +453,7 @@ public class PersonProfileActivity extends AppCompatActivity {
         BlockButton = (Button) findViewById(R.id.person_block_btn);
         ViewPostsButton = (Button) findViewById(R.id.view_posts_button);
         ViewInteractionsButton = (Button) findViewById(R.id.view_interactions_button);
+        DMButton = (Button) findViewById(R.id.dm_btn);
 
         CURRENT_STATE = "not_friends";
         BLOCK_STATE = "not_blocked";
@@ -471,5 +479,12 @@ public class PersonProfileActivity extends AppCompatActivity {
             userInteractionsIntent.putExtra("visit_user_id", receiverUserId);
             startActivity(userInteractionsIntent);
         }
+    }
+
+    private void sendUserToChatActivity() {
+        Intent messagingIntent = new Intent(PersonProfileActivity.this, ChatActivity.class);
+        messagingIntent.putExtra("visit_ser_id", receiverUserId);
+        messagingIntent.putExtra("userName", userName.toString());
+        startActivity(messagingIntent);
     }
 }
