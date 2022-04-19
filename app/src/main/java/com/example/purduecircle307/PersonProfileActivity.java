@@ -483,7 +483,7 @@ public class PersonProfileActivity extends AppCompatActivity {
 
     private void sendUserToChatActivity() {
         Intent messagingIntent = new Intent(PersonProfileActivity.this, ChatActivity.class);
-        messagingIntent.putExtra("visit_ser_id", receiverUserId);
+        messagingIntent.putExtra("visit_user_id", receiverUserId);
         messagingIntent.putExtra("userName", userName.toString());
         startActivity(messagingIntent);
     }
