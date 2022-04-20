@@ -32,6 +32,8 @@ public class PublicProfileActivity extends AppCompatActivity {
     private boolean isGuestUser = false;
 
     private Button ViewCreatedPostsButton;
+    private Button ViewSavedPostsButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +56,9 @@ public class PublicProfileActivity extends AppCompatActivity {
         //userCountry = (TextView) findViewById(R.id.public_profile_Country);
         userGraduationDate = (TextView) findViewById(R.id.public_profile_graduationDate);
         userProfileImage = (CircleImageView) findViewById(R.id.public_profile_image);
-        ViewCreatedPostsButton = (Button) findViewById(R.id.view_posts_button);
+        ViewCreatedPostsButton = (Button) findViewById(R.id.view_posts_button); //vpb
+        ViewSavedPostsButton = (Button) findViewById(R.id.view_saved_button);
+
 
         profileUserRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -94,7 +98,18 @@ public class PublicProfileActivity extends AppCompatActivity {
                 sendUserToPostActivity();
             }
         });
+
+        ViewSavedPostsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                savedPostActivity();
+            }
+        });
+
+
     }
+
+
 
     private void sendUserToPostActivity() {
         if (isGuestUser) {
@@ -102,6 +117,17 @@ public class PublicProfileActivity extends AppCompatActivity {
         }
         else {
             Intent userPostIntent = new Intent(PublicProfileActivity.this, UserProfilePostActivity.class);
+            userPostIntent.putExtra("visit_user_id", currentUserId);
+            startActivity(userPostIntent);
+        }
+    }
+
+    private void savedPostActivity() {
+        if (isGuestUser) {
+            Toast.makeText(PublicProfileActivity.this, "Please sign in to use this feature.", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Intent userPostIntent = new Intent(PublicProfileActivity.this, SavedActivity.class);
             userPostIntent.putExtra("visit_user_id", currentUserId);
             startActivity(userPostIntent);
         }
