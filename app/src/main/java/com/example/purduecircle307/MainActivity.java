@@ -556,10 +556,6 @@ public class MainActivity extends AppCompatActivity {
                 SendUserToFindTagsActivity();
                 Toast.makeText(this, "Find Tags", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.nav_saved_posts:
-                //savedPost();
-                Toast.makeText(this, "Saved Posts", Toast.LENGTH_SHORT).show();
-                break;
             case R.id.nav_settings:
                 if (isGuestUser) {
                     Toast.makeText(MainActivity.this, "Please sign in to use this feature.", Toast.LENGTH_SHORT).show();

@@ -30,10 +30,6 @@
         android:title="@string/find_tags"
         android:icon="@drawable/findtags"/>
     <item
-    android:id="@+id/nav_saved_posts"
-    android:title="@string/saved_posts"
-    android:icon="@drawable/unsave"/>
-    <item
         android:id="@+id/nav_settings"
         android:title="@string/edit_profile"
         android:icon="@drawable/settings"/>
