@@ -26,7 +26,10 @@
         android:id="@+id/friend_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
         android:layout_below="@+id/all_friends"
-        android:layout_margin="10dp" />
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp" />
 </RelativeLayout>

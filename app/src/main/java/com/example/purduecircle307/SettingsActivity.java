@@ -88,7 +88,7 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    String myProfileImage = dataSnapshot.child("profileImage").getValue().toString();
+                    downloadUrl = dataSnapshot.child("profileImage").getValue().toString();
                     String myUsername = dataSnapshot.child("username").getValue().toString();
                     String myName = dataSnapshot.child("name").getValue().toString();
                     String myBio = dataSnapshot.child("bio").getValue().toString();
@@ -98,7 +98,7 @@ public class SettingsActivity extends AppCompatActivity {
                     String myGender = dataSnapshot.child("gender").getValue().toString();
                     String myCountry = dataSnapshot.child("country").getValue().toString();
 
-                    Picasso.with(SettingsActivity.this).load(myProfileImage).into(userProfImage);
+                    Picasso.with(SettingsActivity.this).load(downloadUrl).into(userProfImage);
                     userName.setText(myUsername);
                     userProfname.setText(myName);
                     userBio.setText(myBio);
@@ -137,21 +137,7 @@ public class SettingsActivity extends AppCompatActivity {
                 OpenGallery();
             }
         });
-/*
-        SettingsuserRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()) {
-                    String image = dataSnapshot.child("profileImage").getValue().toString();
-                    Picasso.with(SettingsActivity.this).load(image).placeholder(R.drawable.profile).into(userProfImage);
-                }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });*/
         SettingsuserRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
@@ -227,39 +213,6 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             });
 
-            /*
-            filepath.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                    if(task.isSuccessful())
-                    {
-
-                        Toast.makeText(SettingsActivity.this, "Profile Image stored stored successfully to Firebase storage", Toast.LENGTH_SHORT).show();
-                        final String downloadUrl = task.getResult().getStorage().getDownloadUrl().toString();
-                        Toast.makeText(SettingsActivity.this, "DownloadURL: " + downloadUrl, Toast.LENGTH_SHORT).show();
-                        SettingsuserRef.child("profileImage").setValue(downloadUrl)
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if(task.isSuccessful())
-                                        {
-                                            //send users back to settings page after image saved
-                                            Intent selfIntent = new Intent(SettingsActivity.this, SettingsActivity.class);
-                                            startActivity(selfIntent);
-
-                                            Toast.makeText(SettingsActivity.this, "Profile Image stored to Firebase Database Successfully...",Toast.LENGTH_SHORT).show();
-                                            loadingBar.dismiss();
-                                        }else
-                                        {
-                                            String message = task.getException().getMessage();
-                                            Toast.makeText(SettingsActivity.this, "Error Occured: " + message, Toast.LENGTH_SHORT).show();
-                                            loadingBar.dismiss();
-                                        }
-                                    }
-                                });
-                    }
-                }
-            }); */
 
         }
 

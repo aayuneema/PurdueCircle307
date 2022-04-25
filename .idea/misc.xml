@@ -4,12 +4,17 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Sruthi K/PurdueCircle307/app/src/main/res/layout/activity_delete_account.xml" value="0.16" />
+        <entry key="..\:/Users/Sruthi K/PurdueCircle307/app/src/main/res/layout/activity_friends.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Sruthi K/PurdueCircle307/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/Users/Sruthi K/PurdueCircle307/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/Sruthi K/PurdueCircle307/app/src/main/res/layout/activity_post.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Sruthi K/PurdueCircle307/app/src/main/res/layout/activity_profile.xml" value="0.14764492753623187" />
         <entry key="..\:/Users/Sruthi K/PurdueCircle307/app/src/main/res/layout/activity_settings.xml" value="0.25" />
         <entry key="..\:/Users/Sruthi K/PurdueCircle307/app/src/main/res/layout/activity_sign_up.xml" value="0.1" />
-        <entry key="..\:/Users/Sruthi K/PurdueCircle307/app/src/main/res/layout/activity_user_profile_post.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/Sruthi K/PurdueCircle307/app/src/main/res/layout/activity_tags.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Sruthi K/PurdueCircle307/app/src/main/res/layout/activity_user_interactions.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Sruthi K/PurdueCircle307/app/src/main/res/layout/activity_user_profile_post.xml" value="0.2" />
+        <entry key="..\:/Users/Sruthi K/PurdueCircle307/app/src/main/res/layout/all_posts_layout.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/shery/PurdueCircle307/app/src/main/res/drawable/button.xml" value="0.235" />
         <entry key="..\:/Users/shery/PurdueCircle307/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/shery/PurdueCircle307/app/src/main/res/layout/activity_sign_up.xml" value="0.25416666666666665" />
@@ -35,7 +40,6 @@
         <entry key="app/src/main/res/layout/all_posts_layout.xml" value="0.24282669330198836" />
         <entry key="app/src/main/res/layout/all_tags_display_layout.xml" value="0.15358683268229162" />
         <entry key="app/src/main/res/layout/all_users_display_layout.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/navigation_header.xml" value="0.1" />
         <entry key="app/src/main/res/menu/menu_browsing_tags.xml" value="0.3098958333333333" />
       </map>
     </option>
