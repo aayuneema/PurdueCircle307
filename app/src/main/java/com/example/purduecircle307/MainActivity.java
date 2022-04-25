@@ -176,9 +176,9 @@ public class MainActivity extends AppCompatActivity {
                             String fullname = snapshot.child("name").getValue().toString();
                             NavProfileUserName.setText(fullname);
                         }
-                        if(snapshot.hasChild("profileimage"))
+                        if(snapshot.hasChild("profileImage"))
                         {
-                            String image = snapshot.child("profileimage").getValue().toString();
+                            String image = snapshot.child("profileImage").getValue().toString();
                             Picasso.with(MainActivity.this).load(image).placeholder(R.drawable.profile).into(NavProfileImage);
                         }
                         else

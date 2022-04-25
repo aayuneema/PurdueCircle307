@@ -129,7 +129,7 @@ public class ProfileActivity extends AppCompatActivity {
             userMap.put("graduationDate", "Graduation Date");
             userMap.put("gender", "Gender");
             userMap.put("country", "Country");
-            userMap.put("profileimage", "Profile Image");
+            userMap.put("profileImage", "Profile Image");
 
             UsersRef.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
                 @Override

@@ -63,7 +63,7 @@ public class SettingsActivity extends AppCompatActivity {
         currentUserId = mAuth.getCurrentUser().getUid();
         SettingsuserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
         //creating folder in firebase storaged named "profile images"
-        UserProfileImageRef = FirebaseStorage.getInstance().getReference().child("profileimage");
+        UserProfileImageRef = FirebaseStorage.getInstance().getReference().child("profileImage");
         loadingBar = new ProgressDialog(this);
 
         mToolbar = findViewById(R.id.settings_toolbar);
@@ -88,7 +88,7 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    String myProfileImage = dataSnapshot.child("profileimage").getValue().toString();
+                    String myProfileImage = dataSnapshot.child("profileImage").getValue().toString();
                     String myUsername = dataSnapshot.child("username").getValue().toString();
                     String myName = dataSnapshot.child("name").getValue().toString();
                     String myBio = dataSnapshot.child("bio").getValue().toString();
@@ -158,9 +158,9 @@ public class SettingsActivity extends AppCompatActivity {
             {
                 if(dataSnapshot.exists())
                 {
-                    if (dataSnapshot.hasChild("profileimage"))
+                    if (dataSnapshot.hasChild("profileImage"))
                     {
-                        String image = dataSnapshot.child("profileimage").getValue().toString();
+                        String image = dataSnapshot.child("profileImage").getValue().toString();
                         System.out.println("image = " + image);
                         //String image2 = image.getResult().getStorage().getDownloadUrl().toString();
                         Toast.makeText(SettingsActivity.this, image, Toast.LENGTH_SHORT).show();
@@ -271,8 +271,8 @@ public class SettingsActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     String userFullName = dataSnapshot.child("name").getValue().toString();
-                    String userProfileImage = dataSnapshot.child("profileimage").getValue().toString();
-                    SettingsuserRef.child("profileimage").setValue(downloadUrl);
+                    String userProfileImage = dataSnapshot.child("profileImage").getValue().toString();
+                    SettingsuserRef.child("profileImage").setValue(downloadUrl);
                    /*
                     HashMap postsMap = new HashMap();
                     postsMap.put("profileimage", downloadUrl);
@@ -336,7 +336,7 @@ public class SettingsActivity extends AppCompatActivity {
         userMap.put("graduationDate", graduationDate);
         userMap.put("gender", gender);
         userMap.put("country", country);
-        userMap.put("profileimage", downloadUrl);
+        userMap.put("profileImage", downloadUrl);
 
         SettingsuserRef.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
             @Override

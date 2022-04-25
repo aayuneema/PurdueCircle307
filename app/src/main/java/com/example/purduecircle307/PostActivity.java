@@ -246,7 +246,7 @@ public class PostActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {
                     String userFullName = dataSnapshot.child("name").getValue().toString();
-                    String userProfileImage = dataSnapshot.child("profileimage").getValue().toString();
+                    String userProfileImage = dataSnapshot.child("profileImage").getValue().toString();
                     if (isAnonymous) {
                         userFullName = "Anonymous";
                     }
@@ -257,7 +257,7 @@ public class PostActivity extends AppCompatActivity {
                     postsMap.put("time", saveCurrentTime);
                     postsMap.put("description", Description);
                     postsMap.put("postimage", downloadUrl);
-                    postsMap.put("profileimage", userProfileImage);
+                    postsMap.put("profileImage", userProfileImage);
                     postsMap.put("name", userFullName);
                     postsMap.put("tag", Tag);
                     //FIX THIS!!
