@@ -525,8 +525,13 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Friends", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_messages:
-                SendUserToFriendsActivity();
-                Toast.makeText(this, "Messages", Toast.LENGTH_SHORT).show();
+                if (isGuestUser) {
+                    Toast.makeText(MainActivity.this, "Please sign in to use this feature.", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    SendUserToFriendsActivity();
+                    Toast.makeText(this, "Messages", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.nav_tags:
                 SendUserToTagsActivity();
