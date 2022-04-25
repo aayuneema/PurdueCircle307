@@ -246,7 +246,7 @@ public class PostActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {
                     String userFullName = dataSnapshot.child("name").getValue().toString();
-                    String userProfileImage = dataSnapshot.child("profileImage").getValue().toString();
+                    String userProfileImage = dataSnapshot.child("profileimage").getValue().toString();
                     if (isAnonymous) {
                         userFullName = "Anonymous";
                     }

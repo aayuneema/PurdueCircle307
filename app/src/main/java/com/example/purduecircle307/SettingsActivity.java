@@ -1,8 +1,10 @@
 package com.example.purduecircle307;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,6 +14,7 @@ import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.Button;
 
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,6 +23,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -27,6 +34,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import java.util.HashMap;
+import java.util.Set;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -35,9 +43,13 @@ public class SettingsActivity extends AppCompatActivity {
     private Button UpdateAccountSettingsButton;
     private Button deleteAccountButton;
     private CircleImageView userProfImage;
+    Uri imageUri;
+    private String downloadUrl;
+    private ProgressDialog loadingBar;
 
     private DatabaseReference SettingsuserRef;
     private FirebaseAuth mAuth;
+    private StorageReference UserProfileImageRef;
 
     private String currentUserId;
     final static int Gallery_Pick = 1;
@@ -50,6 +62,9 @@ public class SettingsActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.getCurrentUser().getUid();
         SettingsuserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
+        //creating folder in firebase storaged named "profile images"
+        UserProfileImageRef = FirebaseStorage.getInstance().getReference().child("profileimage");
+        loadingBar = new ProgressDialog(this);
 
         mToolbar = findViewById(R.id.settings_toolbar);
         //setSupportActionBar(mToolbar);
@@ -73,7 +88,7 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    //String myProfileImage = dataSnapshot.child("profileImage").getValue().toString();
+                    String myProfileImage = dataSnapshot.child("profileimage").getValue().toString();
                     String myUsername = dataSnapshot.child("username").getValue().toString();
                     String myName = dataSnapshot.child("name").getValue().toString();
                     String myBio = dataSnapshot.child("bio").getValue().toString();
@@ -83,7 +98,7 @@ public class SettingsActivity extends AppCompatActivity {
                     String myGender = dataSnapshot.child("gender").getValue().toString();
                     String myCountry = dataSnapshot.child("country").getValue().toString();
 
-                    //Picasso.with(SettingsActivity.this).load(myProfileImage).placeholder(R.drawable.profile).into(userProfImage);
+                    Picasso.with(SettingsActivity.this).load(myProfileImage).into(userProfImage);
                     userName.setText(myUsername);
                     userProfname.setText(myName);
                     userBio.setText(myBio);
@@ -115,18 +130,177 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        //redirect user to mobile phone gallery
         userProfImage.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent galleryIntent = new Intent();
-                galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-                galleryIntent.setType("Image/*");
-                startActivityForResult(galleryIntent, Gallery_Pick );
+            public void onClick(View v) {
+                OpenGallery();
+            }
+        });
+/*
+        SettingsuserRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) {
+                    String image = dataSnapshot.child("profileimage").getValue().toString();
+                    Picasso.with(SettingsActivity.this).load(image).placeholder(R.drawable.profile).into(userProfImage);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });*/
+        SettingsuserRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
+                if(dataSnapshot.exists())
+                {
+                    if (dataSnapshot.hasChild("profileimage"))
+                    {
+                        String image = dataSnapshot.child("profileimage").getValue().toString();
+                        System.out.println("image = " + image);
+                        //String image2 = image.getResult().getStorage().getDownloadUrl().toString();
+                        Toast.makeText(SettingsActivity.this, image, Toast.LENGTH_SHORT).show();
+                        Picasso.with(SettingsActivity.this).load(image).placeholder(R.drawable.profile).into(userProfImage);
+                    }
+                    else
+                    {
+                        Toast.makeText(SettingsActivity.this, "Please select profile image first.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode==Gallery_Pick && resultCode==RESULT_OK && data!=null)
+        {
+            imageUri = data.getData();
+            userProfImage.setImageURI(imageUri);
+
+            StorageReference filepath = UserProfileImageRef.child(currentUserId + ".jpg");
+            UploadTask uploadtask = filepath.putFile(imageUri);
+
+            Task<Uri> urlTask = uploadtask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+                    }
+
+                    // Continue with the task to get the download URL
+                    return filepath.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful()) {
+                        Uri downloadUri = task.getResult();
+                        System.out.println("Upload 1 " + downloadUri);
+                        if (downloadUri != null) {
+
+                            downloadUrl = downloadUri.toString(); //YOU WILL GET THE DOWNLOAD URL HERE !!!!
+                            System.out.println("Upload 2 " + downloadUrl);
+
+                        }
+
+                    } else {
+                        String message = task.getException().getMessage();
+                        Toast.makeText(SettingsActivity.this, "Error:" + message, Toast.LENGTH_SHORT).show();
+                    }
+                    System.out.println("done");
+                    //SavingPostInformationToDatabase();
+
+                }
+            });
+
+            /*
+            filepath.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                    if(task.isSuccessful())
+                    {
+
+                        Toast.makeText(SettingsActivity.this, "Profile Image stored stored successfully to Firebase storage", Toast.LENGTH_SHORT).show();
+                        final String downloadUrl = task.getResult().getStorage().getDownloadUrl().toString();
+                        Toast.makeText(SettingsActivity.this, "DownloadURL: " + downloadUrl, Toast.LENGTH_SHORT).show();
+                        SettingsuserRef.child("profileimage").setValue(downloadUrl)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if(task.isSuccessful())
+                                        {
+                                            //send users back to settings page after image saved
+                                            Intent selfIntent = new Intent(SettingsActivity.this, SettingsActivity.class);
+                                            startActivity(selfIntent);
+
+                                            Toast.makeText(SettingsActivity.this, "Profile Image stored to Firebase Database Successfully...",Toast.LENGTH_SHORT).show();
+                                            loadingBar.dismiss();
+                                        }else
+                                        {
+                                            String message = task.getException().getMessage();
+                                            Toast.makeText(SettingsActivity.this, "Error Occured: " + message, Toast.LENGTH_SHORT).show();
+                                            loadingBar.dismiss();
+                                        }
+                                    }
+                                });
+                    }
+                }
+            }); */
+
+        }
+
+    }
+
+    private void SavingPostInformationToDatabase() {
+        SettingsuserRef.child(currentUserId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    String userFullName = dataSnapshot.child("name").getValue().toString();
+                    String userProfileImage = dataSnapshot.child("profileimage").getValue().toString();
+                    SettingsuserRef.child("profileimage").setValue(downloadUrl);
+                   /*
+                    HashMap postsMap = new HashMap();
+                    postsMap.put("profileimage", downloadUrl);
+
+                    //SettingsuserRef.child(postRandomName + current_user_id).updateChildren(postsMap).addOnCompleteListener(new OnCompleteListener() {
+
+                    SettingsuserRef.updateChildren("profileimage").addOnCompleteListener(new OnCompleteListener() {
+                        @Override
+                        public void onComplete(@NonNull Task task) {
+                            if (task.isSuccessful()) {
+                                sendUserToMainActivity();
+                                Toast.makeText(SettingsActivity.this, "New Post is updated successfully.", Toast.LENGTH_SHORT).show();
+                                loadingBar.dismiss();
+                            } else {
+                                Toast.makeText(SettingsActivity.this, "Error Occured while updating your post.", Toast.LENGTH_SHORT).show();
+                                loadingBar.dismiss();
+                            }
+                        }
+                    }); */
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
     }
-
 
     private void ValidateAccountInfo() {
         String username = userName.getText().toString();
@@ -162,7 +336,7 @@ public class SettingsActivity extends AppCompatActivity {
         userMap.put("graduationDate", graduationDate);
         userMap.put("gender", gender);
         userMap.put("country", country);
-        userMap.put("profileImage", "Profile Image");
+        userMap.put("profileimage", downloadUrl);
 
         SettingsuserRef.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
             @Override
@@ -175,6 +349,13 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void OpenGallery() {
+        Intent galleryIntent = new Intent();
+        galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+        galleryIntent.setType("image/*");
+        startActivityForResult(galleryIntent, Gallery_Pick);
     }
 
     private void sendUserToMainActivity() {

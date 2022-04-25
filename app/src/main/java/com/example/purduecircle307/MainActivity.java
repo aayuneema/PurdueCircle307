@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference UserRef;
     private DatabaseReference PostsRef;
     private DatabaseReference LikesRef;
+    private DatabaseReference SavedRef;
     private DatabaseReference UsersTagsRef;
     private DatabaseReference FriendsRef;
     private androidx.appcompat.widget.Toolbar mToolbar;
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView NavProfileUserName;
     String currentUserID;
     Boolean LikeChecker = false;
+    Boolean SavedChecker = false;
     boolean isGuestUser = false;
     private ArrayList<String> followedTags = new ArrayList<String>();
     private ArrayList<String> followedUsers = new ArrayList<String>();
@@ -131,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
         PostsRef = FirebaseDatabase.getInstance().getReference().child("Posts");
         drawerLayout = (DrawerLayout) findViewById(R.id.drawable_layout);
         LikesRef = FirebaseDatabase.getInstance().getReference().child("Likes");
+        SavedRef = FirebaseDatabase.getInstance().getReference().child("Saved");
         UsersTagsRef = FirebaseDatabase.getInstance().getReference().child("UsersTags").child(currentUserID);
         FriendsRef = FirebaseDatabase.getInstance().getReference().child("Friends").child(currentUserID);
 
@@ -168,11 +171,26 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {
-                        String fullname = snapshot.child("name").getValue().toString();
-                        String image = snapshot.child("profileImage").getValue().toString();
+                        if(snapshot.hasChild("fullname"))
+                        {
+                            String fullname = snapshot.child("fullname").getValue().toString();
+                            NavProfileUserName.setText(fullname);
+                        }
+                        if(snapshot.hasChild("profileimage"))
+                        {
+                            String image = snapshot.child("profileimage").getValue().toString();
+                            Picasso.with(MainActivity.this).load(image).placeholder(R.drawable.profile).into(NavProfileImage);
+                        }
+                        else
+                        {
+                            Toast.makeText(MainActivity.this, "Profile name do not exists...", Toast.LENGTH_SHORT).show();
+                        }
+                        //String fullname = snapshot.child("name").getValue().toString();
+                        //String image = snapshot.child("profileimage").getValue().toString();
 
-                        NavProfileUserName.setText(fullname);
-                        Picasso.with(MainActivity.this).load(image).placeholder(R.drawable.profile).into(NavProfileImage);
+
+                        //NavProfileUserName.setText(fullname);
+                        //Picasso.with(MainActivity.this).load(image).placeholder(R.drawable.profile).into(NavProfileImage);
                     }
                 }
 
@@ -274,6 +292,8 @@ public class MainActivity extends AppCompatActivity {
                         holder.setPostimage(getApplicationContext(), model.getPostimage());
 
                         holder.setLikeButtonStatus(PostKey);
+                        holder.setSaveButtonStatus(PostKey);
+
 
                         holder.mView.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -334,6 +354,37 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
 
+                        holder.SavedPostButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                if (isGuestUser) {
+                                    Toast.makeText(MainActivity.this, "Please sign in to use this feature.", Toast.LENGTH_SHORT).show();
+                                }
+                                else {
+                                    SavedChecker = true;
+                                    SavedRef.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            if (SavedChecker.equals(true)) {
+                                                if (snapshot.child(PostKey).hasChild(currentUserID)) {
+                                                    SavedRef.child(PostKey).child(currentUserID).removeValue();
+                                                    SavedChecker = false;
+                                                } else {
+                                                    SavedRef.child(PostKey).child(currentUserID).setValue(true);
+                                                    SavedChecker = false;
+                                                }
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+                                }
+                            }
+                        });
+
 
                     }
 
@@ -349,21 +400,25 @@ public class MainActivity extends AppCompatActivity {
     public static class PostsViewHolder extends RecyclerView.ViewHolder {
         View mView;
 
-        ImageButton LikePostButton, CommentPostButton;
+        ImageButton LikePostButton, CommentPostButton, SavedPostButton;
         TextView DisplayNoOfLikes;
         int countLikes;
         String currentUserId;
         DatabaseReference LikesRef;
+        DatabaseReference SavedRef;
+
 
         public PostsViewHolder(@NonNull View itemView) {
             super(itemView);
             mView = itemView;
 
             LikePostButton = (ImageButton) mView.findViewById(R.id.like_button);
+            SavedPostButton = (ImageButton) mView.findViewById(R.id.save_button);
             CommentPostButton = (ImageButton) mView.findViewById(R.id.comment_button);
             DisplayNoOfLikes = (TextView) mView.findViewById(R.id.display_no_of_likes);
 
             LikesRef = FirebaseDatabase.getInstance().getReference().child("Likes");
+            SavedRef = FirebaseDatabase.getInstance().getReference().child("Saved");
             currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         }
 
@@ -379,6 +434,24 @@ public class MainActivity extends AppCompatActivity {
                         countLikes = (int) snapshot.child(PostKey).getChildrenCount();
                         LikePostButton.setImageResource(R.drawable.dislike);
                         DisplayNoOfLikes.setText((Integer.toString(countLikes)+(" Likes")));
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+
+        public void setSaveButtonStatus (final String PostKey) {
+            SavedRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.child(PostKey).hasChild(currentUserId)) {
+                        SavedPostButton.setImageResource(R.drawable.save);
+                    } else {
+                        SavedPostButton.setImageResource(R.drawable.unsave);
                     }
                 }
 
@@ -449,6 +522,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_friends:
                 SendUserToFriendsActivity();
                 Toast.makeText(this, "Friends", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_messages:
+                SendUserToFriendsActivity();
+                Toast.makeText(this, "Messages", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_tags:
                 SendUserToTagsActivity();
@@ -538,6 +615,12 @@ public class MainActivity extends AppCompatActivity {
         Intent findTagsIntent = new Intent(MainActivity.this, FindTagsActivity.class);
         startActivity(findTagsIntent);
     }
+/*
+    private void SendUserToSavedActivity() {
+        Intent savedIntent = new Intent(MainActivity.this, SavedActivity.class);
+        startActivity(savedIntent);
+    }
+*/ //saved
 
     private void CheckUserExistence() {
         final String currentUser_id = mAuth.getCurrentUser().getUid();

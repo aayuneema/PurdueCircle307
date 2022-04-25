@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -40,7 +41,7 @@ public class PersonProfileActivity extends AppCompatActivity {
     private boolean isGuestUser = false;
 
     private Button SendFriendRequestButton, DeclineFriendRequestButton, 
-            ViewPostsButton, ViewInteractionsButton, BlockButton;
+            ViewPostsButton, ViewInteractionsButton, BlockButton, DMButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +72,7 @@ public class PersonProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
+                    String myProfileImage = snapshot.child("profileimage").getValue().toString();
                     String myUsername = snapshot.child("username").getValue().toString();
                     String myName = snapshot.child("name").getValue().toString();
                     String myBio = snapshot.child("bio").getValue().toString();
@@ -79,6 +81,7 @@ public class PersonProfileActivity extends AppCompatActivity {
                     String myGender = snapshot.child("gender").getValue().toString();
 
                     //Picasso.get().load(myProfileImage).placeholder(R.drawable.profile).into(userProfImage);
+                    Picasso.with(PersonProfileActivity.this).load(myProfileImage).into(userProfileImage);
                     userName.setText("@" + myUsername);
                     userProfileName.setText(myName);
                     userBio.setText(myBio);
@@ -108,6 +111,13 @@ public class PersonProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sendUserToInteractionsActivity();
+            }
+        });
+
+        DMButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendUserToChatActivity();
             }
         });
         
@@ -446,6 +456,7 @@ public class PersonProfileActivity extends AppCompatActivity {
         BlockButton = (Button) findViewById(R.id.person_block_btn);
         ViewPostsButton = (Button) findViewById(R.id.view_posts_button);
         ViewInteractionsButton = (Button) findViewById(R.id.view_interactions_button);
+        DMButton = (Button) findViewById(R.id.dm_btn);
 
         CURRENT_STATE = "not_friends";
         BLOCK_STATE = "not_blocked";
@@ -471,5 +482,12 @@ public class PersonProfileActivity extends AppCompatActivity {
             userInteractionsIntent.putExtra("visit_user_id", receiverUserId);
             startActivity(userInteractionsIntent);
         }
+    }
+
+    private void sendUserToChatActivity() {
+        Intent messagingIntent = new Intent(PersonProfileActivity.this, ChatActivity.class);
+        messagingIntent.putExtra("visit_user_id", receiverUserId);
+        messagingIntent.putExtra("userName", userName.toString());
+        startActivity(messagingIntent);
     }
 }
