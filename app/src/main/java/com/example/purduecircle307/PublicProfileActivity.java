@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -34,6 +35,8 @@ public class PublicProfileActivity extends AppCompatActivity {
     private Button ViewCreatedPostsButton;
     private Button ViewSavedPostsButton;
     private Button ViewInteractionsButton;
+
+    private String downloadUrl;
 
 
     @Override
@@ -66,6 +69,7 @@ public class PublicProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
+                    downloadUrl = snapshot.child("profileImage").getValue().toString();
                     String myUsername = snapshot.child("username").getValue().toString();
                     String myName = snapshot.child("name").getValue().toString();
                     String myBio = snapshot.child("bio").getValue().toString();
@@ -75,7 +79,7 @@ public class PublicProfileActivity extends AppCompatActivity {
                     String myGender = snapshot.child("gender").getValue().toString();
                     //String myCountry = snapshot.child("country").getValue().toString();
 
-                    //Picasso.get().load(myProfileImage).placeholder(R.drawable.profile).into(userProfImage);
+                    Picasso.with(PublicProfileActivity.this).load(downloadUrl).into(userProfileImage);
                     userName.setText("@" + myUsername);
                     userProfileName.setText(myName);
                     userBio.setText(myBio);
