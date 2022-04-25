@@ -32,6 +32,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
@@ -221,12 +222,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        displayAllUsersPosts();
+        //displayAllUsersPosts();
     }
 
     private void displayAllUsersPosts() {
 
-        PostsRef.addValueEventListener(new ValueEventListener() {
+        PostsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postChild : dataSnapshot.getChildren()) {
@@ -247,7 +248,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        /*
+
         Query SortPostsInDescendingOrder;
         if (isGuestUser) {
             SortPostsInDescendingOrder = PostsRef.orderByChild("counter").limitToLast(5);
@@ -255,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
         else {
             SortPostsInDescendingOrder = UserRef.child(currentUserID).child("feed").orderByChild("counter");
         }
-        */
+
         /*Posts.class,
                 R.layout.all_posts_layout,
                 PostsViewHolder.class,
@@ -263,7 +264,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseRecyclerOptions<Posts> options =
                 
                 new FirebaseRecyclerOptions.Builder<Posts>()
-                        .setQuery(PostsRef, Posts.class)
+                        .setQuery(SortPostsInDescendingOrder, Posts.class)
                         .build();
         FirebaseRecyclerAdapter<Posts, PostsViewHolder> firebaseRecyclerAdapter =
                 new FirebaseRecyclerAdapter<Posts, PostsViewHolder>(options) {
