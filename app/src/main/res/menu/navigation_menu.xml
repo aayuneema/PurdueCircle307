@@ -14,8 +14,9 @@
         android:icon="@drawable/friends"/>
     <item
         android:id="@+id/nav_messages"
-        android:title="Direct Messages"
-        android:icon="@drawable/mail"/>
+        android:title="Messages"
+        android:icon="@drawable/send_message"
+        />
     <item
         android:id="@+id/nav_tags"
         android:title="@string/tags"

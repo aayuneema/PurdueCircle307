@@ -1,0 +1,872 @@
+[
+  {
+    "eventType": "VIEW_TEXT_CHANGED",
+    "timestamp": 1648719467282,
+    "replacementText": "sheryl.s.mathew@gmail.com",
+    "actionCode": -1,
+    "delayTime": 0,
+    "canScrollTo": false,
+    "elementDescriptors": [
+      {
+        "className": "androidx.appcompat.widget.AppCompatEditText",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 1,
+        "resourceId": "com.example.purduecircle307:id/login_emailAddress",
+        "contentDescription": "",
+        "text": ""
+      },
+      {
+        "className": "android.widget.RelativeLayout",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 0,
+        "resourceId": "",
+        "contentDescription": "",
+        "text": ""
+      },
+      {
+        "className": "androidx.appcompat.widget.ContentFrameLayout",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 1,
+        "resourceId": "android:id/content",
+        "contentDescription": "",
+        "text": ""
+      }
+    ]
+  },
+  {
+    "eventType": "PRESSED_EDITOR_ACTION",
+    "timestamp": 1648719518151,
+    "replacementText": "sheryl.s.mathew@gmail.com",
+    "actionCode": 5,
+    "delayTime": 0,
+    "canScrollTo": false,
+    "elementDescriptors": [
+      {
+        "className": "androidx.appcompat.widget.AppCompatEditText",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 1,
+        "resourceId": "com.example.purduecircle307:id/login_emailAddress",
+        "contentDescription": "",
+        "text": "sheryl.s.mathew@gmail.com"
+      },
+      {
+        "className": "android.widget.RelativeLayout",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 0,
+        "resourceId": "",
+        "contentDescription": "",
+        "text": ""
+      },
+      {
+        "className": "androidx.appcompat.widget.ContentFrameLayout",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 1,
+        "resourceId": "android:id/content",
+        "contentDescription": "",
+        "text": ""
+      }
+    ]
+  },
+  {
+    "eventType": "VIEW_TEXT_CHANGED",
+    "timestamp": 1648719520228,
+    "replacementText": "123456",
+    "actionCode": -1,
+    "delayTime": 0,
+    "canScrollTo": false,
+    "elementDescriptors": [
+      {
+        "className": "androidx.appcompat.widget.AppCompatEditText",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 2,
+        "resourceId": "com.example.purduecircle307:id/login_Password",
+        "contentDescription": "",
+        "text": ""
+      },
+      {
+        "className": "android.widget.RelativeLayout",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 0,
+        "resourceId": "",
+        "contentDescription": "",
+        "text": ""
+      },
+      {
+        "className": "androidx.appcompat.widget.ContentFrameLayout",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 1,
+        "resourceId": "android:id/content",
+        "contentDescription": "",
+        "text": ""
+      }
+    ]
+  },
+  {
+    "eventType": "PRESSED_EDITOR_ACTION",
+    "timestamp": 1648719528920,
+    "replacementText": "123456",
+    "actionCode": 6,
+    "delayTime": 0,
+    "canScrollTo": false,
+    "elementDescriptors": [
+      {
+        "className": "androidx.appcompat.widget.AppCompatEditText",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 2,
+        "resourceId": "com.example.purduecircle307:id/login_Password",
+        "contentDescription": "",
+        "text": "123456"
+      },
+      {
+        "className": "android.widget.RelativeLayout",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 0,
+        "resourceId": "",
+        "contentDescription": "",
+        "text": ""
+      },
+      {
+        "className": "androidx.appcompat.widget.ContentFrameLayout",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 1,
+        "resourceId": "android:id/content",
+        "contentDescription": "",
+        "text": ""
+      }
+    ]
+  },
+  {
+    "eventType": "VIEW_CLICKED",
+    "timestamp": 1648719531748,
+    "replacementText": "Log In",
+    "actionCode": -1,
+    "delayTime": 0,
+    "canScrollTo": false,
+    "elementDescriptors": [
+      {
+        "className": "com.google.android.material.button.MaterialButton",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 3,
+        "resourceId": "com.example.purduecircle307:id/LoginButton",
+        "contentDescription": "",
+        "text": "Log In"
+      },
+      {
+        "className": "android.widget.RelativeLayout",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 0,
+        "resourceId": "",
+        "contentDescription": "",
+        "text": ""
+      },
+      {
+        "className": "androidx.appcompat.widget.ContentFrameLayout",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 1,
+        "resourceId": "android:id/content",
+        "contentDescription": "",
+        "text": ""
+      }
+    ]
+  },
+  {
+    "eventType": "VIEW_CLICKED",
+    "timestamp": 1648719544235,
+    "replacementText": "",
+    "actionCode": -1,
+    "delayTime": 0,
+    "canScrollTo": false,
+    "elementDescriptors": [
+      {
+        "className": "androidx.appcompat.widget.AppCompatImageButton",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 0,
+        "resourceId": "com.example.purduecircle307:id/like_button",
+        "contentDescription": "",
+        "text": ""
+      },
+      {
+        "className": "android.widget.LinearLayout",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 4,
+        "resourceId": "",
+        "contentDescription": "",
+        "text": ""
+      },
+      {
+        "className": "android.widget.LinearLayout",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 0,
+        "resourceId": "",
+        "contentDescription": "",
+        "text": ""
+      }
+    ]
+  },
+  {
+    "eventType": "VIEW_CLICKED",
+    "timestamp": 1648719547094,
+    "replacementText": "",
+    "actionCode": -1,
+    "delayTime": 0,
+    "canScrollTo": false,
+    "elementDescriptors": [
+      {
+        "className": "androidx.appcompat.widget.AppCompatImageButton",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 0,
+        "resourceId": "com.example.purduecircle307:id/like_button",
+        "contentDescription": "",
+        "text": ""
+      },
+      {
+        "className": "android.widget.LinearLayout",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 4,
+        "resourceId": "",
+        "contentDescription": "",
+        "text": ""
+      },
+      {
+        "className": "android.widget.LinearLayout",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 0,
+        "resourceId": "",
+        "contentDescription": "",
+        "text": ""
+      }
+    ]
+  },
+  {
+    "eventType": "VIEW_CLICKED",
+    "timestamp": 1648719551452,
+    "replacementText": "",
+    "actionCode": -1,
+    "delayTime": 0,
+    "canScrollTo": false,
+    "elementDescriptors": [
+      {
+        "className": "androidx.appcompat.widget.AppCompatImageButton",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 2,
+        "resourceId": "com.example.purduecircle307:id/comment_button",
+        "contentDescription": "",
+        "text": ""
+      },
+      {
+        "className": "android.widget.LinearLayout",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 4,
+        "resourceId": "",
+        "contentDescription": "",
+        "text": ""
+      },
+      {
+        "className": "android.widget.LinearLayout",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 0,
+        "resourceId": "",
+        "contentDescription": "",
+        "text": ""
+      }
+    ]
+  },
+  {
+    "eventType": "PRESSED_BACK_EMULATOR_28",
+    "timestamp": 1648719558749,
+    "actionCode": -1,
+    "delayTime": 0,
+    "canScrollTo": false,
+    "elementDescriptors": []
+  },
+  {
+    "eventType": "VIEW_CLICKED",
+    "timestamp": 1648719564780,
+    "replacementText": "",
+    "actionCode": -1,
+    "delayTime": 0,
+    "canScrollTo": false,
+    "elementDescriptors": [
+      {
+        "className": "android.widget.RelativeLayout",
+        "recyclerViewChildPosition": 3,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": -1,
+        "resourceId": "",
+        "contentDescription": "",
+        "text": ""
+      },
+      {
+        "className": "androidx.recyclerview.widget.RecyclerView",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 0,
+        "resourceId": "com.example.purduecircle307:id/all_users_post_list",
+        "contentDescription": "",
+        "text": ""
+      },
+      {
+        "className": "android.widget.FrameLayout",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 1,
+        "resourceId": "com.example.purduecircle307:id/main_container",
+        "contentDescription": "",
+        "text": ""
+      }
+    ]
+  },
+  {
+    "eventType": "VIEW_CLICKED",
+    "timestamp": 1648719571453,
+    "replacementText": "Edit Post ",
+    "actionCode": -1,
+    "delayTime": 0,
+    "canScrollTo": false,
+    "elementDescriptors": [
+      {
+        "className": "com.google.android.material.button.MaterialButton",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 4,
+        "resourceId": "com.example.purduecircle307:id/clickPostEditButton",
+        "contentDescription": "",
+        "text": "Edit Post "
+      },
+      {
+        "className": "android.widget.RelativeLayout",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 0,
+        "resourceId": "",
+        "contentDescription": "",
+        "text": ""
+      },
+      {
+        "className": "androidx.appcompat.widget.ContentFrameLayout",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 0,
+        "resourceId": "android:id/content",
+        "contentDescription": "",
+        "text": ""
+      }
+    ]
+  },
+  {
+    "eventType": "VIEW_TEXT_CHANGED",
+    "timestamp": 1648719576169,
+    "replacementText": "test updated!!",
+    "actionCode": -1,
+    "delayTime": 0,
+    "canScrollTo": false,
+    "elementDescriptors": [
+      {
+        "className": "android.widget.EditText",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 0,
+        "resourceId": "",
+        "contentDescription": "",
+        "text": "test"
+      },
+      {
+        "className": "android.widget.FrameLayout",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 0,
+        "resourceId": "com.example.purduecircle307:id/custom",
+        "contentDescription": "",
+        "text": ""
+      },
+      {
+        "className": "android.widget.FrameLayout",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 2,
+        "resourceId": "com.example.purduecircle307:id/customPanel",
+        "contentDescription": "",
+        "text": ""
+      }
+    ]
+  },
+  {
+    "eventType": "VIEW_CLICKED",
+    "timestamp": 1648719590268,
+    "replacementText": "Update",
+    "actionCode": -1,
+    "delayTime": 0,
+    "canScrollTo": true,
+    "elementDescriptors": [
+      {
+        "className": "com.google.android.material.button.MaterialButton",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 3,
+        "resourceId": "android:id/button1",
+        "contentDescription": "",
+        "text": "Update"
+      },
+      {
+        "className": "androidx.appcompat.widget.ButtonBarLayout",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 0,
+        "resourceId": "",
+        "contentDescription": "",
+        "text": ""
+      },
+      {
+        "className": "android.widget.ScrollView",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 3,
+        "resourceId": "com.example.purduecircle307:id/buttonPanel",
+        "contentDescription": "",
+        "text": ""
+      }
+    ]
+  },
+  {
+    "eventType": "PRESSED_BACK_EMULATOR_28",
+    "timestamp": 1648719595810,
+    "actionCode": -1,
+    "delayTime": 0,
+    "canScrollTo": false,
+    "elementDescriptors": []
+  },
+  {
+    "eventType": "VIEW_CLICKED",
+    "timestamp": 1648719603340,
+    "replacementText": "",
+    "actionCode": -1,
+    "delayTime": 0,
+    "canScrollTo": false,
+    "elementDescriptors": [
+      {
+        "className": "androidx.appcompat.widget.AppCompatImageButton",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 2,
+        "resourceId": "com.example.purduecircle307:id/comment_button",
+        "contentDescription": "",
+        "text": ""
+      },
+      {
+        "className": "android.widget.LinearLayout",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 4,
+        "resourceId": "",
+        "contentDescription": "",
+        "text": ""
+      },
+      {
+        "className": "android.widget.LinearLayout",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 0,
+        "resourceId": "",
+        "contentDescription": "",
+        "text": ""
+      }
+    ]
+  },
+  {
+    "eventType": "PRESSED_BACK_EMULATOR_28",
+    "timestamp": 1648719606854,
+    "actionCode": -1,
+    "delayTime": 0,
+    "canScrollTo": false,
+    "elementDescriptors": []
+  },
+  {
+    "eventType": "VIEW_CLICKED",
+    "timestamp": 1648719610721,
+    "replacementText": "",
+    "actionCode": -1,
+    "delayTime": 0,
+    "canScrollTo": false,
+    "elementDescriptors": [
+      {
+        "className": "androidx.appcompat.widget.AppCompatImageButton",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 2,
+        "resourceId": "com.example.purduecircle307:id/comment_button",
+        "contentDescription": "",
+        "text": ""
+      },
+      {
+        "className": "android.widget.LinearLayout",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 4,
+        "resourceId": "",
+        "contentDescription": "",
+        "text": ""
+      },
+      {
+        "className": "android.widget.LinearLayout",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 0,
+        "resourceId": "",
+        "contentDescription": "",
+        "text": ""
+      }
+    ]
+  },
+  {
+    "eventType": "PRESSED_BACK_EMULATOR_28",
+    "timestamp": 1648719615815,
+    "actionCode": -1,
+    "delayTime": 0,
+    "canScrollTo": false,
+    "elementDescriptors": []
+  },
+  {
+    "eventType": "VIEW_CLICKED",
+    "timestamp": 1648719620851,
+    "replacementText": "",
+    "actionCode": -1,
+    "delayTime": 0,
+    "canScrollTo": false,
+    "elementDescriptors": [
+      {
+        "className": "androidx.appcompat.widget.AppCompatImageButton",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 2,
+        "resourceId": "com.example.purduecircle307:id/comment_button",
+        "contentDescription": "",
+        "text": ""
+      },
+      {
+        "className": "android.widget.LinearLayout",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 4,
+        "resourceId": "",
+        "contentDescription": "",
+        "text": ""
+      },
+      {
+        "className": "android.widget.LinearLayout",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 0,
+        "resourceId": "",
+        "contentDescription": "",
+        "text": ""
+      }
+    ]
+  },
+  {
+    "eventType": "VIEW_TEXT_CHANGED",
+    "timestamp": 1648719627844,
+    "replacementText": "writing a comment !!",
+    "actionCode": -1,
+    "delayTime": 0,
+    "canScrollTo": true,
+    "elementDescriptors": [
+      {
+        "className": "androidx.appcompat.widget.AppCompatEditText",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 2,
+        "resourceId": "com.example.purduecircle307:id/comment_input",
+        "contentDescription": "",
+        "text": ""
+      },
+      {
+        "className": "android.widget.RelativeLayout",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 0,
+        "resourceId": "",
+        "contentDescription": "",
+        "text": ""
+      },
+      {
+        "className": "android.widget.ScrollView",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 0,
+        "resourceId": "",
+        "contentDescription": "",
+        "text": ""
+      }
+    ]
+  },
+  {
+    "eventType": "VIEW_CLICKED",
+    "timestamp": 1648719653757,
+    "replacementText": "",
+    "actionCode": -1,
+    "delayTime": 0,
+    "canScrollTo": true,
+    "elementDescriptors": [
+      {
+        "className": "androidx.appcompat.widget.AppCompatImageButton",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 3,
+        "resourceId": "com.example.purduecircle307:id/post_comment_btn",
+        "contentDescription": "",
+        "text": ""
+      },
+      {
+        "className": "android.widget.RelativeLayout",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 0,
+        "resourceId": "",
+        "contentDescription": "",
+        "text": ""
+      },
+      {
+        "className": "android.widget.ScrollView",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 0,
+        "resourceId": "",
+        "contentDescription": "",
+        "text": ""
+      }
+    ]
+  },
+  {
+    "eventType": "PRESSED_BACK_EMULATOR_28",
+    "timestamp": 1648719659119,
+    "actionCode": -1,
+    "delayTime": 0,
+    "canScrollTo": false,
+    "elementDescriptors": []
+  },
+  {
+    "eventType": "VIEW_CLICKED",
+    "timestamp": 1648719664166,
+    "replacementText": "",
+    "actionCode": -1,
+    "delayTime": 0,
+    "canScrollTo": false,
+    "elementDescriptors": [
+      {
+        "className": "androidx.appcompat.widget.AppCompatImageButton",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 2,
+        "resourceId": "com.example.purduecircle307:id/comment_button",
+        "contentDescription": "",
+        "text": ""
+      },
+      {
+        "className": "android.widget.LinearLayout",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 4,
+        "resourceId": "",
+        "contentDescription": "",
+        "text": ""
+      },
+      {
+        "className": "android.widget.LinearLayout",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 0,
+        "resourceId": "",
+        "contentDescription": "",
+        "text": ""
+      }
+    ]
+  },
+  {
+    "eventType": "PRESSED_BACK_EMULATOR_28",
+    "timestamp": 1648719668051,
+    "actionCode": -1,
+    "delayTime": 0,
+    "canScrollTo": false,
+    "elementDescriptors": []
+  },
+  {
+    "eventType": "VIEW_CLICKED",
+    "timestamp": 1648719672227,
+    "replacementText": "",
+    "actionCode": -1,
+    "delayTime": 0,
+    "canScrollTo": false,
+    "elementDescriptors": [
+      {
+        "className": "android.widget.RelativeLayout",
+        "recyclerViewChildPosition": 1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": -1,
+        "resourceId": "",
+        "contentDescription": "",
+        "text": ""
+      },
+      {
+        "className": "androidx.recyclerview.widget.RecyclerView",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 0,
+        "resourceId": "com.example.purduecircle307:id/all_users_post_list",
+        "contentDescription": "",
+        "text": ""
+      },
+      {
+        "className": "android.widget.FrameLayout",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 1,
+        "resourceId": "com.example.purduecircle307:id/main_container",
+        "contentDescription": "",
+        "text": ""
+      }
+    ]
+  },
+  {
+    "eventType": "PRESSED_BACK_EMULATOR_28",
+    "timestamp": 1648719676318,
+    "actionCode": -1,
+    "delayTime": 0,
+    "canScrollTo": false,
+    "elementDescriptors": []
+  },
+  {
+    "eventType": "VIEW_CLICKED",
+    "timestamp": 1648719678334,
+    "replacementText": "",
+    "actionCode": -1,
+    "delayTime": 0,
+    "canScrollTo": false,
+    "elementDescriptors": [
+      {
+        "className": "androidx.appcompat.widget.AppCompatImageButton",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 1,
+        "resourceId": "",
+        "contentDescription": "Drawer Open",
+        "text": ""
+      },
+      {
+        "className": "androidx.appcompat.widget.Toolbar",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 0,
+        "resourceId": "com.example.purduecircle307:id/main_page_toolbar",
+        "contentDescription": "",
+        "text": ""
+      },
+      {
+        "className": "android.widget.RelativeLayout",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 0,
+        "resourceId": "",
+        "contentDescription": "",
+        "text": ""
+      }
+    ]
+  },
+  {
+    "eventType": "VIEW_CLICKED",
+    "timestamp": 1648719681025,
+    "replacementText": "",
+    "actionCode": -1,
+    "delayTime": 0,
+    "canScrollTo": false,
+    "elementDescriptors": [
+      {
+        "className": "com.google.android.material.internal.NavigationMenuItemView",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 8,
+        "resourceId": "com.example.purduecircle307:id/nav_logout",
+        "contentDescription": "",
+        "text": ""
+      },
+      {
+        "className": "com.google.android.material.internal.NavigationMenuView",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 0,
+        "resourceId": "com.example.purduecircle307:id/design_navigation_view",
+        "contentDescription": "",
+        "text": ""
+      },
+      {
+        "className": "com.google.android.material.navigation.NavigationView",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 1,
+        "resourceId": "com.example.purduecircle307:id/navigation_view",
+        "contentDescription": "",
+        "text": ""
+      }
+    ]
+  },
+  {
+    "eventType": "VIEW_CLICKED",
+    "timestamp": 1648719684366,
+    "replacementText": "YES",
+    "actionCode": -1,
+    "delayTime": 0,
+    "canScrollTo": true,
+    "elementDescriptors": [
+      {
+        "className": "com.google.android.material.button.MaterialButton",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 3,
+        "resourceId": "android:id/button1",
+        "contentDescription": "",
+        "text": "YES"
+      },
+      {
+        "className": "com.android.internal.widget.ButtonBarLayout",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 0,
+        "resourceId": "",
+        "contentDescription": "",
+        "text": ""
+      },
+      {
+        "className": "android.widget.ScrollView",
+        "recyclerViewChildPosition": -1,
+        "adapterViewChildPosition": -1,
+        "groupViewChildPosition": 3,
+        "resourceId": "android:id/buttonPanel",
+        "contentDescription": "",
+        "text": ""
+      }
+    ]
+  }
+]

@@ -257,7 +257,7 @@ public class PostActivity extends AppCompatActivity {
                     postsMap.put("time", saveCurrentTime);
                     postsMap.put("description", Description);
                     postsMap.put("postimage", downloadUrl);
-                    postsMap.put("profileimage", userProfileImage);
+                    postsMap.put("profileImage", userProfileImage);
                     postsMap.put("name", userFullName);
                     postsMap.put("tag", Tag);
                     //FIX THIS!!

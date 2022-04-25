@@ -184,6 +184,19 @@
                 app:background="@android:color/holo_blue_dark"
                 app:backgroundTint="@android:color/holo_blue_dark" />
 
+            <Button
+                android:id="@+id/dm_btn"
+                android:layout_width="275dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view_interactions_button"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="1dp"
+                android:text="Direct Message"
+                android:textSize="16sp"
+                app:background="@android:color/holo_blue_dark"
+                app:backgroundTint="@android:color/holo_blue_dark"/>
+
+
         </RelativeLayout>
     </ScrollView>
 

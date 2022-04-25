@@ -10,6 +10,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="drawer_open">Drawer Open</string>
     <string name="drawer_close">Drawer Close</string>
+    <string name="saved_posts">Saved Posts</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="imageview">imageView</string>
     <string name="profile">Profile</string>

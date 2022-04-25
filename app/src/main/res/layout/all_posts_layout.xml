@@ -133,13 +133,30 @@
                 android:textSize="14sp"
                 android:textStyle="bold"/>
 
+
             <ImageButton
                 android:id="@+id/comment_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="150dp"
+                android:layout_marginLeft="80dp"
                 android:baselineAlignBottom="false"
                 android:src="@drawable/comment"/>
+<!--
+            <ImageButton
+                android:id="@+id/save_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:baselineAlignBottom="false"
+                android:src="@drawable/save" />
+-->
+            <ImageButton
+                android:id="@+id/save_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:baselineAlignBottom="false"
+                android:src="@drawable/unsave" />
 
         </LinearLayout>
 

@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="mainBackground">#D7D7D7</color>
     <color name="colorProfile">#3B4041</color>
+    <color name="senderColor">#78C5DC</color>
+    <color name="receiverColor">#97DEE7</color>
 </resources>

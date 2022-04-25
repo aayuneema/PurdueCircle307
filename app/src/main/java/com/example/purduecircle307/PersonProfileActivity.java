@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -71,6 +72,7 @@ public class PersonProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
+                    String myProfileImage = snapshot.child("profileImage").getValue().toString();
                     String myUsername = snapshot.child("username").getValue().toString();
                     String myName = snapshot.child("name").getValue().toString();
                     String myBio = snapshot.child("bio").getValue().toString();
@@ -79,6 +81,7 @@ public class PersonProfileActivity extends AppCompatActivity {
                     String myGender = snapshot.child("gender").getValue().toString();
 
                     //Picasso.get().load(myProfileImage).placeholder(R.drawable.profile).into(userProfImage);
+                    Picasso.with(PersonProfileActivity.this).load(myProfileImage).into(userProfileImage);
                     userName.setText("@" + myUsername);
                     userProfileName.setText(myName);
                     userBio.setText(myBio);
@@ -113,7 +116,7 @@ public class PersonProfileActivity extends AppCompatActivity {
 
         DMButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 sendUserToChatActivity();
             }
         });
@@ -180,8 +183,6 @@ public class PersonProfileActivity extends AppCompatActivity {
                             SendFriendRequestButton.setEnabled(false);
                             SendFriendRequestButton.setVisibility(View.INVISIBLE);
                             DeclineFriendRequestButton.setVisibility(View.INVISIBLE);
-                            DMButton.setVisibility(View.INVISIBLE);
-                            DMButton.setEnabled(false);
                             DeclineFriendRequestButton.setEnabled(false);
                             BlockButton.setText("Unblock User");
                             BLOCK_STATE = "blocked";
@@ -218,8 +219,6 @@ public class PersonProfileActivity extends AppCompatActivity {
                                 userGender.setVisibility(View.VISIBLE);
                                 userGraduationDate.setVisibility(View.VISIBLE);
                                 userProfileImage.setVisibility(View.VISIBLE);
-                                DMButton.setEnabled(true);
-                                DMButton.setVisibility(View.VISIBLE);
                                 BlockButton.setText("Block User");
                                 BLOCK_STATE = "not_blocked";
                             }
@@ -488,7 +487,7 @@ public class PersonProfileActivity extends AppCompatActivity {
     private void sendUserToChatActivity() {
         Intent messagingIntent = new Intent(PersonProfileActivity.this, ChatActivity.class);
         messagingIntent.putExtra("visit_user_id", receiverUserId);
-        messagingIntent.putExtra("userName", userName.toString());
+        messagingIntent.putExtra("username", userName.toString());
         startActivity(messagingIntent);
     }
 }

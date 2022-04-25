@@ -145,8 +145,20 @@
                 android:layout_width="275dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/public_profile_Gender"
-                android:layout_marginTop="45dp"
+                android:layout_marginTop="35dp"
                 android:text="View My Posts"
+                android:textSize="16sp"
+                app:background="@android:color/holo_blue_dark"
+                app:backgroundTint="@android:color/holo_blue_dark"
+                android:layout_centerHorizontal="true" />
+
+            <Button
+                android:id="@+id/view_saved_button"
+                android:layout_width="275dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view_posts_button"
+                android:layout_marginTop="15dp"
+                android:text="View Saved Posts"
                 android:textSize="16sp"
                 app:background="@android:color/holo_blue_dark"
                 app:backgroundTint="@android:color/holo_blue_dark"
