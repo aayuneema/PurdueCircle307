@@ -86,7 +86,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         Name = (EditText) findViewById(R.id.profile_name);
         UserName = (EditText) findViewById(R.id.profile_username);
-        //String myProfileImage = ProfileActivityUserRef.child("profileimage").getValue().toString();
+        //String myProfileImage = ProfileActivityUserRef.child("profileImage").getValue().toString();
         ProfileImage = (CircleImageView) findViewById(R.id.settings_profile_image);
         //Picasso.with(ProfileActivity.this).load(myProfileImage).into(ProfileImage);
         SaveProfileButton = (Button) findViewById(R.id.profile_SaveButton);
@@ -129,7 +129,7 @@ public class ProfileActivity extends AppCompatActivity {
             userMap.put("graduationDate", "Graduation Date");
             userMap.put("gender", "Gender");
             userMap.put("country", "Country");
-            userMap.put("profileimage", "Profile Image");
+            userMap.put("profileImage", "Profile Image");
 
             UsersRef.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
                 @Override

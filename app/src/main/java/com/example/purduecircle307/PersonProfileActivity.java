@@ -72,7 +72,7 @@ public class PersonProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    String myProfileImage = snapshot.child("profileimage").getValue().toString();
+                    String myProfileImage = snapshot.child("profileImage").getValue().toString();
                     String myUsername = snapshot.child("username").getValue().toString();
                     String myName = snapshot.child("name").getValue().toString();
                     String myBio = snapshot.child("bio").getValue().toString();

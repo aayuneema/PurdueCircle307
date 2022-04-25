@@ -73,7 +73,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
                          if (dataSnapshot.exists()) {
                              System.out.println("hehehe");
                              final String username = "@" + dataSnapshot.child("username").getValue().toString();
-                             final String profileimage = dataSnapshot.child("profileimage").getValue().toString();
+                             final String profileimage = dataSnapshot.child("profileImage").getValue().toString();
                              final String bio = dataSnapshot.child("bio").getValue().toString();
 
                              friendsViewHolder.setUsername(username);
