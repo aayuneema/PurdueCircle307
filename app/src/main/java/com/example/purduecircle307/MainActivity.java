@@ -171,9 +171,9 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {
-                        if(snapshot.hasChild("fullname"))
+                        if(snapshot.hasChild("name"))
                         {
-                            String fullname = snapshot.child("fullname").getValue().toString();
+                            String fullname = snapshot.child("name").getValue().toString();
                             NavProfileUserName.setText(fullname);
                         }
                         if(snapshot.hasChild("profileimage"))
