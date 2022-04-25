@@ -32,7 +32,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
@@ -204,38 +203,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        UserRef.child(currentUserID).child("feed").removeValue();
-
-        UsersTagsRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                followedTags = new ArrayList<String>();
-                for (DataSnapshot tagChild : snapshot.getChildren()) {
-                    followedTags.add(tagChild.getKey());
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        FriendsRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                followedUsers = new ArrayList<String>();
-                for (DataSnapshot tagChild : snapshot.getChildren()) {
-                    followedUsers.add(tagChild.getKey());
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
         displayAllUsersPosts();
     }
 
@@ -262,14 +229,15 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
+        /*
         Query SortPostsInDescendingOrder;
         if (isGuestUser) {
-            SortPostsInDescendingOrder = PostsRef.limitToLast(5);
+            SortPostsInDescendingOrder = PostsRef.orderByChild("counter").limitToLast(5);
         }
         else {
-            SortPostsInDescendingOrder = UserRef.child(currentUserID).child("feed");
+            SortPostsInDescendingOrder = UserRef.child(currentUserID).child("feed").orderByChild("counter");
         }
+        */
         /*Posts.class,
                 R.layout.all_posts_layout,
                 PostsViewHolder.class,
@@ -277,7 +245,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseRecyclerOptions<Posts> options =
                 
                 new FirebaseRecyclerOptions.Builder<Posts>()
-                        .setQuery(SortPostsInDescendingOrder, Posts.class)
+                        .setQuery(PostsRef, Posts.class)
                         .build();
         FirebaseRecyclerAdapter<Posts, PostsViewHolder> firebaseRecyclerAdapter =
                 new FirebaseRecyclerAdapter<Posts, PostsViewHolder>(options) {
