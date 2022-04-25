@@ -33,6 +33,7 @@ public class PublicProfileActivity extends AppCompatActivity {
 
     private Button ViewCreatedPostsButton;
     private Button ViewSavedPostsButton;
+    private Button ViewInteractionsButton;
 
 
     @Override
@@ -58,6 +59,7 @@ public class PublicProfileActivity extends AppCompatActivity {
         userProfileImage = (CircleImageView) findViewById(R.id.public_profile_image);
         ViewCreatedPostsButton = (Button) findViewById(R.id.view_posts_button); //vpb
         ViewSavedPostsButton = (Button) findViewById(R.id.view_saved_button);
+        ViewInteractionsButton = (Button) findViewById(R.id.view_interactions_button);
 
 
         profileUserRef.addValueEventListener(new ValueEventListener() {
@@ -106,10 +108,26 @@ public class PublicProfileActivity extends AppCompatActivity {
             }
         });
 
+        ViewInteractionsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendUserToInteractionsActivity();
+            }
+        });
+
 
     }
 
-
+    private void sendUserToInteractionsActivity() {
+        if (isGuestUser) {
+            Toast.makeText(PublicProfileActivity.this, "Please sign in to use this feature.", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Intent userInteractionsIntent = new Intent(PublicProfileActivity.this, UserInteractions.class);
+            userInteractionsIntent.putExtra("visit_user_id", currentUserId);
+            startActivity(userInteractionsIntent);
+        }
+    }
 
     private void sendUserToPostActivity() {
         if (isGuestUser) {
