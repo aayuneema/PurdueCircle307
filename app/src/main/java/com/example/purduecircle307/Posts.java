@@ -5,7 +5,7 @@ public class Posts {
     public String description;
     public String name;
     public String postimage;
-    public String profileimage;
+    public String profileImage;
     public String time;
     public String uid;
     public String tag;
@@ -15,12 +15,12 @@ public class Posts {
 
     }
 
-    public Posts(String date, String description, String name, String postimage, String profileimage, String time, String uid, String tag, boolean isAnon) {
+    public Posts(String date, String description, String name, String postimage, String profileImage, String time, String uid, String tag, boolean isAnon) {
         this.date = date;
         this.description = description;
         this.name = name;
         this.postimage = postimage;
-        this.profileimage = profileimage;
+        this.profileImage = profileImage;
         this.time = time;
         this.uid = uid;
         this.tag = tag;
@@ -59,12 +59,12 @@ public class Posts {
         this.postimage = postimage;
     }
 
-    public String getProfileimage() {
-        return profileimage;
+    public String getProfileImage() {
+        return profileImage;
     }
 
-    public void setProfileimage(String profileimage) {
-        this.profileimage = profileimage;
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
     }
 
     public String getTime() {
