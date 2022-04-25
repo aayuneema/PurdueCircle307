@@ -142,7 +142,7 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {
-                    String image = dataSnapshot.child("profileimage").getValue().toString();
+                    String image = dataSnapshot.child("profileImage").getValue().toString();
                     Picasso.with(SettingsActivity.this).load(image).placeholder(R.drawable.profile).into(userProfImage);
                 }
             }
@@ -161,9 +161,9 @@ public class SettingsActivity extends AppCompatActivity {
                     if (dataSnapshot.hasChild("profileImage"))
                     {
                         String image = dataSnapshot.child("profileImage").getValue().toString();
-                        System.out.println("image = " + image);
+                        //System.out.println("image = " + image);
                         //String image2 = image.getResult().getStorage().getDownloadUrl().toString();
-                        Toast.makeText(SettingsActivity.this, image, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(SettingsActivity.this, image, Toast.LENGTH_SHORT).show();
                         Picasso.with(SettingsActivity.this).load(image).placeholder(R.drawable.profile).into(userProfImage);
                     }
                     else
@@ -237,7 +237,7 @@ public class SettingsActivity extends AppCompatActivity {
                         Toast.makeText(SettingsActivity.this, "Profile Image stored stored successfully to Firebase storage", Toast.LENGTH_SHORT).show();
                         final String downloadUrl = task.getResult().getStorage().getDownloadUrl().toString();
                         Toast.makeText(SettingsActivity.this, "DownloadURL: " + downloadUrl, Toast.LENGTH_SHORT).show();
-                        SettingsuserRef.child("profileimage").setValue(downloadUrl)
+                        SettingsuserRef.child("profileImage").setValue(downloadUrl)
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
@@ -275,11 +275,11 @@ public class SettingsActivity extends AppCompatActivity {
                     SettingsuserRef.child("profileImage").setValue(downloadUrl);
                    /*
                     HashMap postsMap = new HashMap();
-                    postsMap.put("profileimage", downloadUrl);
+                    postsMap.put("profileImage", downloadUrl);
 
                     //SettingsuserRef.child(postRandomName + current_user_id).updateChildren(postsMap).addOnCompleteListener(new OnCompleteListener() {
 
-                    SettingsuserRef.updateChildren("profileimage").addOnCompleteListener(new OnCompleteListener() {
+                    SettingsuserRef.updateChildren("profileImage").addOnCompleteListener(new OnCompleteListener() {
                         @Override
                         public void onComplete(@NonNull Task task) {
                             if (task.isSuccessful()) {
