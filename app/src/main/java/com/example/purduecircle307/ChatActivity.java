@@ -1,7 +1,9 @@
 package com.example.purduecircle307;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -17,6 +19,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,8 +27,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ChatActivity extends AppCompatActivity {
@@ -34,6 +39,9 @@ public class ChatActivity extends AppCompatActivity {
     private ImageButton SendMessageButton, SendImageButton;
     private EditText userMessageInput;
     private RecyclerView userMessageList;
+    private final List<Messages> messagesList = new ArrayList<>();
+    private LinearLayoutManager linearLayoutManager;
+    private MessagesAdapter messageAdapter;
 
     private String messageReceiverId, messageReceiverName, messageSenderId, saveCurrentDate, saveCurrentTime;
 
@@ -53,7 +61,7 @@ public class ChatActivity extends AppCompatActivity {
         RootRef = FirebaseDatabase.getInstance().getReference();
 
         messageReceiverId = getIntent().getExtras().get("visit_user_id").toString();
-        messageReceiverName = getIntent().getExtras().get("userName").toString();
+        messageReceiverName = getIntent().getExtras().get("username").toString();
 
         //userMessageList = (RecyclerView) findViewById(R.id.messages_list_of_users);
         InitializeFields();
@@ -67,7 +75,46 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
+        FetchMessages();
+
     }
+
+
+    private void FetchMessages() {
+        RootRef.child("Messages").child(messageSenderId).child(messageReceiverId)
+                .addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                        if (snapshot.exists()) {
+                            Messages messages = snapshot.getValue(Messages.class);
+                            messagesList.add(messages);
+                            messageAdapter.notifyDataSetChanged();
+                        }
+                    }
+
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+    }
+
+
 
     private void SendMessage() {
         String messageText = userMessageInput.getText().toString();
@@ -108,12 +155,14 @@ public class ChatActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task task) {
                     if (task.isSuccessful()) {
                         Toast.makeText(ChatActivity.this, "Message Sent Successfully", Toast.LENGTH_SHORT).show();
+                        userMessageInput.setText("");
                     } else {
                         String message = task.getException().getMessage();
                         Toast.makeText(ChatActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
+                        userMessageInput.setText("");
                     }
 
-                    userMessageInput.setText("");
+                    //userMessageInput.setText("");
                 }
             });
         }
@@ -145,5 +194,12 @@ public class ChatActivity extends AppCompatActivity {
         SendImageButton = (ImageButton) findViewById(R.id.send_image_button);
 
         userMessageInput = (EditText) findViewById(R.id.input_message);
+
+        messageAdapter = new MessagesAdapter(messagesList);
+        userMessageList = (RecyclerView) findViewById(R.id.messages_list_of_users);
+        linearLayoutManager = new LinearLayoutManager(this);
+        userMessageList.setHasFixedSize(true);
+        userMessageList.setLayoutManager(linearLayoutManager);
+        userMessageList.setAdapter(messageAdapter);
     }
 }
