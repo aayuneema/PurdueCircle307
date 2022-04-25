@@ -37,7 +37,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -66,13 +68,14 @@ public class MainActivity extends AppCompatActivity {
     boolean isGuestUser = false;
     private ArrayList<String> followedTags = new ArrayList<String>();
     private ArrayList<String> followedUsers = new ArrayList<String>();
+    private boolean justStarted = true;
 
     //Checks authentication of user
     @Override
     protected void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        UserRef.child(currentUserID).child("feed").removeValue();
+        //UserRef.child(currentUserID).child("feed").removeValue();
 
         //force logout
         //currentUser = null;
@@ -116,7 +119,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        displayAllUsersPosts();
+        if (justStarted) {
+            System.out.println("just started");
+            displayAllUsersPosts();
+        }
+        justStarted = false;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -230,17 +237,37 @@ public class MainActivity extends AppCompatActivity {
         PostsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                HashMap feedMap = new HashMap();
                 for (DataSnapshot postChild : dataSnapshot.getChildren()) {
                     String postKey = postChild.getKey();
                     String tag = postChild.child("tag").getValue().toString();
                     if (followedTags.contains(tag)) {
-                        UserRef.child(currentUserID).child("feed").child(postKey).updateChildren((Map<String, Object>) postChild.getValue());
+                        feedMap.put(postKey, postChild.getValue());
+                        //UserRef.child(currentUserID).child("feed").child(postKey).updateChildren((Map<String, Object>) postChild.getValue());
                     }
                     String creator = postChild.child("uid").getValue().toString();
                     if (followedUsers.contains(creator)) {
-                        UserRef.child(currentUserID).child("feed").child(postKey).updateChildren((Map<String, Object>) postChild.getValue());
+                        feedMap.put(postKey, postChild.getValue());
+                        //UserRef.child(currentUserID).child("feed").child(postKey).updateChildren((Map<String, Object>) postChild.getValue());
                     }
                 }
+                Set<String> feedKeys = feedMap.keySet();
+                UserRef.child(currentUserID).child("feed").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot post : snapshot.getChildren()) {
+                            if (!feedKeys.contains(post.getKey())) {
+                                UserRef.child(currentUserID).child("feed").child(post.getKey()).removeValue();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+                UserRef.child(currentUserID).child("feed").updateChildren(feedMap);
             }
 
             @Override
@@ -254,7 +281,7 @@ public class MainActivity extends AppCompatActivity {
             SortPostsInDescendingOrder = PostsRef.orderByChild("counter").limitToLast(5);
         }
         else {
-            SortPostsInDescendingOrder = UserRef.child(currentUserID).child("feed").orderByChild("counter");
+            SortPostsInDescendingOrder = UserRef.child(currentUserID).child("feed");
         }
 
         /*Posts.class,
