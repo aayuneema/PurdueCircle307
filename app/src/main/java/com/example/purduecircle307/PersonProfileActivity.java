@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -71,6 +72,7 @@ public class PersonProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
+                    String myProfileImage = snapshot.child("profileimage").getValue().toString();
                     String myUsername = snapshot.child("username").getValue().toString();
                     String myName = snapshot.child("name").getValue().toString();
                     String myBio = snapshot.child("bio").getValue().toString();
@@ -79,6 +81,7 @@ public class PersonProfileActivity extends AppCompatActivity {
                     String myGender = snapshot.child("gender").getValue().toString();
 
                     //Picasso.get().load(myProfileImage).placeholder(R.drawable.profile).into(userProfImage);
+                    Picasso.with(PersonProfileActivity.this).load(myProfileImage).into(userProfileImage);
                     userName.setText("@" + myUsername);
                     userProfileName.setText(myName);
                     userBio.setText(myBio);

@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -42,7 +43,9 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference UsersRef;
     private DatabaseReference usernameRef;
+    private DatabaseReference ProfileActivityUserRef;
     private List<String> databaseUsernames = new ArrayList<String>();
+
 
     String currentUserID;
 
@@ -52,7 +55,7 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         mAuth = FirebaseAuth.getInstance();
-
+        ProfileActivityUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
         usernameRef = FirebaseDatabase.getInstance().getReference().child("Usernames");
         usernameRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -83,7 +86,9 @@ public class ProfileActivity extends AppCompatActivity {
 
         Name = (EditText) findViewById(R.id.profile_name);
         UserName = (EditText) findViewById(R.id.profile_username);
+        //String myProfileImage = ProfileActivityUserRef.child("profileimage").getValue().toString();
         ProfileImage = (CircleImageView) findViewById(R.id.settings_profile_image);
+        //Picasso.with(ProfileActivity.this).load(myProfileImage).into(ProfileImage);
         SaveProfileButton = (Button) findViewById(R.id.profile_SaveButton);
         loadingBar = new ProgressDialog(this);
 
