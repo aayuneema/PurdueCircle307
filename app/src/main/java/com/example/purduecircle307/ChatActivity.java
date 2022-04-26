@@ -71,7 +71,27 @@ public class ChatActivity extends AppCompatActivity {
         SendMessageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SendMessage();
+                (RootRef.child("Users").child(messageReceiverId)).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (!snapshot.hasChild("DMOptions")) {
+                            areFriends();
+                        }
+                        else {
+                            if ((snapshot.child("DMOptions").getValue().toString()).equals("friends")) {
+                                areFriends();
+                            }
+                            else {
+                                SendMessage();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
 
@@ -79,6 +99,28 @@ public class ChatActivity extends AppCompatActivity {
 
     }
 
+    private void areFriends() {
+        RootRef.child("Friends").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (task.getResult().hasChild(messageSenderId)) {
+                    if (task.getResult().child(messageSenderId).hasChild(messageReceiverId)) {
+                        SendMessage();
+                    }
+                    else {
+                        sendErrorMessage();
+                    }
+                }
+                else {
+                    sendErrorMessage();
+                }
+            }
+        });
+    }
+
+    private void sendErrorMessage() {
+        Toast.makeText(this, "Please send a friend request first", Toast.LENGTH_SHORT).show();
+    }
 
     private void FetchMessages() {
         RootRef.child("Messages").child(messageSenderId).child(messageReceiverId)
