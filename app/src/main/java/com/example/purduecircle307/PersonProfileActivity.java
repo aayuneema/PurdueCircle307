@@ -184,6 +184,8 @@ public class PersonProfileActivity extends AppCompatActivity {
                             SendFriendRequestButton.setVisibility(View.INVISIBLE);
                             DeclineFriendRequestButton.setVisibility(View.INVISIBLE);
                             DeclineFriendRequestButton.setEnabled(false);
+                            DMButton.setVisibility(View.INVISIBLE);
+                            DMButton.setEnabled(false);
                             BlockButton.setText("Unblock User");
                             BLOCK_STATE = "blocked";
                         }
@@ -407,6 +409,8 @@ public class PersonProfileActivity extends AppCompatActivity {
                         userGender.setVisibility(View.INVISIBLE);
                         userGraduationDate.setVisibility(View.INVISIBLE);
                         userProfileImage.setVisibility(View.INVISIBLE);
+                        DMButton.setVisibility(View.INVISIBLE);
+                        DMButton.setEnabled(false);
                         BLOCK_STATE = "blocked";
                     }
                 }
