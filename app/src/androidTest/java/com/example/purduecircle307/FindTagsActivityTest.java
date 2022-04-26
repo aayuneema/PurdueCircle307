@@ -27,24 +27,24 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FindFriendsActivityTest {
+public class FindTagsActivityTest {
 
     @Rule
-    public ActivityTestRule<FindFriendsActivity> findFriendsActivityRule = new ActivityTestRule<FindFriendsActivity>(FindFriendsActivity.class);
+    public ActivityTestRule<FindTagsActivity> findTagsActivityRule = new ActivityTestRule<FindTagsActivity>(FindTagsActivity.class);
 
-    private FindFriendsActivity findFriendsActivity = null;
+    private FindTagsActivity findTagsActivity = null;
 
     @Before
     public void setUp() throws Exception {
-        findFriendsActivity = findFriendsActivityRule.getActivity();
+        findTagsActivity = findTagsActivityRule.getActivity();
     }
 
     @Test
     public void viewsMustBeVisible()
     {
-        findFriendsActivity = findFriendsActivityRule.getActivity();
-        onView(withId(R.id.search_friends_button)).check(matches(isCompletelyDisplayed()));
-        onView(withId(R.id.search_friends_button)).perform(click());
+        findTagsActivity = findTagsActivityRule.getActivity();
+        onView(withId(R.id.search_tags_button)).check(matches(isCompletelyDisplayed()));
+        onView(withId(R.id.search_tags_button)).perform(click());
     }
 
     @Test
@@ -53,9 +53,11 @@ public class FindFriendsActivityTest {
     }
 
     @Test
-    public void findFriendsText() {
-        onView(withId(R.id.search_box_input)).perform(clearText(), typeText("purduepete"), closeSoftKeyboard());
-        onView(withId(R.id.search_friends_button)).perform(click());
+    public void findTagsTest() {
+        onView(withId(R.id.search_box_input)).perform(clearText(), typeText("orangejuice"), closeSoftKeyboard());
+        onView(withId(R.id.search_tags_button)).perform(click());
+        onView(withId(R.id.search_tags_button)).check(matches(isCompletelyDisplayed()));
+        onView(withId(R.id.search_result_list)).perform(ViewActions.click());
 
     }
 }

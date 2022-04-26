@@ -1,7 +1,11 @@
 package com.example.purduecircle307;
 
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.clearText;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
+import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 import org.junit.After;
@@ -34,10 +38,10 @@ public class MainActivityTest {
         assertNotNull(view);
     }
 
+
     @Test
-    public void testScroll() {
-        onView(withId(R.id.all_users_post_list))
-                .perform(ViewActions.swipeUp());
+    public void clickPostButton() {
+        onView(withId(R.id.add_new_post_button)).perform(click());
     }
 
     @After

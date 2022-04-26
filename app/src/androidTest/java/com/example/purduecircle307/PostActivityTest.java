@@ -1,5 +1,11 @@
 package com.example.purduecircle307;
 
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -10,6 +16,7 @@ import androidx.test.rule.ActivityTestRule;
 import static org.junit.Assert.*;
 
 import android.view.View;
+import android.widget.Button;
 
 public class PostActivityTest {
 
@@ -43,6 +50,9 @@ public class PostActivityTest {
 
     @Test
     public void testScroll() {
+        onView(withId(R.id.update_post_button)).check(matches(isCompletelyDisplayed()));
+        onView(withId(R.id.update_post_button)).perform(click());
+        //private Button UpdatePostButton, CreateTagButton, BrowseTagsButton;
     }
 
     @After
