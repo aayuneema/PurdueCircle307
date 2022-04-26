@@ -8,16 +8,15 @@
 
     <include
         android:id="@+id/chat_bar_layout"
-        layout="@layout/app_bar_layout">
-    </include>
+        layout="@layout/app_bar_layout"></include>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/messages_list_of_users"
-        android:layout_below="@+id/chat_bar_layout"
-        android:layout_above="@id/myLinearLayout"
-        android:layout_centerHorizontal="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_above="@id/myLinearLayout"
+        android:layout_below="@+id/chat_bar_layout"
+        android:layout_centerHorizontal="true" />
 
     <LinearLayout
         android:id="@+id/myLinearLayout"
