@@ -118,7 +118,7 @@ public class BlockTest {
                         Map<String, String> requesters = (Map) entry.getValue();
                         for (Map.Entry<String, String> entry1 : requesters.entrySet()) {
                             if (userTwo.equals(entry1.getKey())) {
-                                Button DMButton = (Button) personProfileActivity.findViewById(R.id.follow_tag_btn);
+                                Button DMButton = (Button) personProfileActivity.findViewById(R.id.dm_btn);
                                 if (DMButton.getVisibility() == View.INVISIBLE) {
                                     works = true;
                                 }
