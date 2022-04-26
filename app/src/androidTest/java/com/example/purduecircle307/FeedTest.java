@@ -1,6 +1,6 @@
 package com.example.purduecircle307;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import androidx.annotation.NonNull;
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
@@ -15,35 +15,31 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Collections;
 
 @RunWith(AndroidJUnit4ClassRunner.class)
 public class FeedTest {
 
-    String userID = "stc19eF1kFSyEe1H9Dj89Ur8o7t2";
-    private DatabaseReference FriendRef, UsersTagsRef, FeedTagRef, FeedUIDRef;
+    String userID = "stc19eF1kFSyEe1H9Dj89Ur8o7t2"; //Velma Dinkly
+    private DatabaseReference FriendsRef, UsersTagsRef, FeedRef;
 
-    String followedTags[] = new String[1000];
-    int tagLength = 0;
-    String followedUsers[] = new String[1000];
-    int userLength = 0;
+    ArrayList<String> followedTags = new ArrayList<String>();
+    ArrayList<String> followedUsers = new ArrayList<String>();
+    ArrayList<String> feed = new ArrayList<String>();
 
     @Before
     public void setup() {
-        FriendRef = FirebaseDatabase.getInstance().getReference().child("Friends").child(userID);
-        //UsersTagsRef = FirebaseDatabase.getInstance().getReference().child("UsersTags").child(userID);
-        //FeedTagRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userID).child("feed").child("tag");
-        //FeedUIDRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userID).child("feed").child("uid");
+        FriendsRef = FirebaseDatabase.getInstance().getReference().child("Friends").child(userID);
+        UsersTagsRef = FirebaseDatabase.getInstance().getReference().child("UsersTags").child(userID);
+        FeedRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userID).child("feed");
 
-        /*UsersTagsRef.addValueEventListener(new ValueEventListener() {
+        FriendsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Map<String, Object> tags = (Map<String, Object>) snapshot.getValue();
-                int index = 0;
-                for (Map.Entry<String, Object> entry : tags.entrySet()) {
-                    followedTags[index] = entry.getValue().toString();
-                    index++;
-                    tagLength = index;
+                //followedUsers = new ArrayList<String>();
+                for (DataSnapshot userChild : snapshot.getChildren()) {
+                    followedUsers.add(userChild.getKey()); //adds UID
                 }
             }
 
@@ -51,17 +47,14 @@ public class FeedTest {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });*/
+        });
 
-        /*FriendRef.addValueEventListener(new ValueEventListener() {
+        UsersTagsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Map<String, Object> users = (Map<String, Object>) snapshot.getValue();
-                int index = 0;
-                for (Map.Entry<String, Object> entry : users.entrySet()) {
-                    followedUsers[index] = entry.getKey();
-                    index++;
-                    userLength = index;
+                //followedTags = new ArrayList<String>();
+                for (DataSnapshot tagChild : snapshot.getChildren()) {
+                    followedTags.add(tagChild.getKey()); //adds tag value
                 }
             }
 
@@ -69,20 +62,35 @@ public class FeedTest {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });*/
+        });
+
+        FeedRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot feedChild : snapshot.getChildren()) {
+                    feed.add(feedChild.getKey()); //adds post key
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     @Test
     public void unfollowedTagsFollowedUsers() {
-        FeedTagRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        FeedRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                boolean works = false;
-                Map<String, Object> posts = (Map<String, Object>) snapshot.getValue();
-                for (Map.Entry<String, Object> entry : posts.entrySet()) {
-                    System.out.println(entry.getValue());
+                for (DataSnapshot posts : snapshot.getChildren()) {
+                    String uid = posts.child("uid").getValue().toString();
+                    String tag = posts.child("tag").getValue().toString();
+                    if (!followedTags.contains(tag)) {
+                        assertTrue(followedUsers.contains(uid));
+                    }
                 }
-                assertEquals(true, works);
             }
 
             @Override
@@ -92,27 +100,18 @@ public class FeedTest {
         });
     }
 
-    //Test for a friend2 is friends with friend1
     @Test
-    public void twoToOne() {
-        String friendOne = "7HhmHeAMHpWbvlKVq0dj4jI3kP53";
-        String friendTwo = "GThc7hhTfZUdjq4sMcCyZhPOFN32";
-        FriendRef.addListenerForSingleValueEvent(new ValueEventListener() {
+    public void unfollowedUsersFollowedTags() {
+        FeedRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                boolean works = false;
-                Map<String, Object> users = (Map<String, Object>) snapshot.getValue();
-                for (Map.Entry<String, Object> entry : users.entrySet()) {
-                    if (friendTwo.equals(entry.getKey())) {
-                        Map<String, String> requesters = (Map) entry.getValue();
-                        for (Map.Entry<String, String> entry1 : requesters.entrySet()) {
-                            if (friendOne.equals(entry1.getKey())) {
-                                works = true;
-                            }
-                        }
+                for (DataSnapshot posts : snapshot.getChildren()) {
+                    String uid = posts.child("uid").getValue().toString();
+                    String tag = posts.child("tag").getValue().toString();
+                    if (!followedUsers.contains(uid)) {
+                        assertTrue(followedTags.contains(tag));
                     }
                 }
-                assertEquals(true, works);
             }
 
             @Override
@@ -122,27 +121,18 @@ public class FeedTest {
         });
     }
 
-    //Test to see if friend1 is friends with friend3
     @Test
-    public void alreadyFriends() {
-        String friendOne = "7HhmHeAMHpWbvlKVq0dj4jI3kP53";
-        String friendThree = "0oIZa3J7T0Nu6WLYACgm9ALmK4K3";
-        FriendRef.addListenerForSingleValueEvent(new ValueEventListener() {
+    public void followedUsersFollowedTags() {
+        FeedRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                boolean works = false;
-                Map<String, Object> users = (Map<String, Object>) snapshot.getValue();
-                for (Map.Entry<String, Object> entry : users.entrySet()) {
-                    if (friendOne.equals(entry.getKey())) {
-                        Map<String, String> requesters = (Map) entry.getValue();
-                        for (Map.Entry<String, String> entry1 : requesters.entrySet()) {
-                            if (friendThree.equals(entry1.getKey())) {
-                                works = true;
-                            }
-                        }
+                for (DataSnapshot posts : snapshot.getChildren()) {
+                    String uid = posts.child("uid").getValue().toString();
+                    String tag = posts.child("tag").getValue().toString();
+                    if (followedUsers.contains(uid) && followedTags.contains(tag)) {
+                        assertTrue(Collections.frequency(feed, posts.getKey()) == 1);
                     }
                 }
-                assertEquals(true, works);
             }
 
             @Override
