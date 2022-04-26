@@ -35,21 +35,20 @@ public class ChatActivityTest {
     public void testLaunch() {
 
         chatActivity = chatActivityChatActivityTestRule.getActivity();
-        onView(withId(R.id.send_image_button)).check(matches(isCompletelyDisplayed()));
-        onView(withId(R.id.send_message_button)).perform(click());
-        /*
-        View view = chatActivity.findViewById(R.id.send_image_button);
-        assertNotNull(view);
-        view = chatActivity.findViewById(R.id.send_message_button);
-        assertNotNull(view);
-        view = chatActivity.findViewById(R.id.input_message);
-        assertNotNull(view);
-        view = chatActivity.findViewById(R.id.messages_list_of_users);
-        assertNotNull(view);
-        view = chatActivity.findViewById(R.id.chat_bar_layout);
-        assertNotNull(view);
+        onView(withId(R.id.input_message)).check(matches(isCompletelyDisplayed()));
+        onView(withId(R.id.input_message)).perform(click());
 
-         */
+    }
+
+    @Test
+    public void testType() {
+
+        chatActivity = chatActivityChatActivityTestRule.getActivity();
+
+        onView(withId(R.id.input_message)).perform(click());
+        onView(withId(R.id.input_message)).perform(clearText(), typeText("junit test dm"), closeSoftKeyboard());
+        onView(withId(R.id.send_message_button)).perform(click());
+
     }
 
 
