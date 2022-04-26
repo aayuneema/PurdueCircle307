@@ -316,7 +316,7 @@ public class MainActivity extends AppCompatActivity {
                         holder.setDate(model.getDate());
                         holder.setTag(model.getTag());
                         holder.setDescription(model.getDescription());
-                        holder.setProfileimage(getApplicationContext(), model.getProfileimage());
+                        holder.setProfileimage(getApplicationContext(), model.getProfileImage());
                         holder.setPostimage(getApplicationContext(), model.getPostimage());
 
                         holder.setLikeButtonStatus(PostKey);
