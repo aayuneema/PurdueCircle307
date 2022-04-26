@@ -11,6 +11,7 @@ import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 
 import android.text.TextUtils;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Button;
 
@@ -32,9 +33,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import android.view.View;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import java.util.HashMap;
-import java.util.Set;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -50,6 +51,7 @@ public class SettingsActivity extends AppCompatActivity {
     private DatabaseReference SettingsuserRef;
     private FirebaseAuth mAuth;
     private StorageReference UserProfileImageRef;
+    private ToggleButton DMToggle;
 
     private String currentUserId;
     final static int Gallery_Pick = 1;
@@ -83,6 +85,7 @@ public class SettingsActivity extends AppCompatActivity {
         userProfImage = (CircleImageView) findViewById(R.id.settings_profile_image);
         UpdateAccountSettingsButton = (Button) findViewById(R.id.update_account_settings_buttons);
         deleteAccountButton = (Button) findViewById(R.id.delete_account_settings_buttons);
+        DMToggle = (ToggleButton) findViewById(R.id.toggle_DM);
 
         SettingsuserRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -97,6 +100,17 @@ public class SettingsActivity extends AppCompatActivity {
                     String mygraduationDate = dataSnapshot.child("graduationDate").getValue().toString();
                     String myGender = dataSnapshot.child("gender").getValue().toString();
                     String myCountry = dataSnapshot.child("country").getValue().toString();
+                    if (!dataSnapshot.hasChild("DMOption")) {
+                        DMToggle.setChecked(false);
+                    } else {
+                        String myDMOption = dataSnapshot.child("DMOption").getValue().toString();
+                        if (myDMOption.equals("friends")) {
+                            DMToggle.setChecked(false);
+                        }
+                        else {
+                            DMToggle.setChecked(true);
+                        }
+                    }
 
                     Picasso.with(SettingsActivity.this).load(downloadUrl).into(userProfImage);
                     userName.setText(myUsername);
@@ -135,6 +149,23 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 OpenGallery();
+            }
+        });
+
+        DMToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton toggleButton, boolean isChecked) {
+                //True is everyone
+                //False is friends only
+                System.out.println("IS CHECKED IS " + isChecked);
+                HashMap DMOptionMap = new HashMap();
+                if (isChecked) {
+                    DMOptionMap.put("DMOption", "everyone");
+                }
+                else {
+                    DMOptionMap.put("DMOption", "friends");
+                }
+                SettingsuserRef.updateChildren(DMOptionMap);
             }
         });
 
