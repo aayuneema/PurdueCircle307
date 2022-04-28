@@ -36,7 +36,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private EditText Name;
     private EditText UserName;
-    private EditText userMajor, userGender, userGraduationDate;
+    //private EditText userMajor, userGender, userGraduationDate;
     private Button SaveProfileButton;
     private CircleImageView ProfileImage;
     private ProgressDialog loadingBar;
@@ -56,6 +56,7 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         mAuth = FirebaseAuth.getInstance();
+        currentUserID = mAuth.getCurrentUser().getUid();
         ProfileActivityUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
         usernameRef = FirebaseDatabase.getInstance().getReference().child("Usernames");
         usernameRef.addValueEventListener(new ValueEventListener() {
@@ -71,10 +72,10 @@ public class ProfileActivity extends AppCompatActivity {
                         //Toast.makeText(SettingsActivity.this, image, Toast.LENGTH_SHORT).show();
                         Picasso.with(ProfileActivity.this).load(image).placeholder(R.drawable.profile).into(ProfileImage);
                     }
-                    else
+                    /*else
                     {
                         Toast.makeText(ProfileActivity.this, "Please select profile image first.", Toast.LENGTH_SHORT).show();
-                    }
+                    }*/
                 }
                 Map<String, Object> databaseValues = (HashMap<String,Object>) dataSnapshot.getValue();
                 if (databaseValues != null) {
@@ -105,9 +106,9 @@ public class ProfileActivity extends AppCompatActivity {
         //String myProfileImage = ProfileActivityUserRef.child("profileImage").getValue().toString();
         ProfileImage = (CircleImageView) findViewById(R.id.settings_profile_image);
         //Picasso.with(ProfileActivity.this).load(myProfileImage).into(ProfileImage);
-        userMajor = (EditText) findViewById(R.id.settings_major);
-        userGender = (EditText) findViewById(R.id.settings_Gender);
-        userGraduationDate = (EditText) findViewById(R.id.settings_graduationDate);
+        //userMajor = (EditText) findViewById(R.id.settings_major);
+        //userGender = (EditText) findViewById(R.id.settings_Gender);
+        //userGraduationDate = (EditText) findViewById(R.id.settings_graduationDate);
         SaveProfileButton = (Button) findViewById(R.id.profile_SaveButton);
         loadingBar = new ProgressDialog(this);
 
@@ -122,8 +123,8 @@ public class ProfileActivity extends AppCompatActivity {
     private void saveAccountSetupInfo() {
         String username = UserName.getText().toString();
         String name = Name.getText().toString();
-        String major = userMajor.getText().toString();
-        String gender = userGender.getText().toString();
+        //String major = userMajor.getText().toString();
+        //String gender = userGender.getText().toString();
 
         if (TextUtils.isEmpty(name)){
             Toast.makeText(this,"Name is a required field", Toast.LENGTH_SHORT).show();
@@ -146,9 +147,9 @@ public class ProfileActivity extends AppCompatActivity {
             userMap.put("name", name);
             userMap.put("bio", "Bio");
             userMap.put("dob", "Date of Birth");
-            userMap.put("major", major);
+            userMap.put("major", "Major");
             userMap.put("graduationDate", "Graduation Date");
-            userMap.put("gender", gender);
+            userMap.put("gender", "Gender");
             userMap.put("country", "Country");
             userMap.put("profileImage", "Profile Image");
 

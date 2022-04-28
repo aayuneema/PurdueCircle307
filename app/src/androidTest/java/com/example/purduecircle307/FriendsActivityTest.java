@@ -66,7 +66,18 @@ public class FriendsActivityTest {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 boolean clickTest = false;
-                onView(withId(R.id.create_new_tag_button)).perform(click());
+                Map<String, Object> users = (Map<String, Object>) snapshot.getValue();
+                for (Map.Entry<String, Object> entry : users.entrySet()) {
+                    if (friendOne.equals(entry.getKey())) {
+                        Map<String, String> requesters = (Map) entry.getValue();
+                        onView(withId(R.id.create_new_tag_button)).perform(click());
+                        for (Map.Entry<String, String> entry1 : requesters.entrySet()) {
+                            if (friendOne.equals(entry1.getKey())) {
+                                clickTest = true;
+                            }
+                        }
+                    }
+                }
                 assertEquals(true, clickTest);
             }
 
