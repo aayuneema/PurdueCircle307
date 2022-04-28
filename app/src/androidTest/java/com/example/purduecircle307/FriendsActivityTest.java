@@ -22,6 +22,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.Map;
+
 // User Story 3:
 // page listing all the users and topics that I already follow so that I can keep track of who and what I follow
 @RunWith(AndroidJUnit4ClassRunner.class)
