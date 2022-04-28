@@ -22,7 +22,7 @@ import org.junit.Test;
 public class ChatActivityTest {
 
     @Rule
-    public ActivityTestRule<ChatActivity> chatActivityChatActivityTestRule = new ActivityTestRule(ChatActivity.class);
+    public ActivityTestRule<ChatActivity> chatActivityChatActivityTestRule = new ActivityTestRule<ChatActivity>(ChatActivity.class);
 
     private ChatActivity chatActivity = null;
 
@@ -33,16 +33,18 @@ public class ChatActivityTest {
 
     @Test
     public void testLaunch() {
-
+        // check presence of activity with all fields
         chatActivity = chatActivityChatActivityTestRule.getActivity();
         onView(withId(R.id.input_message)).check(matches(isCompletelyDisplayed()));
-        onView(withId(R.id.input_message)).perform(click());
+        //onView(withId(R.id.input_message)).perform(click());
+        onView(withId(R.id.send_message_button)).check(matches(isCompletelyDisplayed()));
+        onView(withId(R.id.send_image_button)).check(matches(isCompletelyDisplayed()));
 
     }
 
     @Test
-    public void testType() {
-
+    public void testTypeDM() {
+        // test typing and sending a message
         chatActivity = chatActivityChatActivityTestRule.getActivity();
 
         onView(withId(R.id.input_message)).perform(click());
@@ -54,6 +56,7 @@ public class ChatActivityTest {
 
     @Test
     public void testScroll() {
+        // test scrolling
         onView(withId(R.id.messages_list_of_users)).perform(ViewActions.swipeUp());
     }
 
@@ -61,8 +64,10 @@ public class ChatActivityTest {
     public void tearDown() throws Exception {
         chatActivity = null;
     }
-
+/*
     @Test
     public void onCreate() {
     }
+
+ */
 }
