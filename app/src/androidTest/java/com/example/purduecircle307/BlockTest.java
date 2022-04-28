@@ -103,9 +103,9 @@ public class BlockTest {
         });
     }
 
-    //Test to see if friend1 is friends with friend3
+    //Test to see if user1 can dm user2 if they are blocked
     @Test
-    public void alreadyFriends() {
+    public void buttonVisibility() {
         String userOne = "7HhmHeAMHpWbvlKVq0dj4jI3kP53";
         String userTwo = "0oIZa3J7T0Nu6WLYACgm9ALmK4K3";
         BlockedUsersRef.addListenerForSingleValueEvent(new ValueEventListener() {
