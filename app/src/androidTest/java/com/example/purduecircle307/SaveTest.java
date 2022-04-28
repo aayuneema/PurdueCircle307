@@ -42,11 +42,11 @@ public class SaveTest {
                 for (Map.Entry<String, Object> entry : users.entrySet()) {
                     if (post.equals(entry.getKey())) {
                         val = SavedRef.child(post).getKey();
-                            if (val.equals("true")) {
-                                works = true;
-                            }
+                        if (val.equals("true")) {
+                            works = true;
                         }
                     }
+                }
                 assertEquals(true, works);
             }
 
